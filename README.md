@@ -1,4 +1,4 @@
-#A app of Anime list
+# A app of Anime list
 
 ## Iniciando
 
