@@ -1,4 +1,4 @@
-# A app of Anime list
+# Um app de listas de animes
 
 ## Em andamento
 
