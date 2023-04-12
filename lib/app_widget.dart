@@ -5,6 +5,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Animes Lists',
       theme: ThemeData.dark(),
       routeInformationParser: Modular.routeInformationParser,
