@@ -55,13 +55,13 @@ class LoginPage extends StatelessWidget{
                             color: Color(0xFF19A1BE).withOpacity(0.5),
                             spreadRadius: 1,
                             blurRadius: 50,
-                            offset: Offset(30, 0),
+                            offset: Offset(30, 10),
                           ),
                           BoxShadow(
                             color: Color(0xFF7D4192).withOpacity(0.5),
                             spreadRadius: 1,
                             blurRadius: 50,
-                            offset: Offset(-30, 0),
+                            offset: Offset(-30, -10),
                           )
                         ]
                       ),
