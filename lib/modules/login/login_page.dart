@@ -1,6 +1,9 @@
+import 'package:anime_lists/shared/my_colors.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget{
+  const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,14 +11,14 @@ class LoginPage extends StatelessWidget{
         children: [
           Container(
             width: double.infinity,
-            color: Color(0xFF18181B),
+            color: MyColors.backgroundColor,
           ),
           SafeArea(
             child: Column(
                 children: [
-                  SizedBox(height: 30),
-                  Image(image: AssetImage('assets/images/capa_login.png')),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
+                  const Image(image: AssetImage('assets/images/capa_login.png')),
+                  const SizedBox(height: 30),
                   Text(
                     'Suas listas de animes',
                     style: TextStyle(
@@ -52,13 +55,13 @@ class LoginPage extends StatelessWidget{
                         border: Border.all(color: Colors.white.withOpacity(0.7)),
                         boxShadow: [
                           BoxShadow(
-                            color: Color(0xFF19A1BE).withOpacity(0.5),
+                            color: MyColors.primaryColor.withOpacity(0.5),
                             spreadRadius: 1,
                             blurRadius: 50,
                             offset: Offset(30, 10),
                           ),
                           BoxShadow(
-                            color: Color(0xFF7D4192).withOpacity(0.5),
+                            color: MyColors.accentColor.withOpacity(0.5),
                             spreadRadius: 1,
                             blurRadius: 50,
                             offset: Offset(-30, -10),
