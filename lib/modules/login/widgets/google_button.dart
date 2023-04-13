@@ -1,17 +1,22 @@
 import 'package:anime_lists/shared/my_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class GoogleButton extends StatelessWidget {
   const GoogleButton({
     super.key,
   });
 
+  void toListsModule(){
+    Modular.to.navigate('/lists/');
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
     return InkWell(
-      onTap: (){},
+      onTap: () => toListsModule(),
       child: Container(
         height: 50,
         width: 200,
