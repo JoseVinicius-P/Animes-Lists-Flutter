@@ -6,6 +6,8 @@ class LoginPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -21,11 +23,7 @@ class LoginPage extends StatelessWidget{
                   const SizedBox(height: 30),
                   Text(
                     'Suas listas de animes',
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                    ),
+                    style: theme.textTheme.titleMedium,
                   ),
                   const SizedBox(height: 10),
                   SizedBox(
@@ -35,11 +33,7 @@ class LoginPage extends StatelessWidget{
                       maxLines: 2,
                       softWrap: true,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w300
-                      ),
+                      style: theme.textTheme.titleSmall,
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -68,24 +62,20 @@ class LoginPage extends StatelessWidget{
                           )
                         ]
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image(
+                            const Image(
                               image: AssetImage('assets/images/icon_google.png'),
                               fit: BoxFit.cover,
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
                               'Entrar com o google',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15
-                              ),
+                              style: theme.textTheme.labelMedium,
                               textAlign: TextAlign.center,
                             ),
 
