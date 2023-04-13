@@ -27,7 +27,7 @@ class LoginPage extends StatelessWidget{
                       fontWeight: FontWeight.bold
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   SizedBox(
                     width: 200,
                     child: Text(
@@ -42,14 +42,14 @@ class LoginPage extends StatelessWidget{
                       ),
                     ),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   InkWell(
                     onTap: (){},
                     child: Container(
                       height: 50,
                       width: 200,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
+                        borderRadius: const BorderRadius.all(
                           Radius.circular(25),
                         ),
                         border: Border.all(color: Colors.white.withOpacity(0.7)),
@@ -58,18 +58,17 @@ class LoginPage extends StatelessWidget{
                             color: MyColors.primaryColor.withOpacity(0.5),
                             spreadRadius: 1,
                             blurRadius: 50,
-                            offset: Offset(30, 10),
+                            offset: const Offset(30, 10),
                           ),
                           BoxShadow(
                             color: MyColors.accentColor.withOpacity(0.5),
                             spreadRadius: 1,
                             blurRadius: 50,
-                            offset: Offset(-30, -10),
+                            offset: const Offset(-30, -10),
                           )
                         ]
                       ),
-                      child:
-                      Padding(
+                      child: const Padding(
                         padding: EdgeInsets.all(10),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
