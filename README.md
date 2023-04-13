@@ -1,5 +1,5 @@
-# A app of Anime list
+# Um app de listas de animes
 
-## Iniciando
+## Em andamento
 
-Este é um projeto que tem como objetivo o desenvolvimento de um app para criar e manter listas de animes
+Este é um projeto que tem como objetivo o desenvolvimento de um app para criar e manter listas de animes aplicando o flutter modular
