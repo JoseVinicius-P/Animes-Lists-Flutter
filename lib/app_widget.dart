@@ -9,6 +9,8 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Animes Lists',
       theme: ThemeData(
+        splashFactory: InkRipple.splashFactory,
+        splashColor: Color(0x40CCCCCC).withOpacity(0.1),
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.backgroundColor),
         useMaterial3: true,
         textTheme: const TextTheme(
