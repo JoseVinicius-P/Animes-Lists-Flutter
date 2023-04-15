@@ -1,5 +1,5 @@
-import 'package:anime_lists/modules/home/lists_page.dart';
-import 'package:anime_lists/modules/home/search_page.dart';
+import 'package:anime_lists/modules/home/pages/lists_page.dart';
+import 'package:anime_lists/modules/home/pages/search_page.dart';
 import 'package:anime_lists/shared/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
