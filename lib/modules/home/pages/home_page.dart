@@ -1,3 +1,4 @@
+import 'package:anime_lists/modules/home/home_controller.dart';
 import 'package:anime_lists/modules/home/pages/lists_page.dart';
 import 'package:anime_lists/modules/home/pages/search_page.dart';
 import 'package:anime_lists/shared/my_colors.dart';
@@ -12,28 +13,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  final pageViewController = PageController();
-
-  @override
-  void dispose() {
-    super.dispose();
-    pageViewController.dispose();
-  }
+  final controller = Modular.get<HomeController>();
 
   @override
   Widget build(BuildContext context) {
     Modular.setInitialRoute('/lists');
     return Scaffold(
       body: PageView(
-        controller: pageViewController,
+        controller: controller.pageViewController,
         children: [
           ListsPage(),
           SearchPage(),
         ],
       ),
       bottomNavigationBar: AnimatedBuilder(
-        animation: pageViewController,
+        animation: controller.pageViewController,
         builder: (context, snapshot) {
           return BottomNavigationBar(
             backgroundColor: MyColors.backgroundColor,
@@ -51,10 +45,10 @@ class _HomePageState extends State<HomePage> {
                 label: 'Pesquisar',
               ),
             ],
-            currentIndex: pageViewController.page?.round() ?? 0,
+            currentIndex: controller.pageViewController.page?.round() ?? 0,
             selectedItemColor: Colors.white,
             onTap: (index){
-              pageViewController.jumpToPage(index);
+              controller.pageViewController.jumpToPage(index);
             },
           );
         }
