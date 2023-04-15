@@ -8,7 +8,7 @@ class GoogleButton extends StatelessWidget {
   });
 
   void toListsModule(){
-    Modular.to.navigate('/lists/');
+    Modular.to.navigate('/home/');
   }
 
   @override
