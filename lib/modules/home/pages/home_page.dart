@@ -49,9 +49,9 @@ class _HomePageState extends State<HomePage> {
             selectedItemColor: Colors.white,
             onTap: (index){
               controller.pageViewController.animateToPage(index, // Índice da página para animar
-                  duration: const Duration(milliseconds: 150), // Duração da animação
-                  curve: Curves.easeInOut,
-              ); // Curva de animação);
+                  duration: const Duration(milliseconds: 800), // Duração da animação
+                  curve: Curves.easeInOutCubicEmphasized, // Curva de animação
+              );
             },
             //Criando Itens
             items: const <BottomNavigationBarItem>[
