@@ -34,7 +34,7 @@ class _ListsPageState extends State<ListsPage> {
                             Radius.circular(30),
                           ),
                           border: Border.all(
-                            width: 2,
+                            width: 1,
                             style: BorderStyle.solid,
                             color: Colors.transparent,
                           ),
