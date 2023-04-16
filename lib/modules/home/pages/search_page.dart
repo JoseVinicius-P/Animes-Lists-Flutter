@@ -51,16 +51,16 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: MyColors.primaryColor.withOpacity(0.4),
+                          color: MyColors.primaryColor.withOpacity(0.3),
                           spreadRadius: 0.1,
-                          blurRadius: 10,
-                          offset: const Offset(-1, -1),
+                          blurRadius: 15,
+                          offset: const Offset(-3, -3),
                         ),
                         BoxShadow(
-                          color: MyColors.accentColor.withOpacity(0.4),
+                          color: MyColors.accentColor.withOpacity(0.3),
                           spreadRadius: 0.1,
-                          blurRadius: 10,
-                          offset: const Offset(1, 1),
+                          blurRadius: 15,
+                          offset: const Offset(3, 3),
                         )
                       ]
                   ),
