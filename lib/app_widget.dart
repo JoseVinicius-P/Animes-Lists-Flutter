@@ -14,9 +14,14 @@ class AppWidget extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.backgroundColor),
         useMaterial3: true,
         textTheme: const TextTheme(
+          //Botão
           labelMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
+          //Titulo fino sem negrito
           titleSmall: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w300),
-          titleMedium: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold)
+          //titulo bold com negrito
+          titleMedium: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
+          //texto normal
+          labelSmall: TextStyle(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.normal)
           ),
       ),
       routeInformationParser: Modular.routeInformationParser,

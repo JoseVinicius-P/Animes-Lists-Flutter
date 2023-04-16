@@ -21,69 +21,121 @@ class _ListsPageState extends State<ListsPage> {
         SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(30.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
                 children: [
-                  Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      borderRadius:BorderRadius.all(
-                        Radius.circular(30),
-                      ),
-                      border: Border.all(
-                        width: 2,
-                        style: BorderStyle.solid,
-                        color: Colors.transparent,
-                      ),
-                      gradient: LinearGradient(
-                        colors: [
-                          MyColors.primaryColor,
-                          MyColors.accentColor,
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: [0.0, 1.0],
-                        tileMode: TileMode.clamp,
-                      ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: MyColors.primaryColor.withOpacity(0.4),
-                            spreadRadius: 1,
-                            blurRadius: 20,
-                            offset: const Offset(-5, -5),
-                          ),
-                          BoxShadow(
-                            color: MyColors.accentColor.withOpacity(0.4),
-                            spreadRadius: 1,
-                            blurRadius: 20,
-                            offset: const Offset(5, 5),
-                          )
-                        ]
-                    ),
-                    child: ClipRRect(
-                    borderRadius:BorderRadius.all(
-                      Radius.circular(30),
-                    ),
-                    child: Image.network('https://instagram.fbsb10-1.fna.fbcdn.net/v/t51.2885-19/132937295_136268714829155_3050363562817765117_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fbsb10-1.fna.fbcdn.net&_nc_cat=111&_nc_ohc=ZyrG9vOrGfUAX9TMjfz&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfAvevfpHjzCahDmtzpixDtMNAzpvE1GS6v2lnsVZuT4cQ&oe=64404762&_nc_sid=1527a3')),
-                  ),
-                  SizedBox(width: 10),
-                  Column(
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Bem vindo de volta',
-                        style: theme.textTheme.titleSmall,
-                        textAlign: TextAlign.start,
+                      Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius:BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                          border: Border.all(
+                            width: 2,
+                            style: BorderStyle.solid,
+                            color: Colors.transparent,
+                          ),
+                          gradient: LinearGradient(
+                            colors: [
+                              MyColors.primaryColor,
+                              MyColors.accentColor,
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            stops: [0.0, 1.0],
+                            tileMode: TileMode.clamp,
+                          ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: MyColors.primaryColor.withOpacity(0.4),
+                                spreadRadius: 1,
+                                blurRadius: 20,
+                                offset: const Offset(-5, -5),
+                              ),
+                              BoxShadow(
+                                color: MyColors.accentColor.withOpacity(0.4),
+                                spreadRadius: 1,
+                                blurRadius: 20,
+                                offset: const Offset(5, 5),
+                              )
+                            ]
+                        ),
+                        child: ClipRRect(
+                        borderRadius:BorderRadius.all(
+                          Radius.circular(30),
+                        ),
+                        child: Image.network('https://instagram.fbsb10-1.fna.fbcdn.net/v/t51.2885-19/132937295_136268714829155_3050363562817765117_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fbsb10-1.fna.fbcdn.net&_nc_cat=111&_nc_ohc=ZyrG9vOrGfUAX9TMjfz&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfAvevfpHjzCahDmtzpixDtMNAzpvE1GS6v2lnsVZuT4cQ&oe=64404762&_nc_sid=1527a3')),
                       ),
-                      const SizedBox(height: 5),
+                      SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Bem vindo de volta',
+                            style: theme.textTheme.titleSmall,
+                            textAlign: TextAlign.start,
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'José Vinícius',
+                            style: theme.textTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 40),
+                  Row(
+                    children: [
                       Text(
-                        'José Vinícius',
-                        style: theme.textTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.start,
+                        'Segunda',
+                        style: theme.textTheme.labelSmall,
+                      ),
+                      SizedBox(width: 5),
+                      Icon(Icons.sort, color: Colors.white.withOpacity(0.1)),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Container(
+                        width: 120,
+                        child: Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(24),
+                              ),
+                              child: Image.network(
+                                'https:\/\/cdn.myanimelist.net\/images\/anime\/1286\/99889l.jpg',
+                                width: 120,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Text(
+                              'Kimetsu no Yaiba',
+                              style: theme.textTheme.labelSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              '2019',
+                              style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.4), fontSize: 16),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
+
                 ],
               ),
             )
