@@ -4,6 +4,7 @@ import 'package:anime_lists/modules/details/details_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class HomeModule extends Module{
+
   @override
   List<Bind> get binds => [
     //Injetando dependencia da Classe Controller
@@ -12,7 +13,7 @@ class HomeModule extends Module{
 
   @override
   List<ModularRoute> get routes => [
+    ModuleRoute("./details", module: DetailsModule()),
     ChildRoute('/', child: (context, args) => const HomePage()),
-    ModuleRoute('/det/', module: DetailsModule()),
   ];
 }
