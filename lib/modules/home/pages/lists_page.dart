@@ -12,7 +12,7 @@ class ListsPage extends StatefulWidget {
 class _ListsPageState extends State<ListsPage> {
 
   void toDetailsModule(){
-    Modular.to.navigate("./details");
+    Modular.to.pushNamed("./details");
   }
 
   @override
