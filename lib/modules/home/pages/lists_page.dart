@@ -1,5 +1,6 @@
 import 'package:anime_lists/shared/my_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class ListsPage extends StatefulWidget {
   const ListsPage({Key? key}) : super(key: key);
@@ -9,6 +10,11 @@ class ListsPage extends StatefulWidget {
 }
 
 class _ListsPageState extends State<ListsPage> {
+
+  void toDetailsModule(){
+    Modular.to.navigate('/det/');
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -102,35 +108,38 @@ class _ListsPageState extends State<ListsPage> {
                   SizedBox(height: 10),
                   Row(
                     children: [
-                      Container(
-                        width: 120,
-                        child: Column(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(24),
+                      InkWell(
+                        onTap: () => toDetailsModule(),
+                        child: Container(
+                          width: 120,
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(24),
+                                ),
+                                child: Image.network(
+                                  'https:\/\/cdn.myanimelist.net\/images\/anime\/1286\/99889l.jpg',
+                                  width: 120,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              child: Image.network(
-                                'https:\/\/cdn.myanimelist.net\/images\/anime\/1286\/99889l.jpg',
-                                width: 120,
-                                fit: BoxFit.cover,
+                              Text(
+                                'Kimetsu no Yaiba',
+                                style: theme.textTheme.labelSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                            ),
-                            Text(
-                              'Kimetsu no Yaiba',
-                              style: theme.textTheme.labelSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(
-                              '2019',
-                              style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.4), fontSize: 16),
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            )
-                          ],
+                              Text(
+                                '2019',
+                                style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.4), fontSize: 16),
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              )
+                            ],
+                          ),
                         ),
                       )
                     ],
