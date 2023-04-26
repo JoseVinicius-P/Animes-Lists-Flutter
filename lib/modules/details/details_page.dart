@@ -135,7 +135,7 @@ class DetailsPage extends StatelessWidget {
                               Radius.circular(25),
                             ),
                             border: Border.all(
-                              width: 1,
+                              width: 2,
                               style: BorderStyle.solid,
                               color: Colors.transparent,
                             ),
