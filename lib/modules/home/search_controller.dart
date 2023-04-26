@@ -4,7 +4,7 @@ class SearchController implements Disposable{
 
   @override
   void dispose() {
-    // TODO: implement dispose
+
   }
 
 }
