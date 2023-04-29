@@ -35,6 +35,8 @@ dependencies:
   flutter_modular: ^5.0.3
   #Para Text que se redimencionam automaticamente
   auto_size_text: ^3.0.0
+  #Para chamadas http
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
