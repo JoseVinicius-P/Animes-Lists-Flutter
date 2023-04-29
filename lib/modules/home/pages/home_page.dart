@@ -1,5 +1,4 @@
 import 'package:anime_lists/modules/home/controllers/home_controller.dart';
-import 'package:anime_lists/modules/home/controllers/my_search_controller.dart';
 import 'package:anime_lists/modules/home/pages/lists_page.dart';
 import 'package:anime_lists/modules/home/pages/search_page.dart';
 import 'package:anime_lists/shared/my_colors.dart';
@@ -16,13 +15,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //Este controlador é usado para gerenciar o pageView
   final controller = Modular.get<HomeController>();
-  final searchController = Modular.get<MySearchController>();
-
-  @override
-  void initState() {
-    super.initState();
-    searchController.getAnime();
-  }
 
   @override
   Widget build(BuildContext context) {

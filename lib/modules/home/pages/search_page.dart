@@ -1,5 +1,7 @@
+import 'package:anime_lists/modules/home/controllers/my_search_controller.dart';
 import 'package:anime_lists/shared/my_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -9,6 +11,14 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  final searchController = Modular.get<MySearchController>();
+
+  @override
+  void initState() {
+    super.initState();
+    searchController.getAnime();
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
