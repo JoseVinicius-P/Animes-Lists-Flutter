@@ -20,7 +20,7 @@ class AnimeModel{
       main_picture: json['node']['main_picture']['large'],
       synopsis: json['node']['synopsis'],
       status: json['node']['status'],
-      start_date: json['node']['start_date'],
+      start_date: DateTime.parse(json['node']['start_date']),
     );
 
 }
