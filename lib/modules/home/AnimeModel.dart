@@ -15,12 +15,12 @@ class AnimeModel{
 
   factory AnimeModel.fromJson(Map<String, dynamic> json) =>
     AnimeModel(
-      id: json['id'],
-      title: json['title'],
-      main_picture: json['main_picture'],
-      synopsis: json['synopsis'],
-      status: json['status'],
-      start_date: json['start_date'],
+      id: json['node']['id'],
+      title: json['node']['title'],
+      main_picture: json['node']['main_picture']['large'],
+      synopsis: json['node']['synopsis'],
+      status: json['node']['status'],
+      start_date: json['node']['start_date'],
     );
 
 }
