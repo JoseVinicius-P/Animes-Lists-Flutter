@@ -11,20 +11,22 @@ class SearchRepository implements Disposable{
 
   }
 
-  Future<String> fetchAnimes() async{
-
+  Future<List<AnimeModel>> fetchAnimes(String query) async{
     final headers = {
       'Content-Type': 'application/json',
       'X-MAL-CLIENT-ID': 'b5636ab640297e69fdb7bacab4de306e'
     };
 
     final response = await http.get(
-      Uri.parse("https://api.myanimelist.net/v2/anime?q=Kimetsu no Yaiba"),
+      Uri.parse("https://api.myanimelist.net/v2/anime?q=$query&fields=id,title,main_picture,synopsis,status,start_date"),
       headers: headers);
 
     if(response.statusCode == 200){
-      print(jsonDecode(response.body));
-      return jsonDecode(response.body);
+      final decodedJson = jsonDecode(response.body);
+      var results = decodedJson['data'] as List;
+      List<AnimeModel> animes = results.map((json) => AnimeModel.fromJson(json)).toList();
+      print(animes[0].title);
+      return animes;
     }else{
       print("ERRO: ${response.statusCode}");
       throw Exception("ERRO");
