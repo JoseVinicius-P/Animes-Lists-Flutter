@@ -10,10 +10,6 @@ class HomeController implements Disposable{
   //Usando para controlar o PageView da HomePage
   final pageViewController = PageController();
 
-  void getAnime(){
-    Modular.get<SearchRepository>().fetchAnimes();
-  }
-
   @override
   void dispose() {
     //Dispensando controller quando a tela for fechada
