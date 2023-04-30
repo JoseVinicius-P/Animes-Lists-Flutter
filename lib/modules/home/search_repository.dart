@@ -11,7 +11,7 @@ class SearchRepository implements Disposable{
 
   }
 
-  Future<List<AnimeModel>> fetchAnimes(String query) async{
+  Future<List<dynamic>> fetchAnimes(String query) async{
     final headers = {
       'Content-Type': 'application/json',
       'X-MAL-CLIENT-ID': 'b5636ab640297e69fdb7bacab4de306e'
@@ -23,10 +23,7 @@ class SearchRepository implements Disposable{
 
     if(response.statusCode == 200){
       final decodedJson = jsonDecode(response.body);
-      var results = decodedJson['data'] as List;
-      List<AnimeModel> animes = results.map((json) => AnimeModel.fromJson(json)).toList();
-      print(animes[0].title);
-      return animes;
+      return decodedJson['data'] as List;
     }else{
       print("ERRO: ${response.statusCode}");
       throw Exception("ERRO");
