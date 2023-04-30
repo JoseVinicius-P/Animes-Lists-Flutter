@@ -37,6 +37,8 @@ dependencies:
   auto_size_text: ^3.0.0
   #Para chamadas http
   http: ^0.13.5
+  #Para carregamento Skeleton
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:
