@@ -1,17 +1,19 @@
 import 'dart:convert';
 
 import 'package:anime_lists/modules/home/AnimeModel.dart';
+import 'package:anime_lists/modules/home/interfaces/i_search_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
 
-class SearchRepository implements Disposable{
+class SearchRepository implements Disposable, ISearchRepository{
 
   @override
   void dispose() {
 
   }
 
-  Future<List<dynamic>> fetchAnimes(String query) async{
+  @override
+  Future<List<AnimeModel>> fetchAnimes(String query) async{
     final headers = {
       'Content-Type': 'application/json',
       'X-MAL-CLIENT-ID': 'b5636ab640297e69fdb7bacab4de306e'
@@ -23,7 +25,9 @@ class SearchRepository implements Disposable{
 
     if(response.statusCode == 200){
       final decodedJson = jsonDecode(response.body);
-      return decodedJson['data'] as List;
+      final results = decodedJson['data'] as List;
+      List<AnimeModel> animes = results.map((json) => AnimeModel.fromJson(json)).toList();
+      return animes;
     }else{
       print("ERRO: ${response.statusCode}");
       throw Exception("ERRO");
