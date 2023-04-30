@@ -9,8 +9,6 @@ class MySearchController implements Disposable{
   MySearchController(this.searchRepository);
 
   Future<List<AnimeModel>> searchAnimes(String query) async{
-    //Convertendo a future de lista dinametica retornada em uma Future<List<AnimeModel>
-    //O then está sendo usado para acessar o valor dentro do future e o manipular
     List<AnimeModel> animes = await searchRepository.fetchAnimes(query);
     return animes;
   }
