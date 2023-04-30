@@ -3,6 +3,7 @@ import 'package:anime_lists/shared/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:anime_lists/modules/home/AnimeModel.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -67,7 +68,23 @@ class _SearchPageState extends State<SearchPage> {
                           }
                         );
                       }else{
-                        return Container();
+                        return SizedBox(
+                          height: 10,
+                          child: Shimmer.fromColors(
+                            baseColor: Colors.white.withOpacity(0.1),
+                            highlightColor: Colors.white.withOpacity(0.4),
+                            enabled: true,
+                            child: Container(
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.4),
+                                borderRadius:const BorderRadius.all(
+                                  Radius.circular(20.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
                       }
                     }
                   ),
