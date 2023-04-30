@@ -1,3 +1,4 @@
+import 'package:anime_lists/modules/home/AnimeModel.dart';
 import 'package:anime_lists/modules/home/controllers/home_controller.dart';
 import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
 import 'package:anime_lists/modules/home/pages/home_page.dart';
@@ -13,8 +14,8 @@ class HomeModule extends Module{
     //Injetando dependencia da Classe Controller
     Bind((i) => HomeController()), 
     Bind((i) => ListController()),
-    Bind((i) => MySearchController()),
-    Bind((i) => SearchRepository())
+    Bind((i) => MySearchController(i())),
+    Bind((i) => SearchRepository()),
   ];
 
   @override
