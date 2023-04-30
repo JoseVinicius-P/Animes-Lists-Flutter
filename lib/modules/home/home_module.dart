@@ -4,7 +4,7 @@ import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
 import 'package:anime_lists/modules/home/pages/home_page.dart';
 import 'package:anime_lists/modules/details/details_module.dart';
 import 'package:anime_lists/modules/home/controllers/my_search_controller.dart';
-import 'package:anime_lists/modules/home/search_repository.dart';
+import 'package:anime_lists/modules/home/repository/search_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class HomeModule extends Module{
