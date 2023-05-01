@@ -1,5 +1,5 @@
-import 'package:anime_lists/modules/home/AnimeModel.dart';
+import 'package:anime_lists/modules/home/interfaces/i_anime_model.dart';
 
 abstract class ISearchRepository{
-  Future<List<AnimeModel>> fetchAnimes(String query);
+  Future<List<IAnimeModel>> fetchAnimes(String query);
 }
