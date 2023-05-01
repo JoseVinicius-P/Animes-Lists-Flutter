@@ -1,7 +1,12 @@
-class AnimeModel{
+import 'package:anime_lists/modules/home/interfaces/i_anime_model.dart';
 
+class AnimeModel implements IAnimeModel{
+
+  @override
   int id;
+  @override
   String title, main_picture, synopsis, status;
+  @override
   DateTime start_date;
 
   AnimeModel({

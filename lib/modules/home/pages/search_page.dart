@@ -1,4 +1,5 @@
 import 'package:anime_lists/modules/home/controllers/my_search_controller.dart';
+import 'package:anime_lists/modules/home/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -14,7 +15,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final searchController = Modular.get<MySearchController>();
-  late Future<List<AnimeModel>> futureListAnimes = Future.value([]);
+  late Future<List<IAnimeModel>> futureListAnimes = Future.value([]);
 
   @override
   void initState() {
@@ -51,7 +52,7 @@ class _SearchPageState extends State<SearchPage> {
                 TextFormFieldNeon(onTextChange: (text) => updateSearch(text)),
                 SizedBox(height: 20),
                 Expanded(
-                  child: FutureBuilder<List<AnimeModel>>(
+                  child: FutureBuilder<List<IAnimeModel>>(
                     future: futureListAnimes,
                     builder: (context, snapshot){
                       if(snapshot.hasData){
@@ -179,7 +180,7 @@ class TextFormFieldNeon extends StatelessWidget {
 }
 
 class AnimeItemHorizontal extends StatelessWidget {
-  final AnimeModel anime;
+  final IAnimeModel anime;
   const AnimeItemHorizontal({
     super.key,
     required this.anime,
