@@ -50,7 +50,11 @@ class TextFormFieldNeon extends StatelessWidget {
       ),
       child: TextFormField(
         //Chamando função recebida do widget pai para alterar texto
-        onChanged: (text) => onTextChange(text),
+        onChanged: (text){
+            if(text.length >= 3){
+              onTextChange(text);
+            }
+          },
         //definindo estilo do texto
         style: const TextStyle(
             color: MyColors.textColor,
