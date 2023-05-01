@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:anime_lists/modules/home/AnimeModel.dart';
+import 'package:anime_lists/modules/home/models/AnimeModel.dart';
 import 'package:anime_lists/modules/home/interfaces/i_anime_model.dart';
 import 'package:anime_lists/modules/home/interfaces/i_search_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -30,7 +30,6 @@ class SearchRepository implements Disposable, ISearchRepository{
       List<IAnimeModel> animes = results.map((json) => AnimeModel.fromJson(json)).toList();
       return animes;
     }else{
-      print("ERRO: ${response.statusCode}");
       throw Exception("ERRO");
     }
   }

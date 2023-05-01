@@ -3,7 +3,7 @@ import 'package:anime_lists/modules/home/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:anime_lists/modules/home/AnimeModel.dart';
+import 'package:anime_lists/modules/home/models/AnimeModel.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SearchPage extends StatefulWidget {
