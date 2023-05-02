@@ -23,6 +23,16 @@ class AnimeItemHorizontal extends StatelessWidget {
             height: 170,
             width: 122,
             fit: BoxFit.cover,
+            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace){
+              return Container(
+                width: 122,
+                height: 170,
+                decoration: BoxDecoration(
+                  color: Colors.black38.withOpacity(0.2)
+                ),
+                child: Icon(Icons.signal_wifi_connected_no_internet_4_rounded, color: Colors.white.withOpacity(0.3)),
+              );
+            },
           ),
         ),
         const SizedBox(width: 10),
