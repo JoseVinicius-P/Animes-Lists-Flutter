@@ -15,7 +15,7 @@ class AnimeItemHorizontal extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(24),
           ),
           child: Image.network(
@@ -25,9 +25,9 @@ class AnimeItemHorizontal extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Expanded(
-          child: Container(
+          child: SizedBox(
             height: 170,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
