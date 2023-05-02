@@ -45,9 +45,9 @@ class _SearchPageState extends State<SearchPage> {
                   'Pesquisar animes',
                   style: theme.textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w400),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 TextFormFieldNeon(onTextChange: (text) => updateSearch(text)),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 FutureBuilder<List<IAnimeModel>>(
                   key: key,
                   future: futureListAnimes,
@@ -60,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
                          itemCount: snapshot.data?.length ?? 0,
                          // Define a altura do espaço entre os itens
                          separatorBuilder: (BuildContext context, int index) {
-                             return SizedBox(height: 20);
+                             return const SizedBox(height: 20);
                          },
                          itemBuilder: (context, index){
                            return AnimeItemHorizontal(anime: snapshot.data![index]);
