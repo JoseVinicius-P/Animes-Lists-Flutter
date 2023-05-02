@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 class SearchRepository implements Disposable, ISearchRepository{
 
+
   @override
   void dispose() {
 
@@ -15,12 +16,14 @@ class SearchRepository implements Disposable, ISearchRepository{
 
   @override
   Future<List<IAnimeModel>> fetchAnimes(String query) async{
+    var client = http.Client();
+
     final headers = {
       'Content-Type': 'application/json',
       'X-MAL-CLIENT-ID': 'b5636ab640297e69fdb7bacab4de306e'
     };
 
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse("https://api.myanimelist.net/v2/anime?q=$query&fields=id,title,main_picture,synopsis,status,start_date"),
       headers: headers);
 
@@ -30,7 +33,7 @@ class SearchRepository implements Disposable, ISearchRepository{
       List<IAnimeModel> animes = results.map((json) => AnimeModel.fromJson(json)).toList();
       return animes;
     }else{
-      throw Exception("ERRO");
+      return fetchAnimes(query);
     }
   }
 
