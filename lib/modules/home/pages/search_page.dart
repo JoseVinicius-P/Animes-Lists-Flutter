@@ -63,7 +63,10 @@ class _SearchPageState extends State<SearchPage> {
                              return const SizedBox(height: 20);
                          },
                          itemBuilder: (context, index){
-                           return AnimeItemHorizontal(anime: snapshot.data![index]);
+                           return GestureDetector(
+                             onTap: () => searchController.toDetailsModule(snapshot.data![index].id),
+                             child: AnimeItemHorizontal(anime: snapshot.data![index]),
+                           );
                          }
                        ),
                      );

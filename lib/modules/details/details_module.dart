@@ -8,6 +8,6 @@ class DetailsModule extends Module{
 
   @override
   List<ModularRoute> get routes => [
-    ChildRoute('/', child: (context, args) => const DetailsPage())
+    ChildRoute('/', child: (context, args) => DetailsPage(id: args.data))
   ];
 }

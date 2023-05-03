@@ -2,9 +2,23 @@ import 'package:anime_lists/shared/my_colors.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-class DetailsPage extends StatelessWidget {
-  const DetailsPage({Key? key}) : super(key: key);
+class DetailsPage extends StatefulWidget {
+  final int id;
 
+  const DetailsPage({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
+
+  @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -47,7 +61,7 @@ class DetailsPage extends StatelessWidget {
                     child: Container(
                       height: 130,
                       width: double.infinity,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
                             MyColors.backgroundColor,
@@ -71,7 +85,7 @@ class DetailsPage extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Container(
+                        SizedBox(
                           width: (MediaQuery.of(context).size.width/2),
                           child: AutoSizeText(
                             'Kimetsu no Yaiba  aaa aaaa',
@@ -82,13 +96,13 @@ class DetailsPage extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Text(
                           '2019',
                           style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.2), fontSize: 15),
                           textAlign: TextAlign.left,
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Icon(
                           Icons.star_rounded,
                           color: Colors.yellow.withOpacity(0.5),
@@ -108,7 +122,7 @@ class DetailsPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Row(
                       children: [
                         Expanded(
@@ -122,7 +136,7 @@ class DetailsPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 100),
+                    const SizedBox(height: 100),
                     InkWell(
                       onTap: () {
 
@@ -131,7 +145,7 @@ class DetailsPage extends StatelessWidget {
                         height: 50,
                         width: 200,
                         decoration: BoxDecoration(
-                            borderRadius:BorderRadius.all(
+                            borderRadius: const BorderRadius.all(
                               Radius.circular(25),
                             ),
                             border: Border.all(
@@ -139,7 +153,7 @@ class DetailsPage extends StatelessWidget {
                               style: BorderStyle.solid,
                               color: Colors.transparent,
                             ),
-                            gradient: LinearGradient(
+                            gradient: const LinearGradient(
                               colors: [
                                 MyColors.primaryColor,
                                 MyColors.accentColor,

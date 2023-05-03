@@ -12,6 +12,10 @@ class MySearchController implements Disposable{
     return animes;
   }
 
+  void toDetailsModule(int id){
+    Modular.to.pushNamed("./details", arguments: id);
+  }
+
   @override
   void dispose() {
 
