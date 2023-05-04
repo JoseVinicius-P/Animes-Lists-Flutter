@@ -1,5 +1,9 @@
+import 'package:anime_lists/modules/home/widgets/shimmer_search_anime.dart';
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
+import 'package:anime_lists/shared/utilities/my_colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class AnimeItemHorizontal extends StatelessWidget {
   final IAnimeModel anime;
@@ -18,12 +22,29 @@ class AnimeItemHorizontal extends StatelessWidget {
           borderRadius: const BorderRadius.all(
             Radius.circular(24),
           ),
-          child: Image.network(
-            anime.main_picture,
+          child: CachedNetworkImage(
+            imageUrl: anime.main_picture,
             height: 170,
             width: 122,
             fit: BoxFit.cover,
-            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace){
+            placeholder: (context, url) {
+              return Shimmer.fromColors(
+                baseColor: Colors.grey.shade900.withOpacity(0.5),
+                highlightColor: MyColors.backgroundColor,
+                enabled: true,
+                child: Container(
+                  width: 122.0,
+                  height: 170.0,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(24.0)
+                    ),
+                    color: MyColors.backgroundColor,
+                  ),
+                ),
+              );
+            },
+            errorWidget: (context, url, error){
               return Container(
                 width: 122,
                 height: 170,

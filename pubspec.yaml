@@ -39,6 +39,8 @@ dependencies:
   http: ^0.13.5
   #Para carregamento Skeleton
   shimmer: ^2.0.0
+  #Para cache de imagens e efeitos
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:
