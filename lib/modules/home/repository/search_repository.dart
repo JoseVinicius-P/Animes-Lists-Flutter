@@ -30,7 +30,7 @@ class SearchRepository implements Disposable, ISearchRepository{
     if(response.statusCode == 200){
       final decodedJson = jsonDecode(response.body);
       final results = decodedJson['data'] as List;
-      List<IAnimeModel> animes = results.map((json) => AnimeModel.fromJson(json)).toList();
+      List<IAnimeModel> animes = results.map((json) => Modular.get<IAnimeModel>().setFromJson(json)).toList();
       return animes;
     }else{
       return fetchAnimes(query);

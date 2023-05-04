@@ -3,11 +3,11 @@ import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 class AnimeModel implements IAnimeModel{
 
   @override
-  int id;
+  late int id;
   @override
-  String title, main_picture, synopsis, status;
+  late String title, main_picture, synopsis, status;
   @override
-  DateTime start_date;
+  late DateTime start_date;
 
   AnimeModel({
     required this.id,
@@ -18,14 +18,17 @@ class AnimeModel implements IAnimeModel{
     required this.start_date,
   });
 
-  factory AnimeModel.fromJson(Map<String, dynamic> json) =>
-    AnimeModel(
-      id: json['node']['id'],
-      title: json['node']['title'],
-      main_picture: json['node']['main_picture']['large'],
-      synopsis: json['node']['synopsis'],
-      status: json['node']['status'],
-      start_date: DateTime.parse(json['node']['start_date']),
-    );
+  AnimeModel.empty();
+
+  @override
+  AnimeModel setFromJson(Map<String, dynamic> json){
+    id = json['node']['id'];
+    title = json['node']['title'];
+    main_picture = json['node']['main_picture']['large'];
+    synopsis = json['node']['synopsis'];
+    status = json['node']['status'];
+    start_date = DateTime.parse(json['node']['start_date']);
+    return this;
+  }
 
 }
