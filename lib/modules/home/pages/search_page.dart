@@ -1,5 +1,5 @@
 import 'package:anime_lists/modules/home/controllers/my_search_controller.dart';
-import 'package:anime_lists/modules/home/interfaces/i_anime_model.dart';
+import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/modules/home/widgets/anime_item_horizontal.dart';
 import 'package:anime_lists/modules/home/widgets/shimmer_search_anime.dart';
 import 'package:anime_lists/modules/home/widgets/text_form_field_neon.dart';

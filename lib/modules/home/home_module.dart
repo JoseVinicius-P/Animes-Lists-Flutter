@@ -1,4 +1,3 @@
-import 'package:anime_lists/modules/home/models/AnimeModel.dart';
 import 'package:anime_lists/modules/home/controllers/home_controller.dart';
 import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
 import 'package:anime_lists/modules/home/interfaces/i_search_repository.dart';

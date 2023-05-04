@@ -1,4 +1,4 @@
-import 'package:anime_lists/modules/home/interfaces/i_anime_model.dart';
+import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:flutter/material.dart';
 
 class AnimeItemHorizontal extends StatelessWidget {

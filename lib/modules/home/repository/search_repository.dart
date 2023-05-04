@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:anime_lists/modules/home/models/AnimeModel.dart';
-import 'package:anime_lists/modules/home/interfaces/i_anime_model.dart';
+import 'package:anime_lists/shared/models/anime_model.dart';
+import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/modules/home/interfaces/i_search_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
