@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +14,7 @@ class TextFormFieldNeon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    Timer? _delay;
 
     return Container(
       decoration: BoxDecoration(
@@ -51,10 +54,13 @@ class TextFormFieldNeon extends StatelessWidget {
       child: TextFormField(
         //Chamando função recebida do widget pai para alterar texto
         onChanged: (text){
+          _delay?.cancel();
+          _delay = Timer(const Duration(milliseconds: 1000), () {
             if(text.length >= 3){
               onTextChange(text);
             }
-          },
+          });
+        },
         //definindo estilo do texto
         style: const TextStyle(
             color: MyColors.textColor,
