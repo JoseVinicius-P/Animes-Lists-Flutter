@@ -3,7 +3,7 @@ import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/modules/home/widgets/anime_item_horizontal.dart';
 import 'package:anime_lists/modules/home/widgets/shimmer_search_anime.dart';
 import 'package:anime_lists/modules/home/widgets/text_form_field_neon.dart';
-import 'package:anime_lists/shared/my_colors.dart';
+import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

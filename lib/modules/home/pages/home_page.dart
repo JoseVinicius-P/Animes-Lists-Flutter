@@ -1,7 +1,7 @@
 import 'package:anime_lists/modules/home/controllers/home_controller.dart';
 import 'package:anime_lists/modules/home/pages/lists_page.dart';
 import 'package:anime_lists/modules/home/pages/search_page.dart';
-import 'package:anime_lists/shared/my_colors.dart';
+import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

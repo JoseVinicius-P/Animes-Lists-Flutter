@@ -1,4 +1,4 @@
-import 'package:anime_lists/shared/my_colors.dart';
+import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 

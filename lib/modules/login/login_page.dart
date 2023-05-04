@@ -1,5 +1,5 @@
 import 'package:anime_lists/modules/login/widgets/google_button.dart';
-import 'package:anime_lists/shared/my_colors.dart';
+import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget{
