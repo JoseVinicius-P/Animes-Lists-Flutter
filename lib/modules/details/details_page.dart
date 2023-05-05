@@ -1,6 +1,7 @@
 import 'package:anime_lists/modules/details/details_controller.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -60,11 +61,21 @@ class _DetailsPageState extends State<DetailsPage> {
                   children: [
                     Stack(
                       children: [
-                        Image.network(
-                          snapshot.data!.main_picture,
+                        CachedNetworkImage(
+                          imageUrl: snapshot.data!.main_picture,
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.width,
                           fit: BoxFit.cover,
+                          errorWidget: (context, url, error){
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                  color: Colors.black38.withOpacity(0.2)
+                              ),
+                              child: Icon(Icons.signal_wifi_connected_no_internet_4_rounded, color: Colors.white.withOpacity(0.3)),
+                            );
+                          },
                         ),
                         Positioned(
                           bottom: 0,
