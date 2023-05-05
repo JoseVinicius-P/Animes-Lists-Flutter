@@ -1,6 +1,8 @@
+import 'package:anime_lists/modules/details/details_controller.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 
 class DetailsPage extends StatefulWidget {
   final int id;
@@ -15,9 +17,12 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+  late Future<IAnimeModel> anime;
+
   @override
   void initState() {
     super.initState();
+    anime = DetailsController().getAnimeDetails(widget.id);
   }
   @override
   Widget build(BuildContext context) {
