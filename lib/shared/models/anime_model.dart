@@ -22,12 +22,12 @@ class AnimeModel implements IAnimeModel{
 
   @override
   AnimeModel setFromJson(Map<String, dynamic> json){
-    id = json['node']['id'];
-    title = json['node']['title'];
-    main_picture = json['node']['main_picture']['large'];
-    synopsis = json['node']['synopsis'];
-    status = json['node']['status'];
-    start_date = DateTime.parse(json['node']['start_date']);
+    id = json['id'];
+    title = json['title'];
+    main_picture = json['main_picture']['large'];
+    synopsis = json['synopsis'];
+    status = json['status'];
+    start_date = DateTime.parse(json['start_date']);
     return this;
   }
 
