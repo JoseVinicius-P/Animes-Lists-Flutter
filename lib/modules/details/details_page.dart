@@ -19,13 +19,14 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   final detailsController = Modular.get<DetailsController>();
-  late Future<IAnimeModel> anime;
+  late Future<IAnimeModel> futureAnime;
 
   @override
   void initState() {
     super.initState();
-    anime = detailsController.getAnimeDetails(widget.id);
+    futureAnime = detailsController.getAnimeDetails(widget.id);
   }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -51,105 +52,115 @@ class _DetailsPageState extends State<DetailsPage> {
             width: double.infinity,
             color: MyColors.backgroundColor,
           ),
-          Column(
-            children: [
-              Stack(
-                children: [
-                  Image.network(
-                    'https:\/\/cdn.myanimelist.net\/images\/anime\/1286\/99889l.jpg',
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width,
-                    fit: BoxFit.cover,
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: 130,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            MyColors.backgroundColor,
-                            Colors.transparent,
-                          ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          stops: [0.0, 1.0],
-                          tileMode: TileMode.clamp,
+          FutureBuilder<IAnimeModel>(
+            future: futureAnime,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return Column(
+                  children: [
+                    Stack(
+                      children: [
+                        Image.network(
+                          snapshot.data!.main_picture,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.width,
+                          fit: BoxFit.cover,
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            height: 130,
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    MyColors.backgroundColor,
+                                    Colors.transparent,
+                                  ],
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                  stops: [0.0, 1.0],
+                                  tileMode: TileMode.clamp,
+                                )
+                            ),
+                          ),
                         )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                width: (MediaQuery.of(context).size.width/2),
+                                child: AutoSizeText(
+                                  snapshot.data!.title,
+                                  style: theme.textTheme.titleMedium,
+                                  textAlign: TextAlign.left,
+                                  maxLines: 1,
+                                  minFontSize: 22,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                snapshot.data!.start_date.year.toString(),
+                                style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.2), fontSize: 15),
+                                textAlign: TextAlign.left,
+                              ),
+                              const Spacer(),
+                              Icon(
+                                Icons.star_rounded,
+                                color: Colors.yellow.withOpacity(0.5),
+                              ),
+                              Text(
+                                '5',
+                                style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5)),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Ufotable',
+                                style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.2), fontSize: 15),
+                                textAlign: TextAlign.left,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 15),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  snapshot.data!.synopsis,
+                                  style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.3), fontSize: 17),
+                                  textAlign: TextAlign.justify,
+                                  maxLines: 5,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 100),
+                          AddToListButton(),
+                        ],
                       ),
                     ),
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          width: (MediaQuery.of(context).size.width/2),
-                          child: AutoSizeText(
-                            'Kimetsu no Yaiba  aaa aaaa',
-                            style: theme.textTheme.titleMedium,
-                            textAlign: TextAlign.left,
-                            maxLines: 1,
-                            minFontSize: 22,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          '2019',
-                          style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.2), fontSize: 15),
-                          textAlign: TextAlign.left,
-                        ),
-                        const Spacer(),
-                        Icon(
-                          Icons.star_rounded,
-                          color: Colors.yellow.withOpacity(0.5),
-                        ),
-                        Text(
-                          '5',
-                          style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5)),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Ufotable',
-                          style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.2), fontSize: 15),
-                          textAlign: TextAlign.left,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'Em Kimetsu no Yaiba, Tanjiro, um bondoso jovem que ganha a vida vendendo carvão descobre que sua família foi massacrada por um demônio. E, para piorar, Nezuko, sua irmã mais nova e única sobrevivente, também acabou transformada em um demônio.',
-                            style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.3), fontSize: 17),
-                            textAlign: TextAlign.justify,
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 100),
-                    AddToListButton(),
                   ],
-                ),
-              ),
-            ],
-          )
+                );
+              }else{
+                return const SizedBox();
+              }
+            }
+          ),
+
         ],
       ),
     );
