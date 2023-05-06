@@ -41,7 +41,7 @@ class AnimeModel implements IAnimeModel{
     day_of_the_week = json['day_of_the_week'] ?? '';
     start_time = json['start_time'] ?? '';
     rating = json['rating'] ?? '';
-    studio = json['studio'] ?? '';
+    studio = json['studios']?[0]['name'] ?? '';
     start_date = DateTime.parse(json['start_date']);
     mean = json['mean'] ?? 0.0;
     return this;
