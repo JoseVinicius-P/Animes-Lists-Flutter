@@ -1,4 +1,5 @@
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
+import 'package:anime_lists/shared/utilities/status_interpreter.dart';
 
 class AnimeModel implements IAnimeModel{
 
@@ -38,7 +39,7 @@ class AnimeModel implements IAnimeModel{
     title = json['title'] ?? '';
     main_picture = json['main_picture']['large'] ?? '';
     synopsis = json['synopsis'] ?? '';
-    status = json['status'] ?? '';
+    status = StatusInterpreter.interpretStatus(json['status'] ?? '');
     day_of_the_week = json['broadcast']?['day_of_the_week'] ?? '';
     start_time = json['broadcast']?['start_time'] ?? '';
     rating = json['rating'] ?? '';
