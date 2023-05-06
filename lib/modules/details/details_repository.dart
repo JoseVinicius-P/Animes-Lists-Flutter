@@ -20,7 +20,7 @@ class DetailsRepository implements Disposable, IDetailsRepository{
     };
 
     final response = await http.get(
-      Uri.parse("https://api.myanimelist.net/v2/anime/$id?fields=id,title,main_picture,synopsis,status,start_date"),
+      Uri.parse("https://api.myanimelist.net/v2/anime/$id?fields=id,title,main_picture,status,synopsis,start_date,mean,num_episodes,broadcast,rating,studios"),
       headers: headers
     );
 

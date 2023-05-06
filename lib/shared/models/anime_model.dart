@@ -3,11 +3,15 @@ import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 class AnimeModel implements IAnimeModel{
 
   @override
-  late int id;
+  late int id, num_episodes;
   @override
-  late String title, main_picture, synopsis, status;
+  late String title, main_picture, synopsis,
+      status, day_of_the_week,
+      start_time, rating, studio;
   @override
   late DateTime start_date;
+  @override
+  late double mean;
 
   AnimeModel({
     required this.id,
@@ -16,18 +20,30 @@ class AnimeModel implements IAnimeModel{
     required this.synopsis,
     required this.status,
     required this.start_date,
+    required this.mean,
+    required this.day_of_the_week,
+    required this.num_episodes,
+    required this.rating,
+    required this.start_time,
+    required this.studio,
   });
 
   AnimeModel.empty();
 
   @override
   AnimeModel setFromJson(Map<String, dynamic> json){
-    id = json['id'];
-    title = json['title'];
-    main_picture = json['main_picture']['large'];
-    synopsis = json['synopsis'];
-    status = json['status'];
+    id = json['id'] ?? 0;
+    num_episodes = json['num_episodes'] ?? 0;
+    title = json['title'] ?? '';
+    main_picture = json['main_picture']['large'] ?? '';
+    synopsis = json['synopsis'] ?? '';
+    status = json['status'] ?? '';
+    day_of_the_week = json['day_of_the_week'] ?? '';
+    start_time = json['start_time'] ?? '';
+    rating = json['rating'] ?? '';
+    studio = json['studio'] ?? '';
     start_date = DateTime.parse(json['start_date']);
+    mean = json['mean'] ?? 0.0;
     return this;
   }
 
