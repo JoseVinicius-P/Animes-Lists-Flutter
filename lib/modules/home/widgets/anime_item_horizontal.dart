@@ -1,5 +1,6 @@
 import 'package:anime_lists/modules/home/widgets/shimmer_image_anime.dart';
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
+import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -77,7 +78,7 @@ class AnimeItemHorizontal extends StatelessWidget {
                 ),
                 Text(
                   anime.status,
-                  style: theme.textTheme.labelSmall!.copyWith(fontSize: 14, color: Colors.red.withOpacity(0.4)),
+                  style: theme.textTheme.labelSmall!.copyWith(fontSize: 14, color: MyColors.primaryColor.withOpacity(0.4)),
                   textAlign: TextAlign.end,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
