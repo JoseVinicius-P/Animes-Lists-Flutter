@@ -29,6 +29,7 @@ class AnimeModel implements IAnimeModel{
   });
 
   AnimeModel.empty();
+  /*num_episodes, day_of_the_week, start_time*/
 
   @override
   AnimeModel setFromJson(Map<String, dynamic> json){
@@ -38,8 +39,8 @@ class AnimeModel implements IAnimeModel{
     main_picture = json['main_picture']['large'] ?? '';
     synopsis = json['synopsis'] ?? '';
     status = json['status'] ?? '';
-    day_of_the_week = json['day_of_the_week'] ?? '';
-    start_time = json['start_time'] ?? '';
+    day_of_the_week = json['broadcast']?['day_of_the_week'] ?? '';
+    start_time = json['broadcast']?['start_time'] ?? '';
     rating = json['rating'] ?? '';
     studio = json['studios']?[0]['name'] ?? '';
     start_date = DateTime.parse(json['start_date']);

@@ -140,8 +140,46 @@ class _DetailsPageState extends State<DetailsPage> {
                             children: [
                               Text(
                                 snapshot.data!.studio,
-                                style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.2), fontSize: 15),
+                                style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 15),
                                 textAlign: TextAlign.left,
+                              ),
+                              const SizedBox(width: 15),
+                              Text(
+                                snapshot.data!.rating,
+                                style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 15),
+                                textAlign: TextAlign.left,
+                              ),
+                              const SizedBox(width: 15),
+                              Text(
+                                "${snapshot.data!.num_episodes} episodios",
+                                style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.7), fontSize: 15),
+                                textAlign: TextAlign.left,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 15),
+                          Row(
+                            children: [
+                              Text(
+                                "${snapshot.data!.status}: ",
+                                style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
+                                textAlign: TextAlign.end,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                "${snapshot.data!.day_of_the_week} as ",
+                                style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
+                                textAlign: TextAlign.end,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                " ${snapshot.data!.start_time} horas",
+                                style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
+                                textAlign: TextAlign.end,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ],
                           ),
