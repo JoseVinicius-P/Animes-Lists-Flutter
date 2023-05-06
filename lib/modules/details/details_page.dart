@@ -161,26 +161,33 @@ class _DetailsPageState extends State<DetailsPage> {
                           Row(
                             children: [
                               Text(
-                                "${snapshot.data!.status}: ",
+                                snapshot.data!.status,
                                 style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
                                 textAlign: TextAlign.end,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              Text(
+                              snapshot.data!.status == 'Em exibição'? Text(
+                                ": ",
+                                style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
+                                textAlign: TextAlign.end,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ):const SizedBox(),
+                              snapshot.data!.status == 'Em exibição'? Text(
                                 "${snapshot.data!.day_of_the_week} as ",
                                 style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
                                 textAlign: TextAlign.end,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                              ),
-                              Text(
+                              ):const SizedBox(),
+                              snapshot.data!.status == 'Em exibição'? Text(
                                 " ${snapshot.data!.start_time} horas",
                                 style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
                                 textAlign: TextAlign.end,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                              ),
+                              ):const SizedBox(),
                             ],
                           ),
                           const SizedBox(height: 15),
