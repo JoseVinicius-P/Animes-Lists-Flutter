@@ -13,7 +13,7 @@ class MySearchController implements Disposable{
   }
 
   void toDetailsModule(int id){
-    Modular.to.pushNamed("./details", arguments: id);
+    Modular.to.pushNamed("./details/", arguments: id);
   }
 
   @override
