@@ -39,7 +39,7 @@ class AnimeModel implements IAnimeModel{
     title = json['title'] ?? '';
     main_picture = json['main_picture']['large'] ?? '';
     synopsis = json['synopsis'] ?? '';
-    status = StatusInterpreter.interpretStatus(json['status'] ?? '');
+    status = StatusInterpreter.getStatus(json['status'] ?? '');
     day_of_the_week = json['broadcast']?['day_of_the_week'] ?? '';
     start_time = json['broadcast']?['start_time'] ?? '';
     rating = json['rating'] ?? '';

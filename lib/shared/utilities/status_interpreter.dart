@@ -1,5 +1,5 @@
 class StatusInterpreter{
-  static String interpretStatus(String oldStatus){
+  static String getStatus(String oldStatus){
     switch(oldStatus){
       case 'finished_airing':
         return 'Finalizado';
