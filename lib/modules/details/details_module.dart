@@ -1,7 +1,7 @@
-import 'package:anime_lists/modules/details/details_controller.dart';
-import 'package:anime_lists/modules/details/details_page.dart';
-import 'package:anime_lists/modules/details/details_repository.dart';
-import 'package:anime_lists/modules/details/i_details_repository.dart';
+import 'package:anime_lists/modules/details/controllers/details_controller.dart';
+import 'package:anime_lists/modules/details/pages/details_page.dart';
+import 'package:anime_lists/modules/details/repositories/details_repository.dart';
+import 'package:anime_lists/modules/details/interfaces/i_details_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class DetailsModule extends Module{

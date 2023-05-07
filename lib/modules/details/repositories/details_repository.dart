@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:anime_lists/modules/details/i_details_repository.dart';
+import 'package:anime_lists/modules/details/interfaces/i_details_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:http/http.dart' as http;

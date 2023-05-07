@@ -1,8 +1,8 @@
 import 'package:anime_lists/modules/home/home_module.dart';
-import 'package:anime_lists/modules/login/authentication_service.dart';
-import 'package:anime_lists/modules/login/i_authentication_service.dart';
-import 'package:anime_lists/modules/login/login_controller.dart';
-import 'package:anime_lists/modules/login/login_page.dart';
+import 'package:anime_lists/modules/login/services/authentication_service.dart';
+import 'package:anime_lists/modules/login/interfaces/i_authentication_service.dart';
+import 'package:anime_lists/modules/login/controllers/login_controller.dart';
+import 'package:anime_lists/modules/login/pages/login_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 //Modulo responsavel pelo login

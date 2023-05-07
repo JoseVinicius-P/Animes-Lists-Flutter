@@ -1,4 +1,4 @@
-import 'package:anime_lists/modules/login/i_authentication_service.dart';
+import 'package:anime_lists/modules/login/interfaces/i_authentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

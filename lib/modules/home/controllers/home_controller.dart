@@ -1,4 +1,3 @@
-import 'package:anime_lists/modules/home/repository/search_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
