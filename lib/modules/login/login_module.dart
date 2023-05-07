@@ -1,4 +1,7 @@
 import 'package:anime_lists/modules/home/home_module.dart';
+import 'package:anime_lists/modules/login/authentication_service.dart';
+import 'package:anime_lists/modules/login/i_authentication_service.dart';
+import 'package:anime_lists/modules/login/login_controller.dart';
 import 'package:anime_lists/modules/login/login_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -6,7 +9,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 class LoginModule extends Module{
 
   @override
-  List<Bind> get binds => [];
+  List<Bind> get binds => [
+    Bind<IAuthenticationService>((i) => AuthenticationService()),
+    Bind((i) => LoginController(i())),
+  ];
 
   @override
   List<ModularRoute> get routes => [
