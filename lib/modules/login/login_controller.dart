@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginController implements Disposable{
   final IAuthenticationService _auth;
+  bool inAuthentication = false;
 
   LoginController(this._auth);
 
@@ -13,10 +14,19 @@ class LoginController implements Disposable{
   }
 
   Future<UserCredential> signInWithGoogle() async{
+    inAuthentication = true;
     return await _auth.signInWithGoogle();
   }
 
   bool isUserLoggedIn(){
     return _auth.isUserLoggedIn();
   }
+
+  void toHomeModule(){
+    if(isUserLoggedIn()) {
+      Modular.to.navigate('/home/');
+    }
+    inAuthentication = false;
+  }
+
 }

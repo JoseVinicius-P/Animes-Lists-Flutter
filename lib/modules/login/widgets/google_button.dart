@@ -1,37 +1,32 @@
 import 'package:anime_lists/modules/login/login_controller.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleButton extends StatelessWidget {
-  final loginController = Modular.get<LoginController>();
 
   GoogleButton({
     super.key,
   });
 
-  void toHomeModule(){
-    if(loginController.isUserLoggedIn()) {
-      Modular.to.navigate('/home/');
-    }
-  }
+  final loginController = Modular.get<LoginController>();
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
     return InkWell(
-      onTap: () async {
+      borderRadius: BorderRadius.circular(25),
+      //Se a authenticação estiver sendo feita o botão não funcionará
+      onTap: loginController.inAuthentication ? null : () async {
         await loginController.signInWithGoogle();
-        toHomeModule();
+        loginController.toHomeModule();
       },
       child: Container(
         height: 50,
         width: 200,
         decoration: BoxDecoration(
-          borderRadius:BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(25),
           ),
           border: Border.all(
@@ -39,7 +34,7 @@ class GoogleButton extends StatelessWidget {
             style: BorderStyle.solid,
             color: Colors.transparent,
           ),
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [
               MyColors.primaryColor,
               MyColors.accentColor,
