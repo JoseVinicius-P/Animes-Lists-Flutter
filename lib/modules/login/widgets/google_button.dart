@@ -26,8 +26,18 @@ class GoogleButton extends StatelessWidget {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  void toListsModule(){
-    Modular.to.navigate('/home/');
+  void toHomeModule(){
+    if(isUserLoggedIn()) {
+      Modular.to.navigate('/home/');
+    }
+  }
+
+  bool isUserLoggedIn(){
+    if(FirebaseAuth.instance.currentUser != null){
+      return true;
+    }else {
+      return false;
+    }
   }
 
   @override
@@ -35,7 +45,10 @@ class GoogleButton extends StatelessWidget {
     var theme = Theme.of(context);
 
     return InkWell(
-      onTap: () => signInWithGoogle(),
+      onTap: () async {
+        await signInWithGoogle();
+        toHomeModule();
+      },
       child: Container(
         height: 50,
         width: 200,
