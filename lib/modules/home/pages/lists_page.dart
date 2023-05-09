@@ -1,4 +1,6 @@
 import 'package:anime_lists/shared/utilities/my_colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -10,10 +12,6 @@ class ListsPage extends StatefulWidget {
 }
 
 class _ListsPageState extends State<ListsPage> {
-
-  void toDetailsModule(){
-    Modular.to.pushNamed("./details");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,7 @@ class _ListsPageState extends State<ListsPage> {
                         width: 60,
                         height: 60,
                         decoration: BoxDecoration(
-                          borderRadius:BorderRadius.all(
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(30),
                           ),
                           border: Border.all(
@@ -44,7 +42,7 @@ class _ListsPageState extends State<ListsPage> {
                             style: BorderStyle.solid,
                             color: Colors.transparent,
                           ),
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             colors: [
                               MyColors.primaryColor,
                               MyColors.accentColor,
@@ -70,23 +68,26 @@ class _ListsPageState extends State<ListsPage> {
                             ]
                         ),
                         child: ClipRRect(
-                        borderRadius:BorderRadius.all(
+                        borderRadius: const BorderRadius.all(
                           Radius.circular(30),
                         ),
-                        child: Image.network('https://instagram.fbsb10-1.fna.fbcdn.net/v/t51.2885-19/132937295_136268714829155_3050363562817765117_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fbsb10-1.fna.fbcdn.net&_nc_cat=111&_nc_ohc=ZyrG9vOrGfUAX9TMjfz&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfAvevfpHjzCahDmtzpixDtMNAzpvE1GS6v2lnsVZuT4cQ&oe=64404762&_nc_sid=1527a3')),
+                        child: CachedNetworkImage(
+                          imageUrl: FirebaseAuth.instance.currentUser?.photoURL ?? '',
+                        ),
+                        ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Bem vindo de volta',
+                            'Bem vindo',
                             style: theme.textTheme.titleSmall,
                             textAlign: TextAlign.start,
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            'José Vinícius',
+                            FirebaseAuth.instance.currentUser?.displayName ?? '',
                             style: theme.textTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.start,
                           )
@@ -94,54 +95,33 @@ class _ListsPageState extends State<ListsPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 40),
-                  Row(
+                  const SizedBox(height: 40),
+                  /*Row(
                     children: [
                       Text(
                         'Segunda',
                         style: theme.textTheme.labelSmall,
                       ),
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       Icon(Icons.sort, color: Colors.white.withOpacity(0.1)),
                     ],
+                  ),*/
+                  const SizedBox(height: 30),
+                  Icon(
+                    Icons.playlist_remove_rounded,
+                    color: Colors.white.withOpacity(0.5),
+                    size: 35,
                   ),
-                  SizedBox(height: 10),
                   Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      InkWell(
-                        onTap: () => toDetailsModule(),
-                        child: Container(
-                          width: 120,
-                          child: Column(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(24),
-                                ),
-                                child: Image.network(
-                                  'https:\/\/cdn.myanimelist.net\/images\/anime\/1286\/99889l.jpg',
-                                  width: 120,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Text(
-                                'Kimetsu no Yaiba',
-                                style: theme.textTheme.labelSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
-                                textAlign: TextAlign.center,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Text(
-                                '2019',
-                                style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.4), fontSize: 16),
-                                textAlign: TextAlign.center,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              )
-                            ],
-                          ),
-                        ),
-                      )
+                      Text(
+                        'Você ainda não tem nenhuma lista!',
+                        style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
 
@@ -150,6 +130,56 @@ class _ListsPageState extends State<ListsPage> {
             )
         )
       ],
+    );
+  }
+}
+
+class AnimeItemVertical extends StatelessWidget {
+  const AnimeItemVertical({
+    super.key,
+  });
+
+  void toDetailsModule(){
+    Modular.to.pushNamed("./details");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
+    return InkWell(
+      onTap: () => toDetailsModule(),
+      child: SizedBox(
+        width: 120,
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(24),
+              ),
+              child: Image.network(
+                'https:\/\/cdn.myanimelist.net\/images\/anime\/1286\/99889l.jpg',
+                width: 120,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Text(
+              'Kimetsu no Yaiba',
+              style: theme.textTheme.labelSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Text(
+              '2019',
+              style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.4), fontSize: 16),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            )
+          ],
+        ),
+      ),
     );
   }
 }
