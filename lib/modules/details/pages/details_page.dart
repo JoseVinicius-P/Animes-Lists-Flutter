@@ -1,3 +1,4 @@
+import 'package:anime_lists/modules/details/widgets/add_to_list_button.dart';
 import 'package:anime_lists/modules/details/controllers/details_controller.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -205,7 +206,10 @@ class _DetailsPageState extends State<DetailsPage> {
                             ],
                           ),
                           const SizedBox(height: 100),
-                          AddToListButton(),
+                          AddToListButton(
+                            id: widget.id,
+                            onTap: () => detailsController.toAddToListModule(widget.id)
+                          ),
                         ],
                       ),
                     ),
@@ -218,81 +222,6 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
 
         ],
-      ),
-    );
-  }
-}
-
-class AddToListButton extends StatelessWidget {
-  const AddToListButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-
-    return InkWell(
-      onTap: () {
-
-      },
-      child: Container(
-        height: 50,
-        width: 200,
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(25),
-            ),
-            border: Border.all(
-              width: 2,
-              style: BorderStyle.solid,
-              color: Colors.transparent,
-            ),
-            gradient: const LinearGradient(
-              colors: [
-                MyColors.primaryColor,
-                MyColors.accentColor,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: MyColors.primaryColor.withOpacity(0.2),
-                spreadRadius: 0.1,
-                blurRadius: 15,
-                offset: const Offset(-5, -5),
-              ),
-              BoxShadow(
-                color: MyColors.accentColor.withOpacity(0.2),
-                spreadRadius: 0.1,
-                blurRadius: 15,
-                offset: const Offset(5, 5),
-              )
-            ]
-        ),
-        child: SizedBox.expand(
-          child: Container(
-            decoration: BoxDecoration(
-              color: MyColors.backgroundColor.withOpacity(0.9),
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Adicionar a uma lista',
-                    style: theme.textTheme.labelMedium,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:anime_lists/shared/models/anime_model.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
 
 class SearchRepository implements Disposable, ISearchRepository{
-
+  Timer? _delay;
 
   @override
   void dispose() {
@@ -32,7 +33,7 @@ class SearchRepository implements Disposable, ISearchRepository{
       List<IAnimeModel> animes = results.map((json) => Modular.get<IAnimeModel>().setFromJson(json['node'])).toList();
       return animes;
     }else{
-      return fetchAnimes(query);
+      throw ("ERRO");
     }
   }
 
