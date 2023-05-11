@@ -20,7 +20,7 @@ class HomeModule extends Module{
 
   @override
   List<ModularRoute> get routes => [
-    ModuleRoute("./details/", module: DetailsModule()),
+    ModuleRoute("/details", module: DetailsModule()),
     ChildRoute('/', child: (context, args) => const HomePage()),
   ];
 }
