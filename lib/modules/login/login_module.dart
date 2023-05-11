@@ -19,6 +19,6 @@ class LoginModule extends Module{
     //Rota raiz automática
     ChildRoute('/', child: (context, args) => const LoginPage()),
     //Inicia o modulo Home
-    ModuleRoute('/home/', module: HomeModule()),
+    ModuleRoute('/home', module: HomeModule()),
   ];
 }
