@@ -1,3 +1,4 @@
+import 'package:anime_lists/modules/add_to_list/add_to_list_module.dart';
 import 'package:anime_lists/modules/home/controllers/home_controller.dart';
 import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
 import 'package:anime_lists/modules/home/interfaces/i_search_repository.dart';
@@ -21,6 +22,7 @@ class HomeModule extends Module{
   @override
   List<ModularRoute> get routes => [
     ModuleRoute("/details", module: DetailsModule()),
+    ModuleRoute("/add_to_list", module: AddToListModule(), transition: TransitionType.downToUp, duration: const Duration(milliseconds: 380)),
     ChildRoute('/', child: (context, args) => const HomePage()),
   ];
 }

@@ -107,11 +107,15 @@ class _ListsPageState extends State<ListsPage> {
                     ],
                   ),*/
                   const SizedBox(height: 30),
-                  Icon(
-                    Icons.playlist_remove_rounded,
-                    color: Colors.white.withOpacity(0.5),
-                    size: 35,
+                  GestureDetector(
+                    onTap: () => Modular.to.pushNamed('./add_to_list/', arguments: 10),
+                    child: Icon(
+                      Icons.playlist_remove_rounded,
+                      color: Colors.white.withOpacity(0.5),
+                      size: 35,
+                    ),
                   ),
+
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
