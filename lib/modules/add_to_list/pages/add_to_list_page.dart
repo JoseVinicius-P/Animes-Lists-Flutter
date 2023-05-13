@@ -1,4 +1,5 @@
 import 'package:anime_lists/modules/add_to_list/controllers/add_to_list_controller.dart';
+import 'package:anime_lists/modules/add_to_list/interfaces/i_list_model.dart';
 import 'package:anime_lists/modules/add_to_list/widgets/alert_dialog_add_to_list.dart';
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
@@ -20,15 +21,20 @@ class _AddToListPageState extends State<AddToListPage> {
   String? _selectedOption = "Segunda";
   List<String> _options = ['Segunda', 'Terça', 'Quarta'];
   final addToListController = Modular.get<AddToListController>();
-
-  var overlayColor = MaterialStateProperty.resolveWith<Color>(
-        (Set<MaterialState> states) {
+  late Future<List<IListModel>> futureListModel;
+  var overlayColor = MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
       if (states.contains(MaterialState.pressed)) {
         return Colors.white.withOpacity(0.1);
       }
       return Colors.transparent;
     },
   );
+
+  @override
+  void initState() {
+    super.initState();
+    futureListModel = addToListController.fetchLists();
+  }
 
   Future<void> _showMyDialog() async {
     String newList = await showDialog(
