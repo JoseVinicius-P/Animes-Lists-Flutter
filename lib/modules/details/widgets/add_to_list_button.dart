@@ -1,14 +1,11 @@
-import 'package:anime_lists/modules/details/controllers/details_controller.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 class AddToListButton extends StatelessWidget {
-  final int id;
   final Function onTap;
 
   const AddToListButton({
-    super.key, required this.id, required this.onTap,
+    super.key, required this.onTap,
   });
 
   @override
@@ -16,7 +13,7 @@ class AddToListButton extends StatelessWidget {
     var theme = Theme.of(context);
 
     return InkWell(
-      onTap: onTap(),
+      onTap: () => onTap(),
       child: Container(
         height: 50,
         width: 200,

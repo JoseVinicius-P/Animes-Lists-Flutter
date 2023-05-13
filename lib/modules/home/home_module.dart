@@ -22,7 +22,6 @@ class HomeModule extends Module{
   @override
   List<ModularRoute> get routes => [
     ModuleRoute("/details", module: DetailsModule()),
-    ModuleRoute("/add_to_list", module: AddToListModule(), transition: TransitionType.downToUp, duration: const Duration(milliseconds: 380)),
     ChildRoute('/', child: (context, args) => const HomePage()),
   ];
 }

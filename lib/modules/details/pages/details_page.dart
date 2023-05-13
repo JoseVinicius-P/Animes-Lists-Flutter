@@ -207,7 +207,6 @@ class _DetailsPageState extends State<DetailsPage> {
                           ),
                           const SizedBox(height: 100),
                           AddToListButton(
-                            id: widget.id,
                             onTap: () => detailsController.toAddToListModule(widget.id)
                           ),
                         ],
