@@ -16,6 +16,6 @@ class AddToListModule extends Module{
 
   @override
   List<ModularRoute> get routes => [
-    ChildRoute('/', child: (context, args) => AddToListPage()),
+    ChildRoute('/', child: (context, args) => AddToListPage(anime: args.data)),
   ];
 }

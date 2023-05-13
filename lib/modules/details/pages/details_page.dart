@@ -22,11 +22,13 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   final detailsController = Modular.get<DetailsController>();
   late Future<IAnimeModel> futureAnime;
+  late IAnimeModel anime;
 
   @override
   void initState() {
     super.initState();
     futureAnime = detailsController.getAnimeDetails(widget.id);
+    futureAnime.then((value) => anime = value);
   }
 
   @override
@@ -207,7 +209,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           ),
                           const SizedBox(height: 100),
                           AddToListButton(
-                            onTap: () => detailsController.toAddToListModule(widget.id)
+                            onTap: () => detailsController.toAddToListModule(anime)
                           ),
                         ],
                       ),

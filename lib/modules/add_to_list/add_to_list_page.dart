@@ -1,5 +1,6 @@
 import 'package:anime_lists/modules/add_to_list/controllers/add_to_list_controller.dart';
 import 'package:anime_lists/modules/add_to_list/widgets/alert_dialog_add_to_list.dart';
+import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AddToListPage extends StatefulWidget {
-  const AddToListPage({Key? key}) : super(key: key);
+  final IAnimeModel anime;
+
+  const AddToListPage({Key? key, required this.anime}) : super(key: key);
 
   @override
   State<AddToListPage> createState() => _AddToListPageState();
@@ -86,7 +89,8 @@ class _AddToListPageState extends State<AddToListPage> {
                                 ),
                               );
                             },
-                            imageUrl: "https://image.api.playstation.com/vulcan/ap/rnd/202106/1704/2ZfAUG5CTXdM34S1OhmMW1zF.jpg");
+                            imageUrl: widget.anime.main_picture
+                        );
                       }
                     ),
                   ),
