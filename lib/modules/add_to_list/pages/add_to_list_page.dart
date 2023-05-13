@@ -47,10 +47,20 @@ class _AddToListPageState extends State<AddToListPage> {
       },
     ) as String;
 
+    addAtOptions(newList);
+  }
+
+  void addAtOptions(String newList){
     IListModel listModel = Modular.get<IListModel>();
-    listModel.name = newList;
+    listModel.setName(newList);
 
     if(_options.length < 10){
+      for (int i = 0;i < _options.length; i++){
+        if(_options[i].id == 'create'){
+          _options.removeAt(i);
+        }
+      }
+
       setState(() {
         _options.add(listModel);
       });

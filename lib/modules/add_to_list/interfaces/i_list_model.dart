@@ -4,4 +4,5 @@ abstract class IListModel{
   late String name, id;
 
   IListModel setFromDocumentSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot);
+  void setName(String name);
 }

@@ -18,4 +18,10 @@ class ListModel implements IListModel{
     id = docSnapshot.id;
     return this;
   }
+
+  @override
+  void setName(String name) {
+    this.name = name;
+    id = "create";
+  }
 }
