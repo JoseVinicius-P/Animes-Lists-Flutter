@@ -1,12 +1,12 @@
 import 'package:anime_lists/modules/add_to_list/controllers/add_to_list_controller.dart';
 import 'package:anime_lists/modules/add_to_list/interfaces/i_list_model.dart';
+import 'package:anime_lists/modules/add_to_list/widgets/Icon_anime_image.dart';
 import 'package:anime_lists/modules/add_to_list/widgets/alert_dialog_add_to_list.dart';
+import 'package:anime_lists/modules/add_to_list/widgets/save_button.dart';
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shimmer/shimmer.dart';
 
 class AddToListPage extends StatefulWidget {
   final IAnimeModel anime;
@@ -71,35 +71,7 @@ class _AddToListPageState extends State<AddToListPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(3.0),
-                    child: LayoutBuilder(
-                      builder: (BuildContext context, BoxConstraints constraints) {
-                        return CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) {
-                              return Shimmer.fromColors(
-                                baseColor: Colors.grey.shade900.withOpacity(
-                                    0.5),
-                                highlightColor: MyColors.backgroundColor,
-                                enabled: true,
-                                child: Container(
-                                  width: constraints.maxHeight/1.5,
-                                  height: constraints.maxHeight,
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(3.0)
-                                    ),
-                                    color: MyColors.backgroundColor,
-                                  ),
-                                ),
-                              );
-                            },
-                            imageUrl: widget.anime.main_picture
-                        );
-                      }
-                    ),
-                  ),
+                  child: IconAnimeImage(imageUrl: widget.anime.main_picture),
                 ),
               ],
             ),
@@ -172,66 +144,7 @@ class _AddToListPageState extends State<AddToListPage> {
                     ],
                   ),
                   const SizedBox(height: 70),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(25),
-                    //Se a authenticação estiver sendo feita o botão não funcionará
-                    onTap: (){},
-                    child: Container(
-                      height: 50,
-                      width: 200,
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(25),
-                          ),
-                          border: Border.all(
-                            width: 1,
-                            style: BorderStyle.solid,
-                            color: Colors.transparent,
-                          ),
-                          gradient: const LinearGradient(
-                            colors: [
-                              MyColors.primaryColor,
-                              MyColors.accentColor,
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: MyColors.primaryColor.withOpacity(0.2),
-                              spreadRadius: 0.1,
-                              blurRadius: 15,
-                              offset: const Offset(-5, -5),
-                            ),
-                            BoxShadow(
-                              color: MyColors.accentColor.withOpacity(0.2),
-                              spreadRadius: 0.1,
-                              blurRadius: 15,
-                              offset: const Offset(5, 5),
-                            )
-                          ]
-                      ),
-                      child: SizedBox.expand(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: MyColors.backgroundColor.withOpacity(0.9),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Salvar',
-                                style: theme.textTheme.labelMedium?.copyWith(fontSize: 20),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
+                  SaveButton(),
                 ],
               ),
             ),
