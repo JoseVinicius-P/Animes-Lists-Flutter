@@ -15,17 +15,6 @@ class AddToListButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
-    /*Future<void> _showMyDialog(int id) async {
-      return showDialog<void>(
-        context: context,
-        barrierColor: Colors.black.withOpacity(0.7),
-        barrierDismissible: false, // user must tap button!
-        builder: (BuildContext context) {
-          return AlertDialogAddToList(id: id,);
-        },
-      );
-    }*/
-
     return InkWell(
       onTap: onTap(),
       child: Container(
@@ -89,54 +78,3 @@ class AddToListButton extends StatelessWidget {
     );
   }
 }
-
-/*class AlertDialogAddToList extends StatefulWidget {
-  final int id;
-  const AlertDialogAddToList({
-    super.key, required this.id,
-  });
-
-  @override
-  State<AlertDialogAddToList> createState() => _AlertDialogAddToListState();
-}
-
-class _AlertDialogAddToListState extends State<AlertDialogAddToList> {
-
-  @override
-  void initState() {
-    super.initState();
-    //WidgetsBinding.instance.addPostFrameCallback((_) => Modular.to.navigate('./add_to_list/', arguments: widget.id));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var theme =  Theme.of(context);
-    return AlertDialog(
-      backgroundColor: MyColors.backgroundColor,
-      title:
-          Text(
-            'Adicionar em uma lista',
-            style: theme.textTheme.labelSmall!.copyWith(color: Colors.white, fontSize:20),
-            textAlign: TextAlign.center,
-          ),
-      content: Row(
-        children: [
-           RouterOutlet(),
-        ],
-      ),
-      actions: <Widget>[
-        TextButton(
-          child: const Text(
-            'Cancelar',
-            style: TextStyle(
-              color: MyColors.primaryColor,
-            ),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
-    );
-  }
-}*/
