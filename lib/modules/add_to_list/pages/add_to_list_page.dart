@@ -19,7 +19,7 @@ class AddToListPage extends StatefulWidget {
 
 class _AddToListPageState extends State<AddToListPage> {
   String? _selectedOption = "Segunda";
-  List<String> _options = ['Segunda', 'Terça', 'Quarta'];
+  late List<IListModel> _options;
   final addToListController = Modular.get<AddToListController>();
   late Future<List<IListModel>> futureListModel;
   var overlayColor = MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
@@ -34,6 +34,7 @@ class _AddToListPageState extends State<AddToListPage> {
   void initState() {
     super.initState();
     futureListModel = addToListController.fetchLists();
+    futureListModel.then((value) => _options = value);
   }
 
   Future<void> _showMyDialog() async {
@@ -46,9 +47,12 @@ class _AddToListPageState extends State<AddToListPage> {
       },
     ) as String;
 
+    IListModel listModel = Modular.get<IListModel>();
+    listModel.name = newList;
+
     if(_options.length < 10){
       setState(() {
-        _options.add(newList);
+        _options.add(listModel);
       });
     }
   }
@@ -98,54 +102,63 @@ class _AddToListPageState extends State<AddToListPage> {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.only(top: 15.0, left: 15.0),
-              child: Column(
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: _options.length,
-                    itemBuilder: (context, index){
-                      return RadioListTile(
-                        activeColor: MyColors.primaryColor,
-                        title: Text(
-                          _options[index],
-                          style: theme.textTheme.labelSmall,
+              child: FutureBuilder<List<IListModel>>(
+                future: futureListModel,
+                builder: (context, snapshot){
+                  if(snapshot.hasData){
+                    return Column(
+                      children: [
+                        ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: _options.length,
+                            itemBuilder: (context, index){
+                              return RadioListTile(
+                                activeColor: MyColors.primaryColor,
+                                title: Text(
+                                  _options[index].name,
+                                  style: theme.textTheme.labelSmall,
+                                ),
+                                value: _options[index].id,
+                                groupValue: _selectedOption,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedOption = value;
+                                  });
+                                },
+                              );
+                            }
                         ),
-                        value: _options[index],
-                        groupValue: _selectedOption,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedOption = value;
-                          });
-                        },
-                      );
-                    }
-                  ),
-                  const SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TextButton(
-                        onPressed: () => _showMyDialog(),
-                        style: ButtonStyle(
-                          overlayColor: overlayColor,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
+                        const SizedBox(height: 15),
+                        Row(
+                          mainAxisAlignment: snapshot.data!.isEmpty ? MainAxisAlignment.center : MainAxisAlignment.start,
                           children: [
-                            Text(
-                              "Criar uma nova lista",
-                              style: theme.textTheme.titleSmall?.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 17)
+                            TextButton(
+                              onPressed: () => _showMyDialog(),
+                              style: ButtonStyle(
+                                overlayColor: overlayColor,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                      "Criar uma nova lista",
+                                      style: theme.textTheme.titleSmall?.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 17)
+                                  ),
+                                  const SizedBox(width: 10,),
+                                  Icon(Icons.playlist_add_rounded, color: Colors.white.withOpacity(0.5)),
+                                ],
+                              ),
                             ),
-                            const SizedBox(width: 10,),
-                            Icon(Icons.playlist_add_rounded, color: Colors.white.withOpacity(0.5)),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 70),
-                  SaveButton(),
-                ],
+                        const SizedBox(height: 70),
+                        SaveButton(),
+                      ],
+                    );
+                  }else{
+                    return SizedBox();
+                  }
+                },
               ),
             ),
           ),

@@ -13,7 +13,6 @@ class ListService implements IListService{
   Future<List<IListModel>> fetchLists() async{
     List<IListModel> lists = [];
     await db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists").get().then((querySnapshot) {
-      print("Successfully completed");
       for (var docSnapshot in querySnapshot.docs) {
         lists.add(Modular.get<IListModel>().setFromDocumentSnapshot(docSnapshot));
       }
