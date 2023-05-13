@@ -1,4 +1,5 @@
 import 'package:anime_lists/modules/add_to_list/add_to_list_page.dart';
+import 'package:anime_lists/modules/add_to_list/controllers/add_to_list_controller.dart';
 import 'package:anime_lists/modules/details/controllers/details_controller.dart';
 import 'package:anime_lists/modules/details/pages/details_page.dart';
 import 'package:anime_lists/modules/details/repositories/details_repository.dart';
@@ -10,6 +11,7 @@ class AddToListModule extends Module{
 
   @override
   List<Bind> get binds => [
+    Bind((i) => AddToListController()),
   ];
 
   @override

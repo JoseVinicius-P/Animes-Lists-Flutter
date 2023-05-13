@@ -1,3 +1,5 @@
+import 'package:anime_lists/modules/add_to_list/controllers/add_to_list_controller.dart';
+import 'package:anime_lists/modules/add_to_list/widgets/alert_dialog_add_to_list.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,8 @@ class AddToListPage extends StatefulWidget {
 class _AddToListPageState extends State<AddToListPage> {
   String? _selectedOption = "Segunda";
   List<String> _options = ['Segunda', 'Terça', 'Quarta'];
+  final addToListController = Modular.get<AddToListController>();
+
   var overlayColor = MaterialStateProperty.resolveWith<Color>(
         (Set<MaterialState> states) {
       if (states.contains(MaterialState.pressed)) {
@@ -29,7 +33,7 @@ class _AddToListPageState extends State<AddToListPage> {
       barrierColor: Colors.black.withOpacity(0.4),
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return AlertDialogAddToList();
+        return AlertDialogAddToList(textController: addToListController.textController);
       },
     ) as String;
 
@@ -49,7 +53,7 @@ class _AddToListPageState extends State<AddToListPage> {
         centerTitle: true,
         leading: IconButton(
             onPressed: () => Modular.to.pop(),
-            icon: Icon(Icons.close, color: Colors.white)
+            icon: const Icon(Icons.close, color: Colors.white)
           ),
         actions: [
           Padding(
@@ -224,71 +228,6 @@ class _AddToListPageState extends State<AddToListPage> {
           ),
         ]
       ),
-    );
-  }
-}
-
-class AlertDialogAddToList extends StatelessWidget {
-  final _textController = TextEditingController();
-
-  AlertDialogAddToList({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    var theme =  Theme.of(context);
-    return AlertDialog(
-      backgroundColor: MyColors.backgroundColor,
-      title: Text(
-        'Qual o nome da nova lista?',
-        style: theme.textTheme.titleSmall,
-        textAlign: TextAlign.center,
-      ),
-      content: TextFormField(
-        controller: _textController,
-        //definindo estilo do texto
-        style: const TextStyle(
-            color: MyColors.textColor,
-            fontSize: 15
-        ),
-        cursorColor: MyColors.textColor,
-        //retirando autocorreção de texto
-        autocorrect: false,
-        decoration: InputDecoration(
-          hintText: "Nova lista",
-          hintStyle: theme.textTheme.labelSmall!.copyWith(color: MyColors.textColor.withOpacity(0.2), fontSize: 15),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-          ),
-        ),
-      ),
-      actions: <Widget>[
-        TextButton(
-          child: const Text(
-            'Cancelar',
-            style: TextStyle(
-              color: MyColors.primaryColor,
-            ),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop(null);
-          },
-        ),
-        TextButton(
-          onPressed: (){
-            if(_textController.text.isNotEmpty && _textController.text.trim().isNotEmpty){
-              Navigator.of(context).pop(_textController.text.trim());
-            }
-          },
-          child: const Text(
-            'Criar',
-            style: TextStyle(
-              color: MyColors.primaryColor,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
