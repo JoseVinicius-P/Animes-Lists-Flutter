@@ -1,5 +1,5 @@
 import 'package:anime_lists/modules/add_to_list/controllers/add_to_list_controller.dart';
-import 'package:anime_lists/modules/add_to_list/interfaces/i_list_model.dart';
+import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/modules/add_to_list/widgets/Icon_anime_image.dart';
 import 'package:anime_lists/modules/add_to_list/widgets/alert_dialog_add_to_list.dart';
 import 'package:anime_lists/modules/add_to_list/widgets/save_button.dart';
