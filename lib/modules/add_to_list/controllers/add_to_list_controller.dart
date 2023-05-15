@@ -18,4 +18,11 @@ class AddToListController implements Disposable{
     return await listService.fetchLists();
   }
 
+  void saveAnime(IListModel listModel, int idAnime) async{
+    var isSuccess = await listService.saveAnime(listModel, idAnime);
+    if(isSuccess){
+      Modular.to.pop();
+    }
+  }
+
 }

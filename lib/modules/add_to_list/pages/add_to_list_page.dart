@@ -18,7 +18,7 @@ class AddToListPage extends StatefulWidget {
 }
 
 class _AddToListPageState extends State<AddToListPage> {
-  String? _selectedOption = "Segunda";
+  late IListModel? _selectedOption;
   late List<IListModel> _options;
   final addToListController = Modular.get<AddToListController>();
   late Future<List<IListModel>> futureListModel;
@@ -34,7 +34,10 @@ class _AddToListPageState extends State<AddToListPage> {
   void initState() {
     super.initState();
     futureListModel = addToListController.fetchLists();
-    futureListModel.then((value) => _options = value);
+    futureListModel.then((value) {
+      _options = value;
+      _selectedOption = _options[0];
+    });
   }
 
   Future<void> _showMyDialog() async {
@@ -63,6 +66,7 @@ class _AddToListPageState extends State<AddToListPage> {
 
       setState(() {
         _options.add(listModel);
+        _selectedOption = listModel;
       });
     }
   }
@@ -128,7 +132,7 @@ class _AddToListPageState extends State<AddToListPage> {
                                   _options[index].name,
                                   style: theme.textTheme.labelSmall,
                                 ),
-                                value: _options[index].id,
+                                value: _options[index],
                                 groupValue: _selectedOption,
                                 onChanged: (value) {
                                   setState(() {
@@ -162,7 +166,15 @@ class _AddToListPageState extends State<AddToListPage> {
                           ],
                         ),
                         const SizedBox(height: 70),
-                        SaveButton(),
+                        SaveButton(onTap: () {
+                          try{
+                            if(_selectedOption != null){
+                              addToListController.saveAnime(_selectedOption!, widget.anime.id);
+                            }
+                          }catch(e){
+                            //selected option nula
+                          }
+                        }),
                       ],
                     );
                   }else{

@@ -21,4 +21,38 @@ class ListService implements IListService{
     );
     return lists;
   }
+
+  @override
+  Future<bool> saveAnime(IListModel listModel, int idAnime) async{
+    final anime = <String, int>{
+      "id": idAnime,
+    };
+
+    if(listModel.id == "create"){
+      final batch = db.batch();
+      var userRef = db.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid);
+      batch.set(userRef, {"name": FirebaseAuth.instance.currentUser?.displayName});
+      var listRef = db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists").doc();
+      batch.set(listRef, {"name": listModel.name});
+      var animeRef = db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists/${listRef.id}/Animes").doc(idAnime.toString());
+      batch.set(animeRef, anime);
+      try{
+        await batch.commit();
+        return true;
+      }catch(e){
+        return false;
+      }
+    }else{
+      var animeRef = db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists/${listModel.id}/Animes")
+          .doc(idAnime.toString());
+      try{
+        await animeRef.set(anime);
+        return true;
+      }catch(e){
+        return false;
+      }
+    }
+  }
+
+
 }
