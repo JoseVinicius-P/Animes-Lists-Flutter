@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 class AddToListController implements Disposable{
   final textController = TextEditingController();
   final IListService listService;
+  bool savingInProgress = false;
 
   AddToListController(this.listService);
 
@@ -19,10 +20,13 @@ class AddToListController implements Disposable{
   }
 
   void saveAnime(IListModel listModel, int idAnime) async{
+    savingInProgress = true;
     var isSuccess = await listService.saveAnime(listModel, idAnime);
     if(isSuccess){
       Modular.to.pop();
+      savingInProgress = false;
+    }else{
+      savingInProgress = false;
     }
   }
-
 }

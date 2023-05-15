@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SaveButton extends StatelessWidget {
-  final Function onTap;
+  final Function? onTap;
   const SaveButton({
     super.key, required this.onTap
   });
@@ -15,7 +15,7 @@ class SaveButton extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(25),
       //Se a authenticação estiver sendo feita o botão não funcionará
-      onTap: () => onTap(),
+      onTap: onTap == null ? null : () => onTap!(),
       child: Container(
         height: 50,
         width: 200,
@@ -62,7 +62,7 @@ class SaveButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Salvar',
+                  onTap == null ? 'Salvando' : 'Salvar',
                   style: theme.textTheme.labelMedium?.copyWith(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),

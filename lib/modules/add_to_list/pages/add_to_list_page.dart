@@ -134,9 +134,9 @@ class _AddToListPageState extends State<AddToListPage> {
                                 ),
                                 value: _options[index],
                                 groupValue: _selectedOption,
-                                onChanged: (value) {
+                                onChanged: addToListController.savingInProgress ? null : (value) {
                                   setState(() {
-                                    _selectedOption = value;
+                                    _selectedOption = value as IListModel?;
                                   });
                                 },
                               );
@@ -147,7 +147,7 @@ class _AddToListPageState extends State<AddToListPage> {
                           mainAxisAlignment: snapshot.data!.isEmpty ? MainAxisAlignment.center : MainAxisAlignment.start,
                           children: [
                             TextButton(
-                              onPressed: () => _showMyDialog(),
+                              onPressed: addToListController.savingInProgress ? null : () => _showMyDialog(),
                               style: ButtonStyle(
                                 overlayColor: overlayColor,
                               ),
@@ -166,10 +166,12 @@ class _AddToListPageState extends State<AddToListPage> {
                           ],
                         ),
                         const SizedBox(height: 70),
-                        SaveButton(onTap: () {
+                        SaveButton(onTap: addToListController.savingInProgress ? null : () {
                           try{
                             if(_selectedOption != null){
-                              addToListController.saveAnime(_selectedOption!, widget.anime.id);
+                              setState(() {
+                                addToListController.saveAnime(_selectedOption!, widget.anime.id);
+                              });
                             }
                           }catch(e){
                             //selected option nula
