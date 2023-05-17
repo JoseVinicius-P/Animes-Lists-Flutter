@@ -1,3 +1,5 @@
+import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
+import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +14,14 @@ class ListsPage extends StatefulWidget {
 }
 
 class _ListsPageState extends State<ListsPage> {
+  var listController = Modular.get<ListController>();
+  late Future<List<IListModel>> futureListModel;
+
+  @override
+  void initState() {
+    super.initState();
+    futureListModel = listController.fetchLists();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +107,16 @@ class _ListsPageState extends State<ListsPage> {
                       ],
                     ),
                     const SizedBox(height: 40),
-                    ExpansionPanelListExample(),
+                    FutureBuilder<List<IListModel>>(
+                      future: futureListModel,
+                      builder: (context, snapshot){
+                          if(snapshot.hasData){
+                            return ExpansionPanelListExample(lists: snapshot.data!);
+                          }else{
+                            return SizedBox();
+                          }
+                        }
+                    ),
                     /*Row(
                       children: [
                         Text(
@@ -135,38 +154,42 @@ class _ListsPageState extends State<ListsPage> {
   }
 }
 
-// stores ExpansionPanel state information
 class Item {
   Item({
-    required this.expandedValue,
     required this.headerValue,
     this.isExpanded = false,
   });
 
-  String expandedValue;
   String headerValue;
   bool isExpanded;
 }
 
-List<Item> generateItems(int numberOfItems) {
-  return List<Item>.generate(numberOfItems, (int index) {
+List<Item> generateItems(List<IListModel> lists) {
+  return List<Item>.generate(lists.length, (int index) {
     return Item(
-      headerValue: 'Panel $index',
-      expandedValue: 'This is item number $index',
+      headerValue: lists[index].name,
     );
   });
 }
 
 class ExpansionPanelListExample extends StatefulWidget {
-  const ExpansionPanelListExample({super.key});
+  const ExpansionPanelListExample({super.key, required this.lists});
 
   @override
   State<ExpansionPanelListExample> createState() =>
       _ExpansionPanelListExampleState();
+
+  final List<IListModel> lists;
 }
 
 class _ExpansionPanelListExampleState extends State<ExpansionPanelListExample> {
-  final List<Item> _data = generateItems(8);
+  late List<Item> _itens;
+
+  @override
+  void initState() {
+    _itens = generateItems(widget.lists);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -181,24 +204,22 @@ class _ExpansionPanelListExampleState extends State<ExpansionPanelListExample> {
       expandIconColor: Colors.white.withOpacity(0.5),
       expansionCallback: (int index, bool isExpanded) {
         setState(() {
-          _data[index].isExpanded = !isExpanded;
+          _itens[index].isExpanded = !isExpanded;
         });
       },
-      children: _data.map<ExpansionPanel>((Item item) {
+      children: _itens.map<ExpansionPanel>((Item item) {
         return ExpansionPanel(
           backgroundColor: Colors.transparent,
           headerBuilder: (BuildContext context, bool isExpanded) {
             return Row(
               children: [
                 Text(
-                  'Segunda',
+                  item.headerValue,
                   style: theme.textTheme.labelSmall,
                 ),
                 const SizedBox(width: 5),
                 Icon(Icons.sort, color: Colors.white.withOpacity(0.1)),
               ],
-            );ListTile(
-              title: Text(item.headerValue),
             );
           },
           body: AnimeItemHorizontalResumed(),

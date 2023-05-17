@@ -14,7 +14,7 @@ class HomeModule extends Module{
   List<Bind> get binds => [
     //Injetando dependencia da Classe Controller
     Bind((i) => HomeController()), 
-    Bind((i) => ListController()),
+    Bind((i) => ListController(i())),
     Bind<ISearchRepository>((i) => SearchRepository()),
     Bind((i) => MySearchController(i())),
   ];
