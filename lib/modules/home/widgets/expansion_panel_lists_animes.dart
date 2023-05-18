@@ -1,6 +1,7 @@
 import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
 import 'package:anime_lists/modules/home/models/list_expanded_item.dart';
 import 'package:anime_lists/modules/home/widgets/anime_item_horizontal_resumed.dart';
+import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -40,8 +41,8 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
         setState(() {
           _itens[index].isExpanded = !isExpanded;
         });
-        listController.fetchAnimes(_itens[index].list.id);
-        if(!_itens[index].isAnimesLoad){
+        if(!isExpanded && !_itens[index].isAnimesLoad){
+          print("Entrou");
           _itens[index].setListAnime(listController.fetchAnimes(_itens[index].list.id));
         }
       },
@@ -60,7 +61,26 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
               ],
             );
           },
-          body: AnimeItemHorizontalResumed(),
+          body: FutureBuilder<List<IAnimeModel>>(
+            future: item.getListAnime(),
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  // Define a altura do espaço entre os itens
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const SizedBox(height: 10);
+                  },
+                  itemBuilder: (context, index){
+                    return AnimeItemHorizontalResumed(anime: snapshot.data![index]);
+                  }
+                );
+              }else{
+                return SizedBox();
+              }
+            },
+          ),
           isExpanded: item.isExpanded,
         );
       }).toList(),

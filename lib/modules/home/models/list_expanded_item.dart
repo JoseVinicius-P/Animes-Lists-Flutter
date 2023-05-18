@@ -9,10 +9,14 @@ class ListExpandedItem {
 
   IListModel list;
   bool isExpanded, isAnimesLoad = false;
-  late Future<List<IAnimeModel>> _listAnime;
+  Future<List<IAnimeModel>> _listAnime = Future.value([]);
 
   void setListAnime(Future<List<IAnimeModel>> listAnime){
     _listAnime = listAnime;
     isAnimesLoad = true;
+  }
+
+  Future<List<IAnimeModel>> getListAnime(){
+    return _listAnime;
   }
 }
