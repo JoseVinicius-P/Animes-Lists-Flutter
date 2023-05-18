@@ -8,11 +8,11 @@ class ListExpandedItem {
   });
 
   IListModel list;
-  bool isExpanded, _isAnimesLoad = false;
+  bool isExpanded, isAnimesLoad = false;
   late Future<List<IAnimeModel>> _listAnime;
 
   void setListAnime(Future<List<IAnimeModel>> listAnime){
     _listAnime = listAnime;
-    _isAnimesLoad = true;
+    isAnimesLoad = true;
   }
 }
