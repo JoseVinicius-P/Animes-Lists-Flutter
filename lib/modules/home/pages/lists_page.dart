@@ -1,4 +1,7 @@
 import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
+import 'package:anime_lists/modules/home/models/list_expanded_item.dart';
+import 'package:anime_lists/modules/home/widgets/expansion_panel_lists_animes.dart';
+import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -111,7 +114,7 @@ class _ListsPageState extends State<ListsPage> {
                       future: futureListModel,
                       builder: (context, snapshot){
                           if(snapshot.hasData){
-                            return ExpansionPanelListExample(lists: snapshot.data!);
+                            return ExpansionPanelListsAnimes(lists: snapshot.data!);
                           }else{
                             return SizedBox();
                           }
@@ -150,133 +153,6 @@ class _ListsPageState extends State<ListsPage> {
             )
         )
       ],
-    );
-  }
-}
-
-class Item {
-  Item({
-    required this.headerValue,
-    this.isExpanded = false,
-  });
-
-  String headerValue;
-  bool isExpanded;
-}
-
-List<Item> generateItems(List<IListModel> lists) {
-  return List<Item>.generate(lists.length, (int index) {
-    return Item(
-      headerValue: lists[index].name,
-    );
-  });
-}
-
-class ExpansionPanelListExample extends StatefulWidget {
-  const ExpansionPanelListExample({super.key, required this.lists});
-
-  @override
-  State<ExpansionPanelListExample> createState() =>
-      _ExpansionPanelListExampleState();
-
-  final List<IListModel> lists;
-}
-
-class _ExpansionPanelListExampleState extends State<ExpansionPanelListExample> {
-  late List<Item> _itens;
-
-  @override
-  void initState() {
-    _itens = generateItems(widget.lists);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    return _buildPanel(theme);
-  }
-
-  Widget _buildPanel(ThemeData theme) {
-    return ExpansionPanelList(
-      elevation: 0,
-      dividerColor: Colors.transparent,
-      expandIconColor: Colors.white.withOpacity(0.5),
-      expansionCallback: (int index, bool isExpanded) {
-        setState(() {
-          _itens[index].isExpanded = !isExpanded;
-        });
-      },
-      children: _itens.map<ExpansionPanel>((Item item) {
-        return ExpansionPanel(
-          backgroundColor: Colors.transparent,
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return Row(
-              children: [
-                Text(
-                  item.headerValue,
-                  style: theme.textTheme.labelSmall,
-                ),
-                const SizedBox(width: 5),
-                Icon(Icons.sort, color: Colors.white.withOpacity(0.1)),
-              ],
-            );
-          },
-          body: AnimeItemHorizontalResumed(),
-          isExpanded: item.isExpanded,
-        );
-      }).toList(),
-    );
-  }
-}
-
-class AnimeItemHorizontalResumed extends StatelessWidget {
-  const AnimeItemHorizontalResumed({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-
-    return InkWell(
-      onTap: (){},
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-            child: CachedNetworkImage(
-              imageUrl: 'https:\/\/cdn.myanimelist.net\/images\/anime\/1286\/99889l.jpg',
-              width: 46,
-              height: 70,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(width: 10,),
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Text(
-              'Kimetsu no Yaiba',
-              style: theme.textTheme.labelSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
-              textAlign: TextAlign.start,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-              Text(
-                '2019',
-                style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.4), fontSize: 16),
-                textAlign: TextAlign.start,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              )
-            ],
-          )
-        ],
-      ),
     );
   }
 }
