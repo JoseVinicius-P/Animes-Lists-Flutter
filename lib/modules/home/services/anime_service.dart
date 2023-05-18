@@ -6,11 +6,11 @@ class AnimeService implements IAnimeService{
   final db = FirebaseFirestore.instance;
 
   @override
-  Future<List<String>> fetchIdsAnimes(String idLista) async {
-    List<String> idsAnimes = [];
+  Future<List<int>> fetchIdsAnimes(String idLista) async {
+    List<int> idsAnimes = [];
     await db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists/$idLista/Animes").get().then((querySnapshot) {
       for (var docSnapshot in querySnapshot.docs) {
-        idsAnimes.add(docSnapshot.id);
+        idsAnimes.add(int.parse(docSnapshot.id));
       }
     },
       onError: (e) => print("Error completing: $e"),

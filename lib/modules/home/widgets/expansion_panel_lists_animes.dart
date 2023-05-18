@@ -41,9 +41,9 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
           _itens[index].isExpanded = !isExpanded;
         });
         listController.fetchAnimes(_itens[index].list.id);
-        /*if(!_itens[index].isAnimesLoad){
+        if(!_itens[index].isAnimesLoad){
           _itens[index].setListAnime(listController.fetchAnimes(_itens[index].list.id));
-        }*/
+        }
       },
       children: _itens.map<ExpansionPanel>((ListExpandedItem item) {
         return ExpansionPanel(

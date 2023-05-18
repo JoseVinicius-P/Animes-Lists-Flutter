@@ -1,3 +1,3 @@
 abstract class IAnimeService{
-  Future<List<String>> fetchIdsAnimes(String idLista);
+  Future<List<int>> fetchIdsAnimes(String idLista);
 }

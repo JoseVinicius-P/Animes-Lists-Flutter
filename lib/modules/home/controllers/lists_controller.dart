@@ -4,12 +4,14 @@ import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_service.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:anime_lists/modules/home/interfaces/i_anime_service.dart';
+import 'package:anime_lists/modules/home/interfaces/i_anime_repository.dart';
 
 class ListController implements Disposable{
   final IListService listService;
   final IAnimeService animeService;
+  final IAnimeRepository animeRepository;
 
-  ListController(this.listService, this.animeService);
+  ListController(this.listService, this.animeService, this.animeRepository);
 
   @override
   void dispose() {
@@ -28,8 +30,14 @@ class ListController implements Disposable{
     });
   }
 
-  Future<void> fetchAnimes(String idLista) async {
-    List<String> idsAnimes = await animeService.fetchIdsAnimes(idLista);
-    print(idsAnimes);
+  Future<List<IAnimeModel>> fetchAnimes(String idLista) async {
+    List<int> idsAnimes = await animeService.fetchIdsAnimes(idLista);
+    List<IAnimeModel> animes = [];
+
+    for(int idAnime in idsAnimes){
+      animes.add(await animeRepository.fetchAnime(idAnime));
+    }
+
+    return animes;
   }
 }
