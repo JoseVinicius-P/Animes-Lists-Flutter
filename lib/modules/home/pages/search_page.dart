@@ -64,6 +64,7 @@ class _SearchPageState extends State<SearchPage> {
                          },
                          itemBuilder: (context, index){
                            return GestureDetector(
+                             behavior: HitTestBehavior.translucent,
                              onTap: () => searchController.toDetailsModule(snapshot.data![index].id),
                              onLongPress: () => searchController.toAddToListModule(snapshot.data![index]),
                              child: AnimeItemHorizontal(anime: snapshot.data![index]),
