@@ -16,6 +16,10 @@ class MySearchController implements Disposable{
     Modular.to.pushNamed("./details/", arguments: id);
   }
 
+  void toAddToListModule(IAnimeModel anime){
+    Modular.to.pushNamed('./add_to_list/', arguments: anime);
+  }
+
   @override
   void dispose() {
 
