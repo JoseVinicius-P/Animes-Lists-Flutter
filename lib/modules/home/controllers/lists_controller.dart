@@ -1,3 +1,4 @@
+import 'package:anime_lists/modules/home/interfaces/i_list_expanded_item.dart';
 import 'package:anime_lists/modules/home/models/list_expanded_item.dart';
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
@@ -22,11 +23,11 @@ class ListController implements Disposable{
     return await listService.fetchLists();
   }
 
-  List<ListExpandedItem> generateItems(List<IListModel> lists) {
-    return List<ListExpandedItem>.generate(lists.length, (int index) {
-      return ListExpandedItem(
-        list: lists[index],
-      );
+  List<IListExpandedItem> generateItems(List<IListModel> lists) {
+    return List<IListExpandedItem>.generate(lists.length, (int index) {
+      IListExpandedItem listExpandedItem = Modular.get<IListExpandedItem>();
+      listExpandedItem.setList(lists[index]);
+      return listExpandedItem;
     });
   }
 

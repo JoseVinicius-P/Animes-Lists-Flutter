@@ -1,4 +1,5 @@
 import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
+import 'package:anime_lists/modules/home/interfaces/i_list_expanded_item.dart';
 import 'package:anime_lists/modules/home/models/list_expanded_item.dart';
 import 'package:anime_lists/modules/home/widgets/anime_item_horizontal_resumed.dart';
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
@@ -17,7 +18,7 @@ class ExpansionPanelListsAnimes extends StatefulWidget {
 }
 
 class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
-  late List<ListExpandedItem> _itens;
+  late List<IListExpandedItem> _itens;
   var listController = Modular.get<ListController>();
 
   @override
@@ -46,7 +47,7 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
           _itens[index].setListAnime(listController.fetchAnimes(_itens[index].list.id));
         }
       },
-      children: _itens.map<ExpansionPanel>((ListExpandedItem item) {
+      children: _itens.map<ExpansionPanel>((IListExpandedItem item) {
         return ExpansionPanel(
           backgroundColor: Colors.transparent,
           headerBuilder: (BuildContext context, bool isExpanded) {
