@@ -1,5 +1,6 @@
 import 'package:anime_lists/modules/details/widgets/add_to_list_button.dart';
 import 'package:anime_lists/modules/details/controllers/details_controller.dart';
+import 'package:anime_lists/modules/home/widgets/shimmer_details_anime.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -217,7 +218,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ],
                 );
               }else{
-                return const SizedBox();
+                return const ShimmerDetailsAnime();
               }
             }
           ),
