@@ -18,7 +18,10 @@ class AnimeService implements IAnimeService{
       var userRef = db.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid);
       batch.set(userRef, {"name": FirebaseAuth.instance.currentUser?.displayName});
       var listRef = db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists").doc();
-      batch.set(listRef, {"name": listModel.name});
+      batch.set(listRef, {
+        "name": listModel.name,
+        "qt_animes": 1,
+      });
       var animeRef = db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists/${listRef.id}/Animes").doc(idAnime.toString());
       batch.set(animeRef, anime);
       try{
@@ -28,10 +31,16 @@ class AnimeService implements IAnimeService{
         return false;
       }
     }else{
+      final batch = db.batch();
+      var listRef = db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists").doc(listModel.id);
+      batch.update(listRef, {
+        "qt_animes": FieldValue.increment(1),
+      });
       var animeRef = db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists/${listModel.id}/Animes")
           .doc(idAnime.toString());
+      batch.set(animeRef, anime);
       try{
-        await animeRef.set(anime);
+        await batch.commit();
         return true;
       }catch(e){
         return false;
