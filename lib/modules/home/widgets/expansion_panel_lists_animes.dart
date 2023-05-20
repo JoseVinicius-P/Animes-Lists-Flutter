@@ -54,7 +54,7 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
               children: [
                 Text(
                   item.list.name,
-                  style: theme.textTheme.labelSmall,
+                  style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
                 ),
                 const SizedBox(width: 5),
                 Icon(Icons.sort, color: Colors.white.withOpacity(0.1)),
@@ -77,7 +77,7 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
                   }
                 );
               }else{
-                return SizedBox();
+                return const SizedBox();
               }
             },
           ),
