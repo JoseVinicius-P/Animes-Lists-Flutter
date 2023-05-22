@@ -34,4 +34,8 @@ class ListController implements Disposable{
   Future<List<IAnimeModel>> fetchAnimes(String idLista) async {
     return animeService.fetchAnimes(idLista);
   }
+
+  void toDetailsModule(int id){
+    Modular.to.pushNamed("./details/", arguments: id);
+  }
 }

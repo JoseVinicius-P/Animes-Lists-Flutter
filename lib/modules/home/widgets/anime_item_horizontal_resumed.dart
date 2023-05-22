@@ -13,40 +13,37 @@ class AnimeItemHorizontalResumed extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
-    return InkWell(
-      onTap: (){},
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-            child: CachedNetworkImage(
-              imageUrl: anime.main_picture,
-              width: 46,
-              height: 70,
-              fit: BoxFit.cover,
-            ),
+    return Row(
+      children: [
+        ClipRRect(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10),
           ),
-          const SizedBox(width: 10,),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  anime.title,
-                  style: theme.textTheme.labelSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
-                  textAlign: TextAlign.start,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+          child: CachedNetworkImage(
+            imageUrl: anime.main_picture,
+            width: 46,
+            height: 70,
+            fit: BoxFit.cover,
+          ),
+        ),
+        const SizedBox(width: 10,),
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                anime.title,
+                style: theme.textTheme.labelSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+                textAlign: TextAlign.start,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

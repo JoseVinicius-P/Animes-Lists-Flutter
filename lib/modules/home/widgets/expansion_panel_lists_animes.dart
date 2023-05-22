@@ -76,7 +76,10 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
                     return const SizedBox(height: 10);
                   },
                   itemBuilder: (context, index){
-                    return AnimeItemHorizontalResumed(anime: snapshot.data![index]);
+                    return GestureDetector(
+                      onTap: () => listController.toDetailsModule(snapshot.data![index].id),
+                      child: AnimeItemHorizontalResumed(anime: snapshot.data![index]),
+                    );
                   }
                 );
               }else{
