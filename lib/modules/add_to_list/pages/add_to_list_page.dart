@@ -170,7 +170,7 @@ class _AddToListPageState extends State<AddToListPage> {
                           try{
                             if(_selectedOption != null){
                               setState(() {
-                                addToListController.saveAnime(_selectedOption!, widget.anime.id);
+                                addToListController.saveAnime(_selectedOption!, widget.anime);
                               });
                             }
                           }catch(e){

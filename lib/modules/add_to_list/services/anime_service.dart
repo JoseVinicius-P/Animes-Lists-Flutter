@@ -1,3 +1,4 @@
+import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/modules/add_to_list/interfaces/i_anime_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,9 +9,11 @@ class AnimeService implements IAnimeService{
   final db = FirebaseFirestore.instance;
 
   @override
-  Future<bool> saveAnime(IListModel listModel, int idAnime) async{
-    final anime = <String, int>{
-      "id": idAnime,
+  Future<bool> saveAnime(IListModel listModel, IAnimeModel animeModel) async{
+    final anime = <String, dynamic>{
+      "id": animeModel.id,
+      "title": animeModel.title,
+      "main_picture": animeModel.main_picture,
     };
 
     if(listModel.id == "create"){
@@ -22,7 +25,7 @@ class AnimeService implements IAnimeService{
         "name": listModel.name,
         "qt_animes": 1,
       });
-      var animeRef = db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists/${listRef.id}/Animes").doc(idAnime.toString());
+      var animeRef = db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists/${listRef.id}/Animes").doc(animeModel.id.toString());
       batch.set(animeRef, anime);
       try{
         await batch.commit();
@@ -37,7 +40,7 @@ class AnimeService implements IAnimeService{
         "qt_animes": FieldValue.increment(1),
       });
       var animeRef = db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists/${listModel.id}/Animes")
-          .doc(idAnime.toString());
+          .doc(animeModel.id.toString());
       batch.set(animeRef, anime);
       try{
         await batch.commit();

@@ -1,3 +1,4 @@
+import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/modules/add_to_list/interfaces/i_anime_service.dart';
 import 'package:anime_lists/shared/interfaces/i_list_service.dart';
@@ -21,9 +22,9 @@ class AddToListController implements Disposable{
     return await listService.fetchLists();
   }
 
-  void saveAnime(IListModel listModel, int idAnime) async{
+  void saveAnime(IListModel listModel, IAnimeModel animeModel) async{
     savingInProgress = true;
-    var isSuccess = await animeService.saveAnime(listModel, idAnime);
+    var isSuccess = await animeService.saveAnime(listModel, animeModel);
     if(isSuccess){
       Modular.to.pop();
       savingInProgress = false;
