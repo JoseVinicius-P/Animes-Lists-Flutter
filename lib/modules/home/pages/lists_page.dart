@@ -8,6 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ListsPage extends StatefulWidget {
   const ListsPage({Key? key}) : super(key: key);
@@ -116,7 +117,21 @@ class _ListsPageState extends State<ListsPage> {
                           if(snapshot.hasData){
                             return ExpansionPanelListsAnimes(lists: snapshot.data!);
                           }else{
-                            return SizedBox();
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey.shade900.withOpacity(0.5),
+                              highlightColor: MyColors.backgroundColor,
+                              enabled: true,
+                              child:  Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: const BoxDecoration(
+                                    color: MyColors.backgroundColor,
+                                ),
+                                child: Text(
+                                  "Minha lista",
+                                  style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
+                                ),
+                              ),
+                            );
                           }
                         }
                     ),

@@ -4,8 +4,11 @@ import 'package:anime_lists/modules/home/models/list_expanded_item.dart';
 import 'package:anime_lists/modules/home/widgets/anime_item_horizontal_resumed.dart';
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
+import 'package:anime_lists/shared/models/anime_model.dart';
+import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ExpansionPanelListsAnimes extends StatefulWidget {
   const ExpansionPanelListsAnimes({super.key, required this.lists});
@@ -43,7 +46,6 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
           _itens[index].isExpanded = !isExpanded;
         });
         if(!isExpanded && !_itens[index].isAnimesLoad){
-          print("Entrou");
           _itens[index].setListAnime(listController.fetchAnimes(_itens[index].list.id));
         }
       },
