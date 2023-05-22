@@ -1,6 +1,7 @@
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/utilities/day_of_week_interpreter.dart';
 import 'package:anime_lists/shared/utilities/status_interpreter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AnimeModel implements IAnimeModel{
 
@@ -47,6 +48,14 @@ class AnimeModel implements IAnimeModel{
     studio = json['studios']?[0]['name'] ?? '';
     start_date = DateTime.parse(json['start_date']);
     mean = json['mean'] ?? 0.0;
+    return this;
+  }
+
+  @override
+  IAnimeModel setFromDocumentSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot) {
+    title = docSnapshot['title'];
+    main_picture = docSnapshot['main_picture'];
+    id = int.parse(docSnapshot.id);
     return this;
   }
 

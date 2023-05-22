@@ -32,13 +32,6 @@ class ListController implements Disposable{
   }
 
   Future<List<IAnimeModel>> fetchAnimes(String idLista) async {
-    List<int> idsAnimes = await animeService.fetchIdsAnimes(idLista);
-    List<IAnimeModel> animes = [];
-
-    for(int idAnime in idsAnimes){
-      animes.add(await animeRepository.fetchAnime(idAnime));
-    }
-
-    return animes;
+    return animeService.fetchAnimes(idLista);
   }
 }
