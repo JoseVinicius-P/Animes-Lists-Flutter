@@ -35,7 +35,10 @@ class ListController implements Disposable{
     return animeService.fetchAnimes(idLista);
   }
 
-  void toDetailsModule(int id){
-    Modular.to.pushNamed("./details/", arguments: id);
+  void toDetailsModule(int id, String idList){
+    Modular.to.pushNamed("./details/", arguments: {
+      'id': id,
+      'idList': idList,
+    });
   }
 }

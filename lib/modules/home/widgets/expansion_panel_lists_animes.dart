@@ -77,7 +77,7 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
                   },
                   itemBuilder: (context, index){
                     return GestureDetector(
-                      onTap: () => listController.toDetailsModule(snapshot.data![index].id),
+                      onTap: () => listController.toDetailsModule(snapshot.data![index].id, item.list.id),
                       child: AnimeItemHorizontalResumed(anime: snapshot.data![index]),
                     );
                   }

@@ -10,10 +10,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class DetailsPage extends StatefulWidget {
   final int id;
+  final String? idList;
 
   const DetailsPage({
     Key? key,
-    required this.id,
+    required this.id, required this.idList,
   }) : super(key: key);
 
   @override
