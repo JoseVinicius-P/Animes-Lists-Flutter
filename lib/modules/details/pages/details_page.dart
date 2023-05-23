@@ -9,12 +9,12 @@ import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class DetailsPage extends StatefulWidget {
-  final int id;
+  final int idAnime;
   final String? idList;
 
   const DetailsPage({
     Key? key,
-    required this.id, required this.idList,
+    required this.idAnime, required this.idList,
   }) : super(key: key);
 
   @override
@@ -25,12 +25,14 @@ class _DetailsPageState extends State<DetailsPage> {
   final detailsController = Modular.get<DetailsController>();
   late Future<IAnimeModel> futureAnime;
   late IAnimeModel anime;
+  String? idList;
 
   @override
   void initState() {
     super.initState();
-    futureAnime = detailsController.getAnimeDetails(widget.id);
+    futureAnime = detailsController.getAnimeDetails(widget.idAnime);
     futureAnime.then((value) => anime = value);
+    idList = widget.idList;
   }
 
   @override
@@ -49,6 +51,23 @@ class _DetailsPageState extends State<DetailsPage> {
           )
           ]
         ),
+        actions: [
+          Visibility(
+            visible: idList != null,
+            child: IconButton(
+              icon: const Icon(
+                Icons.bookmark,
+                size: 30,
+              ),
+              onPressed: () {
+                detailsController.deleteAnime(widget.idAnime.toString(), idList!);
+                setState(() {
+                  idList = null;
+                });
+              },
+            ),
+          )
+        ],
         backgroundColor: Colors.transparent,
         forceMaterialTransparency: true,
       ),
