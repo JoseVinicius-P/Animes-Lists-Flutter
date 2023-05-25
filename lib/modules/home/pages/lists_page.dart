@@ -114,54 +114,51 @@ class _ListsPageState extends State<ListsPage> {
                     FutureBuilder<List<IListModel>>(
                       future: futureListModel,
                       builder: (context, snapshot){
-                          if(snapshot.hasData){
+                        if(snapshot.connectionState == ConnectionState.done){
+                          if(snapshot.data!.isNotEmpty){
                             return ExpansionPanelListsAnimes(lists: snapshot.data!);
                           }else{
-                            return Shimmer.fromColors(
-                              baseColor: Colors.grey.shade900.withOpacity(0.5),
-                              highlightColor: MyColors.backgroundColor,
-                              enabled: true,
-                              child:  Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: const BoxDecoration(
-                                    color: MyColors.backgroundColor,
+                            return Column(
+                              children: [
+                                Icon(
+                                  Icons.playlist_remove_rounded,
+                                  color: Colors.white.withOpacity(0.5),
+                                  size: 35,
                                 ),
-                                child: Text(
-                                  "Minha lista",
-                                  style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Você ainda não tem nenhuma lista!',
+                                      style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
                                 ),
-                              ),
+                              ],
                             );
                           }
+                        }else{
+                          return Shimmer.fromColors(
+                            baseColor: Colors.grey.shade900.withOpacity(0.5),
+                            highlightColor: MyColors.backgroundColor,
+                            enabled: true,
+                            child:  Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: const BoxDecoration(
+                                color: MyColors.backgroundColor,
+                              ),
+                              child: Text(
+                                "Minha lista",
+                                style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
+                              ),
+                            ),
+                          );
                         }
+                      }
                     ),
-                    /*Row(
-                      children: [
-                        Text(
-                          'Segunda',
-                          style: theme.textTheme.labelSmall,
-                        ),
-                        const SizedBox(width: 5),
-                        Icon(Icons.sort, color: Colors.white.withOpacity(0.1)),
-                      ],
-                    ),*/
-                    /*Icon(
-                      Icons.playlist_remove_rounded,
-                      color: Colors.white.withOpacity(0.5),
-                      size: 35,
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Você ainda não tem nenhuma lista!',
-                          style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),*/
                   ],
                 ),
               ),
