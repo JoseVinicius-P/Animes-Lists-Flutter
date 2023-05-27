@@ -1,10 +1,8 @@
 import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
-import 'package:anime_lists/modules/home/models/list_expanded_item.dart';
 import 'package:anime_lists/modules/home/widgets/expansion_panel_lists_animes.dart';
-import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
-import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -19,12 +17,10 @@ class ListsPage extends StatefulWidget {
 
 class _ListsPageState extends State<ListsPage> {
   var listController = Modular.get<ListController>();
-  late Future<List<IListModel>> futureListModel;
 
   @override
   void initState() {
     super.initState();
-    futureListModel = listController.fetchLists();
   }
 
   @override
@@ -111,36 +107,17 @@ class _ListsPageState extends State<ListsPage> {
                       ],
                     ),
                     const SizedBox(height: 40),
-                    FutureBuilder<List<IListModel>>(
-                      future: futureListModel,
-                      builder: (context, snapshot){
-                        if(snapshot.connectionState == ConnectionState.done){
-                          if(snapshot.data!.isNotEmpty){
-                            return ExpansionPanelListsAnimes(lists: snapshot.data!);
-                          }else{
-                            return Column(
-                              children: [
-                                Icon(
-                                  Icons.playlist_remove_rounded,
-                                  color: Colors.white.withOpacity(0.5),
-                                  size: 35,
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Você ainda não tem nenhuma lista!',
-                                      style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            );
-                          }
-                        }else{
+                    StreamBuilder<QuerySnapshot>(
+                      stream: listController.fetchLists(),
+                      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return Text(
+                            'Algo saiu errado ):',
+                            style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
+                            textAlign: TextAlign.center,
+                          );
+                        }
+                        if (snapshot.connectionState == ConnectionState.waiting) {
                           return Shimmer.fromColors(
                             baseColor: Colors.grey.shade900.withOpacity(0.5),
                             highlightColor: MyColors.backgroundColor,
@@ -157,7 +134,32 @@ class _ListsPageState extends State<ListsPage> {
                             ),
                           );
                         }
-                      }
+                        if(snapshot.data != null && snapshot.data!.docs.isNotEmpty){
+                          return ExpansionPanelListsAnimes(lists: listController.parseListModel(snapshot.data!.docs.cast()));
+                        }else{
+                          return Column(
+                            children: [
+                              Icon(
+                                Icons.playlist_remove_rounded,
+                                color: Colors.white.withOpacity(0.5),
+                                size: 35,
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Você ainda não tem nenhuma lista!',
+                                    style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        }
+                      },
                     ),
                   ],
                 ),
