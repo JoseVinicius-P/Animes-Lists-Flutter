@@ -29,7 +29,7 @@ class ListController implements Disposable{
     });
   }
 
-  List<IListModel> parseListModel(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs){
+  List<IListModel> parseToListOfListModel(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs){
     List<IListModel> lists = [];
     for (var docSnapshot in docs) {
       lists.add(Modular.get<IListModel>().setFromDocumentSnapshot(docSnapshot));
@@ -37,12 +37,16 @@ class ListController implements Disposable{
     return lists;
   }
 
-  Future<List<IAnimeModel>> fetchAnimes(String idLista) async {
+  IAnimeModel parseToAnimeModel(QueryDocumentSnapshot<Map<String, dynamic>> doc){
+    return Modular.get<IAnimeModel>().setFromDocumentSnapshot(doc);
+  }
+
+  Stream<QuerySnapshot> fetchAnimes(String idLista){
     return animeService.fetchAnimes(idLista);
   }
 
   Stream<QuerySnapshot> fetchLists(){
-    return listService.fetchLists();
+    return listService.fetchStreamLists();
   }
 
   void toDetailsModule(int id, String idList){

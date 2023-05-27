@@ -135,7 +135,7 @@ class _ListsPageState extends State<ListsPage> {
                           );
                         }
                         if(snapshot.data != null && snapshot.data!.docs.isNotEmpty){
-                          return ExpansionPanelListsAnimes(lists: listController.parseListModel(snapshot.data!.docs.cast()));
+                          return ExpansionPanelListsAnimes(lists: listController.parseToListOfListModel(snapshot.data!.docs.cast()));
                         }else{
                           return Column(
                             children: [

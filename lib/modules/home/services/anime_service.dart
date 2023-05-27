@@ -8,15 +8,7 @@ class AnimeService implements IAnimeService{
   final db = FirebaseFirestore.instance;
 
   @override
-  Future<List<IAnimeModel>> fetchAnimes(String idLista) async {
-    List<IAnimeModel> animes = [];
-    await db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists/$idLista/Animes").get().then((querySnapshot) {
-      for (var docSnapshot in querySnapshot.docs) {
-        animes.add(Modular.get<IAnimeModel>().setFromDocumentSnapshot(docSnapshot));
-      }
-    },
-      onError: (e) => print("Error completing: $e"),
-    );
-    return animes;
+  Stream<QuerySnapshot> fetchAnimes(String idLista) {
+    return FirebaseFirestore.instance.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists/$idLista/Animes").snapshots();
   }
 }

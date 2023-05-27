@@ -1,6 +1,7 @@
 import 'package:anime_lists/modules/home/interfaces/i_list_expanded_item.dart';
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ListExpandedItem implements IListExpandedItem{
 
@@ -8,7 +9,7 @@ class ListExpandedItem implements IListExpandedItem{
   late IListModel list;
   @override
   bool isExpanded = false, isAnimesLoad = false;
-  Future<List<IAnimeModel>> _listAnime = Future.value([]);
+  Stream<QuerySnapshot> _streamListAnime = const Stream.empty();
 
   ListExpandedItem({
     required this.list,
@@ -19,14 +20,14 @@ class ListExpandedItem implements IListExpandedItem{
   ListExpandedItem.empty();
 
   @override
-  void setListAnime(Future<List<IAnimeModel>> listAnime){
-    _listAnime = listAnime;
+  void setStreamListAnime(Stream<QuerySnapshot> streamListAnime){
+    _streamListAnime = streamListAnime;
     isAnimesLoad = true;
   }
 
   @override
-  Future<List<IAnimeModel>> getListAnime(){
-    return _listAnime;
+  Stream<QuerySnapshot> getStreamListAnime(){
+    return _streamListAnime;
   }
 
   @override

@@ -6,6 +6,7 @@ import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/shared/models/anime_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shimmer/shimmer.dart';
@@ -46,7 +47,7 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
           _itens[index].isExpanded = !isExpanded;
         });
         if(!isExpanded && !_itens[index].isAnimesLoad){
-          _itens[index].setListAnime(listController.fetchAnimes(_itens[index].list.id));
+          _itens[index].setStreamListAnime(listController.fetchAnimes(_itens[index].list.id));
         }
       },
       children: _itens.map<ExpansionPanel>((IListExpandedItem item) {
@@ -64,7 +65,55 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
               ],
             );
           },
-          body: FutureBuilder<List<IAnimeModel>>(
+          body: StreamBuilder<QuerySnapshot>(
+            stream: item.getStreamListAnime(),
+            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return Text(
+                  'Algo saiu errado ):',
+                  style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
+                  textAlign: TextAlign.center,
+                );
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Shimmer.fromColors(
+                  baseColor: Colors.grey.shade900.withOpacity(0.5),
+                  highlightColor: MyColors.backgroundColor,
+                  enabled: true,
+                  child:  Container(
+                    width: MediaQuery.of(context).size.width,
+                    decoration: const BoxDecoration(
+                      color: MyColors.backgroundColor,
+                    ),
+                    child: Text(
+                      "Minha lista",
+                      style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
+                    ),
+                  ),
+                );
+              }
+              if(snapshot.data != null && snapshot.data!.docs.isNotEmpty){
+                return ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.docs.length,
+                    // Define a altura do espaço entre os itens
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox(height: 10);
+                    },
+                    itemBuilder: (context, index){
+                      var anime = listController.parseToAnimeModel(snapshot.data!.docs[index] as QueryDocumentSnapshot<Map<String, dynamic>>);
+                      return GestureDetector(
+                        onTap: () => listController.toDetailsModule(anime.id, item.list.id),
+                        child: AnimeItemHorizontalResumed(anime: anime),
+                      );
+                    }
+                );
+              }else{
+                return SizedBox();
+              }
+            },
+          ),
+          /*FutureBuilder<List<IAnimeModel>>(
             future: item.getListAnime(),
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -86,7 +135,7 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
                 return const SizedBox();
               }
             },
-          ),
+          ),*/
           isExpanded: item.isExpanded,
         );
       }).toList(),

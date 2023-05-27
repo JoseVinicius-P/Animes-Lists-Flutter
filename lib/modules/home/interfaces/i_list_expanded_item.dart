@@ -1,14 +1,15 @@
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class IListExpandedItem {
 
   late IListModel list;
   late bool isExpanded, isAnimesLoad;
-  late Future<List<IAnimeModel>> _listAnime;
+  late Stream<QuerySnapshot> _streamListAnime;
 
-  void setListAnime(Future<List<IAnimeModel>> listAnime);
+  void setStreamListAnime(Stream<QuerySnapshot> listAnime);
   void setList(IListModel list);
 
-  Future<List<IAnimeModel>> getListAnime();
+  Stream<QuerySnapshot> getStreamListAnime();
 }

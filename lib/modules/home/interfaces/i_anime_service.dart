@@ -1,5 +1,6 @@
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class IAnimeService{
-  Future<List<IAnimeModel>> fetchAnimes(String idLista);
+  Stream<QuerySnapshot> fetchAnimes(String idLista);
 }
