@@ -31,9 +31,16 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
     super.initState();
   }
 
+  void atualizarItens(){
+    if(widget.lists.length != _itens.length){
+      _itens = listController.generateItems(widget.lists);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    atualizarItens();
     return _buildPanel(theme);
   }
 
