@@ -104,6 +104,16 @@ class _ListsPageState extends State<ListsPage> {
                             )
                           ],
                         ),
+                        const Spacer(),
+                        IconButton(
+                          onPressed: (){
+                            listController.signOut();
+                          },
+                          icon: Icon(
+                            Icons.logout_rounded,
+                            color: Colors.white.withOpacity(0.8),
+                          ),
+                        )
                       ],
                     ),
                     const SizedBox(height: 40),
@@ -126,6 +136,9 @@ class _ListsPageState extends State<ListsPage> {
                               width: MediaQuery.of(context).size.width,
                               decoration: const BoxDecoration(
                                 color: MyColors.backgroundColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
                               ),
                               child: Text(
                                 "Minha lista",

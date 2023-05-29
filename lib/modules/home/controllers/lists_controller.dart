@@ -5,6 +5,7 @@ import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:anime_lists/modules/home/interfaces/i_anime_service.dart';
 import 'package:anime_lists/modules/home/interfaces/i_anime_repository.dart';
@@ -54,5 +55,11 @@ class ListController implements Disposable{
       'id': id,
       'idList': idList,
     });
+  }
+
+  void signOut() async {
+    await FirebaseAuth.instance.signOut();
+    Modular.to.popUntil((route) => route.isFirst);
+    Modular.to.navigate('/');
   }
 }
