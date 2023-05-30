@@ -1,5 +1,6 @@
 import 'package:anime_lists/modules/login/controllers/login_controller.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -74,10 +75,14 @@ class GoogleButton extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   const SizedBox(width: 5),
-                  Text(
-                    'Entrar com o google',
-                    style: theme.textTheme.labelMedium,
-                    textAlign: TextAlign.center,
+                  Expanded(
+                    child: AutoSizeText(
+                      maxLines: 1,
+                      minFontSize: 12,
+                      'Entrar com o google',
+                      style: theme.textTheme.labelMedium,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               ),
