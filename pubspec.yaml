@@ -51,6 +51,8 @@ dependencies:
   cloud_firestore: ^4.7.0
   #Para simular vários tamanhos de tela
   device_preview: ^1.1.0
+  #Para facilitar a implementação da responsividade
+  responsive_builder: ^0.7.0
 
 
 dev_dependencies:
