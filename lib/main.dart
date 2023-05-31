@@ -15,7 +15,7 @@ Future<void> main() async{
   );
   runApp(
     DevicePreview(
-      enabled: false,
+      enabled: !kReleaseMode,
       builder: (context) => ResponsiveApp(
           builder: (context) => ModularApp(module: AppModule(), child: AppWidget())
       )

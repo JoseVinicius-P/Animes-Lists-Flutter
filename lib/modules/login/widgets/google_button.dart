@@ -82,6 +82,7 @@ class GoogleButton extends StatelessWidget {
                       'Entrar com o google',
                       style: theme.textTheme.labelMedium,
                       textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
