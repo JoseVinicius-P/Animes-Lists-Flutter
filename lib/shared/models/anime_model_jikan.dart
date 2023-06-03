@@ -1,5 +1,6 @@
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/utilities/day_of_week_interpreter.dart';
+import 'package:anime_lists/shared/utilities/rating_interpreter.dart';
 import 'package:anime_lists/shared/utilities/status_interpreter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -47,11 +48,10 @@ class AnimeModelJikan implements IAnimeModel{
     day_of_the_week = DayOfWeekInterpreter.getNameOfWeekDay(json['broadcast']?['day'] ?? '');
     start_date = DateTime.parse(json['aired']['from']);
     start_time = json['broadcast']?['time'] ?? '';
-    rating = json['rating'] ?? '';
+    rating = RatingInterpreter.getRating(json['rating'] ?? '');
     try{
       studio = json['studios']?[0]['name'] ?? ' ';
     }catch (e){
-      print(e);
       studio = '';
     }
     return this;
