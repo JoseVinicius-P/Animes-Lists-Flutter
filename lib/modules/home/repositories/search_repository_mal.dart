@@ -7,7 +7,7 @@ import 'package:anime_lists/modules/home/interfaces/i_search_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
 
-class SearchRepository implements Disposable, ISearchRepository{
+class SearchRepositoryMal implements Disposable, ISearchRepository{
   Timer? _delay;
 
   @override
