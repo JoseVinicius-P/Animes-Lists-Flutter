@@ -52,28 +52,53 @@ class _SearchPageState extends State<SearchPage> {
                   key: key,
                   future: futureListAnimes,
                   builder: (context, snapshot){
-                   if(snapshot.hasData){
-                     return Expanded(
-                       child: ListView.separated(
-                         shrinkWrap: true,
-                         scrollDirection: Axis.vertical,
-                         itemCount: snapshot.data?.length ?? 0,
-                         // Define a altura do espaço entre os itens
-                         separatorBuilder: (BuildContext context, int index) {
-                             return const SizedBox(height: 20);
-                         },
-                         itemBuilder: (context, index){
-                           return GestureDetector(
-                             behavior: HitTestBehavior.translucent,
-                             onTap: () => searchController.toDetailsModule(snapshot.data![index].id),
-                             onLongPress: () => searchController.toAddToListModule(snapshot.data![index]),
-                             child: AnimeItemHorizontal(anime: snapshot.data![index]),
-                           );
-                         }
-                       ),
-                     );
-                   }else{
-                     return const ShimmerSearchAnime();
+                    if(snapshot.connectionState == ConnectionState.waiting){
+                      return const ShimmerSearchAnime();
+                    }else{
+                      if(snapshot.data!.isNotEmpty){
+                        return Expanded(
+                          child: ListView.separated(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: snapshot.data?.length ?? 0,
+                              // Define a altura do espaço entre os itens
+                              separatorBuilder: (BuildContext context, int index) {
+                                return const SizedBox(height: 20);
+                              },
+                              itemBuilder: (context, index){
+                                return GestureDetector(
+                                  behavior: HitTestBehavior.translucent,
+                                  onTap: () => searchController.toDetailsModule(snapshot.data![index].id),
+                                  onLongPress: () => searchController.toAddToListModule(snapshot.data![index]),
+                                  child: AnimeItemHorizontal(anime: snapshot.data![index]),
+                                );
+                              }
+                          ),
+                        );
+                      }else{
+                        return Column(
+                          children: [
+                            const SizedBox(height: 30),
+                            Icon(
+                              Icons.search_off,
+                              color: Colors.white.withOpacity(0.5),
+                              size: 35,
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Nenhum anime encontrato!',
+                                  style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      }
                     }
                   }
                 )
