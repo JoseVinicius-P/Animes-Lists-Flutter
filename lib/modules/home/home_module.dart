@@ -9,8 +9,7 @@ import 'package:anime_lists/modules/home/models/list_expanded_item.dart';
 import 'package:anime_lists/modules/home/pages/home_page.dart';
 import 'package:anime_lists/modules/details/details_module.dart';
 import 'package:anime_lists/modules/home/controllers/my_search_controller.dart';
-import 'package:anime_lists/modules/home/repositories/anime_repository_mal.dart';
-import 'package:anime_lists/modules/home/repositories/search_repository_mal.dart';
+import 'package:anime_lists/modules/home/repositories/search_repository_jikan.dart';
 import 'package:anime_lists/modules/home/services/anime_service.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -21,10 +20,10 @@ class HomeModule extends Module{
     //Injetando dependencia da Classe Controller
     Bind((i) => HomeController()),
     Bind<IAnimeService>((i) => AnimeService()),
-    Bind<IAnimeRepository>((i) => AnimeRepositoryMal()),
     Bind.factory<IListExpandedItem>((i) => ListExpandedItem.empty()),
-    Bind((i) => ListController(i(), i(), i())),
-    Bind<ISearchRepository>((i) => SearchRepositoryMal()),
+    Bind<ISearchRepository>((i) => SearchRepositoryJikan()),
+    Bind((i) => ListController(i(), i())),
+    /*Bind<ISearchRepository>((i) => SearchRepositoryMal()),*/
     Bind((i) => MySearchController(i())),
   ];
 

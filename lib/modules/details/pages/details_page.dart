@@ -155,7 +155,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 color: Colors.yellow.withOpacity(0.5),
                               ),
                               Text(
-                                snapshot.data!.mean.toString(),
+                                snapshot.data?.mean.toString() ?? '',
                                 style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5)),
                               )
                             ],
@@ -163,7 +163,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           Row(
                             children: [
                               Text(
-                                snapshot.data!.studio,
+                                snapshot.data?.studio ?? '',
                                 style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 15),
                                 textAlign: TextAlign.left,
                               ),

@@ -36,6 +36,7 @@ class AnimeModelJikan implements IAnimeModel{
 
   @override
   IAnimeModel setFromJson(Map<String, dynamic> json){
+    mean = json['score'] ?? 0.0;
     id = json['mal_id'] ?? 0;
     num_episodes = json['episodes'] ?? 0;
     title = json['title'] ?? '';
@@ -44,11 +45,15 @@ class AnimeModelJikan implements IAnimeModel{
     status = StatusInterpreter.getStatus(json['status'] ?? '');
     //Alterar DayOfWeekInterpreter
     day_of_the_week = DayOfWeekInterpreter.getNameOfWeekDay(json['broadcast']?['day'] ?? '');
+    start_date = DateTime.parse(json['aired']['from']);
     start_time = json['broadcast']?['time'] ?? '';
     rating = json['rating'] ?? '';
-    studio = json['studios']?[0]['name'] ?? '';
-    start_date = DateTime.parse(json['aired']['from']);
-    mean = json['score'] ?? 0.0;
+    try{
+      studio = json['studios']?[0]['name'] ?? ' ';
+    }catch (e){
+      print(e);
+      studio = '';
+    }
     return this;
   }
 
