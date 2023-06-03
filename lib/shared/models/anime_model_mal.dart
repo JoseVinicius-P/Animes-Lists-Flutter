@@ -3,7 +3,7 @@ import 'package:anime_lists/shared/utilities/day_of_week_interpreter.dart';
 import 'package:anime_lists/shared/utilities/status_interpreter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AnimeModel implements IAnimeModel{
+class AnimeModelMal implements IAnimeModel{
 
   @override
   late int id, num_episodes;
@@ -16,7 +16,7 @@ class AnimeModel implements IAnimeModel{
   @override
   late double mean;
 
-  AnimeModel({
+  AnimeModelMal({
     required this.id,
     required this.title,
     required this.main_picture,
@@ -31,11 +31,11 @@ class AnimeModel implements IAnimeModel{
     required this.studio,
   });
 
-  AnimeModel.empty();
+  AnimeModelMal.empty();
   /*num_episodes, day_of_the_week, start_time*/
 
   @override
-  AnimeModel setFromJson(Map<String, dynamic> json){
+  IAnimeModel setFromJson(Map<String, dynamic> json){
     id = json['id'] ?? 0;
     num_episodes = json['num_episodes'] ?? 0;
     title = json['title'] ?? '';

@@ -4,7 +4,7 @@ import 'package:anime_lists/modules/home/models/list_expanded_item.dart';
 import 'package:anime_lists/modules/home/widgets/anime_item_horizontal_resumed.dart';
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
-import 'package:anime_lists/shared/models/anime_model.dart';
+import 'package:anime_lists/shared/models/anime_model_mal.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
