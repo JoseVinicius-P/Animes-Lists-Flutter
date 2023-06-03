@@ -59,7 +59,6 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
       },
       children: _itens.map<ExpansionPanel>((IListExpandedItem item) {
         return ExpansionPanel(
-          canTapOnHeader: true,
           backgroundColor: Colors.transparent,
           headerBuilder: (BuildContext context, bool isExpanded) {
             return Row(
