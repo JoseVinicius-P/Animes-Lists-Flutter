@@ -59,6 +59,7 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
       },
       children: _itens.map<ExpansionPanel>((IListExpandedItem item) {
         return ExpansionPanel(
+          canTapOnHeader: true,
           backgroundColor: Colors.transparent,
           headerBuilder: (BuildContext context, bool isExpanded) {
             return Row(
@@ -110,6 +111,7 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
                     itemBuilder: (context, index){
                       var anime = listController.parseToAnimeModel(snapshot.data!.docs[index] as QueryDocumentSnapshot<Map<String, dynamic>>);
                       return GestureDetector(
+                        behavior: HitTestBehavior.translucent,
                         onTap: () => listController.toDetailsModule(anime.id, item.list.id),
                         child: AnimeItemHorizontalResumed(anime: anime),
                       );
