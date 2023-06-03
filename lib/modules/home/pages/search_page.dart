@@ -76,28 +76,32 @@ class _SearchPageState extends State<SearchPage> {
                           ),
                         );
                       }else{
-                        return Column(
-                          children: [
-                            const SizedBox(height: 30),
-                            Icon(
-                              Icons.search_off,
-                              color: Colors.white.withOpacity(0.5),
-                              size: 35,
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Nenhum anime encontrato!',
-                                  style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ],
-                        );
+                        if(searchController.textEditingController.text.length > 3){
+                          return Column(
+                            children: [
+                              const SizedBox(height: 30),
+                              Icon(
+                                Icons.search_off,
+                                color: Colors.white.withOpacity(0.5),
+                                size: 35,
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Nenhum anime encontrato!',
+                                    style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        }else{
+                          return const SizedBox();
+                        }
                       }
                     }
                   }

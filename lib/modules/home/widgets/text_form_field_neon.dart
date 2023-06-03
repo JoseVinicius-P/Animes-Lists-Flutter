@@ -18,7 +18,7 @@ class TextFormFieldNeon extends StatefulWidget {
 }
 
 class _TextFormFieldNeonState extends State<TextFormFieldNeon> {
-  final TextEditingController _textEditingController = Modular.get<MySearchController>().textEditingController;
+  final _textEditingController = Modular.get<MySearchController>().textEditingController;
 
   @override
   Widget build(BuildContext context) {
