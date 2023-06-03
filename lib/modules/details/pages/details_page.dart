@@ -106,7 +106,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       SizedBox(
-                        width: (MediaQuery.of(context).size.width/2),
+                        width: isPortrait ? 50.sw : 38.sh,
                         child: AutoSizeText(
                           animeModel.title,
                           style: theme.textTheme.titleMedium,
@@ -202,7 +202,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 100),
+                  const SizedBox(height: 30),
                   AddToListButton(
                       onTap: () => detailsController.toAddToListModule(anime)
                   ),
