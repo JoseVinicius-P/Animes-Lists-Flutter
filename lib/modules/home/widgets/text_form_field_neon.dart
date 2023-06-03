@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:anime_lists/modules/home/controllers/my_search_controller.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-class TextFormFieldNeon extends StatelessWidget {
+class TextFormFieldNeon extends StatefulWidget {
   final Function onTextChange;
 
   const TextFormFieldNeon({
@@ -12,13 +14,21 @@ class TextFormFieldNeon extends StatelessWidget {
   });
 
   @override
+  State<TextFormFieldNeon> createState() => _TextFormFieldNeonState();
+}
+
+class _TextFormFieldNeonState extends State<TextFormFieldNeon> {
+  final TextEditingController _textEditingController = Modular.get<MySearchController>().textEditingController;
+
+  @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    Timer? _delay;
+    Timer? delay;
+
 
     return Container(
       decoration: BoxDecoration(
-          borderRadius:BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(30),
           ),
           border: Border.all(
@@ -33,7 +43,7 @@ class TextFormFieldNeon extends StatelessWidget {
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            stops: [0.0, 1.0],
+            stops: const [0.0, 1.0],
             tileMode: TileMode.clamp,
           ),
           boxShadow: [
@@ -52,12 +62,13 @@ class TextFormFieldNeon extends StatelessWidget {
           ]
       ),
       child: TextFormField(
+        controller: _textEditingController,
         //Chamando função recebida do widget pai para alterar texto
         onChanged: (text){
-          _delay?.cancel();
-          _delay = Timer(const Duration(milliseconds: 1000), () {
+          delay?.cancel();
+          delay = Timer(const Duration(milliseconds: 1000), () {
             if(text.length >= 3){
-              onTextChange(text);
+              widget.onTextChange(text);
             }
           });
         },
@@ -85,6 +96,10 @@ class TextFormFieldNeon extends StatelessWidget {
           //perimitindo preenchimento do container
           filled: true,
           fillColor: Colors.black.withOpacity(0.8),
+          suffixIcon: IconButton(
+            icon: Icon(Icons.close, color: Colors.white.withOpacity(0.7),),
+            onPressed: () => _textEditingController.clear(),
+          )
         ),
       ),
     );
