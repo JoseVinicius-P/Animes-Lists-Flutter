@@ -22,6 +22,7 @@ class AppModule extends Module{
   @override
   List<ModularRoute> get routes => [
     ModuleRoute('/', module: isUserLoggedIn() ? HomeModule() : LoginModule()),
+    ModuleRoute('/login', module: LoginModule(), transition: TransitionType.scale, duration: const Duration(milliseconds: 280)),
   ];
 
   bool isUserLoggedIn(){
