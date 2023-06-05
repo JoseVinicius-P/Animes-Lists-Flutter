@@ -1,5 +1,7 @@
 import 'package:anime_lists/shared/utilities/my_colors.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class AddToListButton extends StatelessWidget {
   final Function onTap;
@@ -11,12 +13,14 @@ class AddToListButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var buttonWidth = 55.sw.roundToDouble();
+    var buttonHeight = buttonWidth/4.roundToDouble();
 
     return InkWell(
       onTap: () => onTap(),
       child: Container(
-        height: 50,
-        width: 200,
+        height: buttonHeight,
+        width: buttonWidth,
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(
               Radius.circular(25),
@@ -61,10 +65,14 @@ class AddToListButton extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Adicionar a uma lista',
-                    style: theme.textTheme.labelMedium,
-                    textAlign: TextAlign.center,
+                  Expanded(
+                    child: AutoSizeText(
+                      'Adicionar a uma lista',
+                      style: theme.textTheme.labelMedium,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),

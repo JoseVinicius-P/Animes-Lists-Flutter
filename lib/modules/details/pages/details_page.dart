@@ -94,124 +94,127 @@ class _DetailsPageState extends State<DetailsPage> {
     Widget showData(IAnimeModel animeModel, bool isPortrait){
       return Expanded(
         flex: isPortrait ? 0 : 2,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
-              child: Column(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxWidth: isPortrait ? 50.sw : 38.sh,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxWidth: isPortrait ? 50.sw : 38.sh,
+                          ),
+                          child: AutoSizeText(
+                            animeModel.title,
+                            style: theme.textTheme.titleMedium,
+                            textAlign: TextAlign.left,
+                            maxLines: 1,
+                            minFontSize: 22,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                        child: AutoSizeText(
-                          animeModel.title,
-                          style: theme.textTheme.titleMedium,
+                        const SizedBox(width: 5),
+                        Text(
+                          animeModel.start_date.year.toString(),
+                          style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.2), fontSize: 15),
                           textAlign: TextAlign.left,
-                          maxLines: 1,
-                          minFontSize: 22,
+                        ),
+                        const Spacer(),
+                        Icon(
+                          Icons.star_rounded,
+                          color: Colors.yellow.withOpacity(0.5),
+                        ),
+                        Text(
+                          animeModel.mean.toString() ?? '',
+                          style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5)),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          animeModel.studio ?? '',
+                          style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 15),
+                          textAlign: TextAlign.left,
+                        ),
+                        const SizedBox(width: 15),
+                        Text(
+                          animeModel.rating,
+                          style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 15),
+                          textAlign: TextAlign.left,
+                        ),
+                        const SizedBox(width: 15),
+                        Text(
+                          "${animeModel.num_episodes} episodios",
+                          style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.7), fontSize: 15),
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
+                    Row(
+                      children: [
+                        Text(
+                          animeModel.status,
+                          style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
+                          textAlign: TextAlign.end,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        animeModel.start_date.year.toString(),
-                        style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.2), fontSize: 15),
-                        textAlign: TextAlign.left,
-                      ),
-                      const Spacer(),
-                      Icon(
-                        Icons.star_rounded,
-                        color: Colors.yellow.withOpacity(0.5),
-                      ),
-                      Text(
-                        animeModel.mean.toString() ?? '',
-                        style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5)),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        animeModel.studio ?? '',
-                        style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 15),
-                        textAlign: TextAlign.left,
-                      ),
-                      const SizedBox(width: 15),
-                      Text(
-                        animeModel.rating,
-                        style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 15),
-                        textAlign: TextAlign.left,
-                      ),
-                      const SizedBox(width: 15),
-                      Text(
-                        "${animeModel.num_episodes} episodios",
-                        style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.7), fontSize: 15),
-                        textAlign: TextAlign.left,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      Text(
-                        animeModel.status,
-                        style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
-                        textAlign: TextAlign.end,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      animeModel.status == 'Em exibição'? Text(
-                        ": ",
-                        style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
-                        textAlign: TextAlign.end,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ):const SizedBox(),
-                      animeModel.status == 'Em exibição'? Text(
-                        "${animeModel.day_of_the_week} as ",
-                        style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
-                        textAlign: TextAlign.end,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ):const SizedBox(),
-                      animeModel.status == 'Em exibição'? Text(
-                        " ${animeModel.start_time} horas",
-                        style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
-                        textAlign: TextAlign.end,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ):const SizedBox(),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      Flexible(
-                        fit: FlexFit.loose,
-                        child: Text(
-                          animeModel.synopsis,
-                          style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.3), fontSize: 17),
-                          textAlign: TextAlign.justify,
-                          maxLines: 5,
+                        animeModel.status == 'Em exibição'? Text(
+                          ": ",
+                          style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
+                          textAlign: TextAlign.end,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
+                        ):const SizedBox(),
+                        animeModel.status == 'Em exibição'? Text(
+                          "${animeModel.day_of_the_week} as ",
+                          style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
+                          textAlign: TextAlign.end,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ):const SizedBox(),
+                        animeModel.status == 'Em exibição'? Text(
+                          " ${animeModel.start_time} horas",
+                          style: theme.textTheme.labelSmall!.copyWith(fontSize: 15, color: MyColors.primaryColor.withOpacity(0.6)),
+                          textAlign: TextAlign.end,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ):const SizedBox(),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
+                    Row(
+                      children: [
+                        Flexible(
+                          fit: FlexFit.loose,
+                          child: Text(
+                            animeModel.synopsis,
+                            style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.3), fontSize: 17),
+                            textAlign: TextAlign.justify,
+                            maxLines: 5,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
-                  AddToListButton(
-                      onTap: () => detailsController.toAddToListModule(anime)
-                  ),
-                ],
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                    AddToListButton(
+                        onTap: () => detailsController.toAddToListModule(anime)
+                    ),
+                    const SizedBox(height: 30),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     }
@@ -261,11 +264,13 @@ class _DetailsPageState extends State<DetailsPage> {
                 builder: (context, snapshot){
                   if(snapshot.hasData){
                     return isPortrait ?
-                      Column(
-                        children: [
-                          showImage(snapshot.data!.main_picture, isPortrait),
-                          showData(snapshot.data!, isPortrait),
-                        ],
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            showImage(snapshot.data!.main_picture, isPortrait),
+                            showData(snapshot.data!, isPortrait),
+                          ],
+                        ),
                       ):
                       Row(
                         children: [
