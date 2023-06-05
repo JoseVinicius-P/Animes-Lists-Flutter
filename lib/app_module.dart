@@ -6,6 +6,7 @@ import 'package:anime_lists/shared/interfaces/i_list_service.dart';
 import 'package:anime_lists/shared/models/anime_model_jikan.dart';
 import 'package:anime_lists/shared/models/anime_model_mal.dart';
 import 'package:anime_lists/shared/models/list_model.dart';
+import 'package:anime_lists/shared/services/authentication_service.dart';
 import 'package:anime_lists/shared/services/list_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -21,15 +22,8 @@ class AppModule extends Module{
 
   @override
   List<ModularRoute> get routes => [
-    ModuleRoute('/', module: isUserLoggedIn() ? HomeModule() : LoginModule()),
+    ModuleRoute('/', module: AuthenticationService.isUserLoggedIn() ? HomeModule() : LoginModule()),
+    ModuleRoute('/home', module: HomeModule()),
     ModuleRoute('/login', module: LoginModule(), transition: TransitionType.scale, duration: const Duration(milliseconds: 280)),
   ];
-
-  bool isUserLoggedIn(){
-    if(FirebaseAuth.instance.currentUser != null){
-      return true;
-    }else {
-      return false;
-    }
-  }
 }

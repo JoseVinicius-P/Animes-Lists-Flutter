@@ -11,6 +11,7 @@ import 'package:anime_lists/modules/details/details_module.dart';
 import 'package:anime_lists/modules/home/controllers/my_search_controller.dart';
 import 'package:anime_lists/modules/home/repositories/search_repository_jikan.dart';
 import 'package:anime_lists/modules/home/services/anime_service.dart';
+import 'package:anime_lists/shared/services/auth_guard.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class HomeModule extends Module{
@@ -29,7 +30,7 @@ class HomeModule extends Module{
 
   @override
   List<ModularRoute> get routes => [
-    ChildRoute('/', child: (context, args) => const HomePage()),
+    ChildRoute('/', child: (context, args) => const HomePage(), guards: [AuthGuard()]),
     ModuleRoute("/details", module: DetailsModule()),
     ModuleRoute("/add_to_list", module: AddToListModule(), transition: TransitionType.downToUp, duration: const Duration(milliseconds: 280)),
   ];
