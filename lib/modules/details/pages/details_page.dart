@@ -78,7 +78,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           ],
                           begin: isPortrait ? Alignment.bottomCenter : Alignment.topLeft,
                           end: isPortrait ? Alignment.topCenter : Alignment.topRight,
-                          stops: [0.0, 1.0],
+                          stops: const [0.0, 1.0],
                           tileMode: TileMode.clamp,
                         )
                     ),
@@ -131,7 +131,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           color: Colors.yellow.withOpacity(0.5),
                         ),
                         Text(
-                          animeModel.mean.toString() ?? '',
+                          animeModel.mean.toString(),
                           style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5)),
                         )
                       ],
@@ -139,7 +139,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     Row(
                       children: [
                         Text(
-                          animeModel.studio ?? '',
+                          animeModel.studio,
                           style: theme.textTheme.labelSmall!.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 15),
                           textAlign: TextAlign.left,
                         ),
