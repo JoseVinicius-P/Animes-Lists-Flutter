@@ -6,6 +6,7 @@ import 'package:anime_lists/modules/home/widgets/text_form_field_neon.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -37,9 +38,10 @@ class _SearchPageState extends State<SearchPage> {
         ),
         SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+            padding: EdgeInsets.only(top: 2.sh.roundToDouble(), left: 30.0, right: 30.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   'Pesquisar animes',
