@@ -105,8 +105,10 @@ class _DetailsPageState extends State<DetailsPage> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      SizedBox(
-                        width: isPortrait ? 50.sw : 38.sh,
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: isPortrait ? 50.sw : 38.sh,
+                        ),
                         child: AutoSizeText(
                           animeModel.title,
                           style: theme.textTheme.titleMedium,
