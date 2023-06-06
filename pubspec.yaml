@@ -53,8 +53,9 @@ dependencies:
   device_preview: ^1.1.0
   #Para facilitar a implementação da responsividade
   responsive_builder: ^0.7.0
-  #Para identificar se usuário está na web
-  universal_io: ^2.2.1
+  #Para emitir mensagens
+  fluttertoast: ^8.2.2
+
 
 
 

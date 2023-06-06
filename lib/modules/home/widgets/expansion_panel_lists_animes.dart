@@ -1,14 +1,13 @@
 import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
 import 'package:anime_lists/modules/home/interfaces/i_list_expanded_item.dart';
-import 'package:anime_lists/modules/home/models/list_expanded_item.dart';
 import 'package:anime_lists/modules/home/widgets/anime_item_horizontal_resumed.dart';
-import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
-import 'package:anime_lists/shared/models/anime_model_mal.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ExpansionPanelListsAnimes extends StatefulWidget {
@@ -111,13 +110,25 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
                       var anime = listController.parseToAnimeModel(snapshot.data!.docs[index] as QueryDocumentSnapshot<Map<String, dynamic>>);
                       return GestureDetector(
                         behavior: HitTestBehavior.translucent,
+                        onLongPress: (){
+                          Clipboard.setData(ClipboardData(text: anime.title));
+                          Fluttertoast.showToast(
+                              msg: "Copiado",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.SNACKBAR,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: MyColors.primaryColor.withOpacity(0.2),
+                              textColor: Colors.white,
+                              fontSize: 16.0
+                          );
+                        },
                         onTap: () => listController.toDetailsModule(anime.id, item.list.id),
                         child: AnimeItemHorizontalResumed(anime: anime),
                       );
                     }
                 );
               }else{
-                return SizedBox();
+                return const SizedBox();
               }
             },
           ),
