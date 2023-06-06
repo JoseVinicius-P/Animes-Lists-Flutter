@@ -22,7 +22,9 @@ class MySearchController implements Disposable{
   }
 
   void toAddToListModule(IAnimeModel anime){
-    Modular.to.pushNamed('./add_to_list/', arguments: anime);
+    Modular.to.pushNamed('./add_to_list/', arguments: {
+    'anime': anime,
+    });
   }
 
   @override

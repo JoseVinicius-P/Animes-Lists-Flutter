@@ -15,7 +15,9 @@ class DetailsController implements Disposable{
   }
 
   void toAddToListModule(IAnimeModel anime){
-    Modular.to.pushNamed('./add_to_list/', arguments: anime);
+    Modular.to.pushNamed('./add_to_list/', arguments: {
+      'anime': anime,
+    });
   }
 
   Future<IAnimeModel> getAnimeDetails(int id){
