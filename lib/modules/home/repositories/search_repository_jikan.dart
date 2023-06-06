@@ -19,7 +19,7 @@ class SearchRepositoryJikan implements Disposable, ISearchRepository{
   Future<List<IAnimeModel>> fetchAnimes(String query) async{
 
     final response = await http.get(
-      Uri.parse("https://api.jikan.moe/v4/anime?limit=20&q=$query&order_by=popularity&sfw"),
+      Uri.parse("https://api.jikan.moe/v4/anime?limit=20&q=$query&sfw"),
     );
 
     if(response.statusCode == 200){

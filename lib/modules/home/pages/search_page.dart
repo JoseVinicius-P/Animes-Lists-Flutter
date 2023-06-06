@@ -57,6 +57,7 @@ class _SearchPageState extends State<SearchPage> {
                     if(snapshot.connectionState == ConnectionState.waiting){
                       return const ShimmerSearchAnime();
                     }else{
+
                       if(snapshot.data!.isNotEmpty){
                         return Expanded(
                           child: ListView.separated(
