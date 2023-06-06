@@ -14,12 +14,11 @@ class AddToListButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var buttonWidth = 55.sw.roundToDouble();
-    var buttonHeight = buttonWidth/4.roundToDouble();
 
     return InkWell(
       onTap: () => onTap(),
       child: Container(
-        height: buttonHeight,
+        height: 50,
         width: buttonWidth,
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(
