@@ -9,7 +9,7 @@ class ListService implements IListService{
 
   @override
   Stream<QuerySnapshot> fetchStreamLists(){
-    return FirebaseFirestore.instance.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists").snapshots();
+    return FirebaseFirestore.instance.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists").orderBy('order').snapshots();
   }
 
   @override

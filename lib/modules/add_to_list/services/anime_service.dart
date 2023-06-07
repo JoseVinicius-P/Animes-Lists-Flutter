@@ -24,6 +24,7 @@ class AnimeService implements IAnimeService{
       batch.set(listRef, {
         "name": listModel.name,
         "qt_animes": 1,
+        "order": 0,
       });
       var animeRef = db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists/${listRef.id}/Animes").doc(animeModel.id.toString());
       batch.set(animeRef, anime);
