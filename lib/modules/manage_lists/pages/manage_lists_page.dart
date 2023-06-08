@@ -1,3 +1,4 @@
+import 'package:anime_lists/modules/add_to_list/widgets/save_button.dart';
 import 'package:anime_lists/modules/manage_lists/controllers/manage_lists_controller.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
@@ -40,7 +41,7 @@ class _ManageListsPageState extends State<ManageListsPage> {
         ),
         forceMaterialTransparency: true,
         title: Text(
-          "Gerenciar Listas",
+          "Ordenar listas",
           style: theme.textTheme.titleSmall,
           textAlign: TextAlign.center,
         ),
@@ -60,88 +61,51 @@ class _ManageListsPageState extends State<ManageListsPage> {
                   if(snapshot.hasData){
                     return Column(
                       children: [
-                      ReorderableListView(
-                      shrinkWrap: true,
-                      children: <Widget>[
-                        for (int i = 0; i < lists!.length; i += 1)
-                          Row(
-                            key: Key('$i'),
-                            children: [
-                              Text(
-                                snapshot.data![i].name,
-                                style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
+                        ReorderableListView(
+                        shrinkWrap: true,
+                        children: <Widget>[
+                          for (int i = 0; i < lists!.length; i += 1)
+                            Container(
+                              key: Key('$i'),
+                              decoration: const BoxDecoration(
+                                color: MyColors.backgroundColor
                               ),
-                              const SizedBox(width: 5),
-                              Icon(Icons.sort, color: Colors.white.withOpacity(0.1)),
-                              const SizedBox(height: 40),
-                            ],
-                          ),
-                      ],
-                      onReorder: (int oldIndex, int newIndex) {
+                              child: Row(
+                                children: [
+                                  Icon(Icons.drag_handle_rounded, color: Colors.white.withOpacity(0.5)),
+                                  const SizedBox(width: 15),
+                                  Text(
+                                    snapshot.data![i].name,
+                                    style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
+                                  ),
+                                  const SizedBox(height: 40),
+                                ],
+                              ),
+                            ),
+                        ],
+                        onReorder: (int oldIndex, int newIndex) {
+                          setState(() {
+                            if (newIndex > oldIndex) {
+                              newIndex -= 1;
+                            }
+                            final item = snapshot.data!.removeAt(oldIndex);
+                            snapshot.data!.insert(newIndex, item);
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 70),
+                      SaveButton(onTap: manageListController.savingInProgress ? null : () async {
                         setState(() {
-                          if (newIndex > oldIndex) {
-                            newIndex -= 1;
-                          }
-                          final item = snapshot.data!.removeAt(oldIndex);
-                          snapshot.data!.insert(newIndex, item);
+                          manageListController.orderLists(snapshot.data!);
                         });
-                      },
-                    ),
-                        const SizedBox(height: 15),
-                      ],
-                    );
+                      }),
+                    ],
+                  );
                   }else{
                     return SizedBox();
                   }
                 },
               ),
-              /*StreamBuilder<QuerySnapshot>(
-                stream: manageListController.fetchLists(),
-                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError) {
-                    return Text(
-                      'Algo saiu errado ):',
-                      style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
-                      textAlign: TextAlign.center,
-                    );
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return SizedBox(); //SHimmer
-                  }
-                  if(snapshot.data != null && snapshot.data!.docs.isNotEmpty){
-                    lists = manageListController.parseToListOfListModel(snapshot.data!.docs.cast());
-                    return ReorderableListView(
-                      shrinkWrap: true,
-                      children: <Widget>[
-                        for (int i = 0; i < lists.length; i += 1)
-                          Row(
-                            key: Key('$i'),
-                            children: [
-                              Text(
-                                lists[i].name,
-                                style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
-                              ),
-                              const SizedBox(width: 5),
-                              Icon(Icons.sort, color: Colors.white.withOpacity(0.1)),
-                              const SizedBox(height: 40),
-                            ],
-                          ),
-                      ],
-                      onReorder: (int oldIndex, int newIndex) {
-                        setState(() {
-                          if (newIndex > oldIndex) {
-                            newIndex -= 1;
-                          }
-                          final item = lists.removeAt(oldIndex);
-                          lists.insert(newIndex, item);
-                        });
-                      },
-                    );
-                  }else{
-                    return const SizedBox();
-                  }
-                },
-              ),*/
             ),
           ),
         ],
