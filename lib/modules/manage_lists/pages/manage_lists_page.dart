@@ -13,8 +13,8 @@ class ManageListsPage extends StatefulWidget {
 }
 
 class _ManageListsPageState extends State<ManageListsPage> {
-  List<IListModel>? lists;
   late Future<List<IListModel>> futureListModel;
+  late List<IListModel> oldOrder;
   final manageListController = Modular.get<ManageListsController>();
 
 
@@ -22,10 +22,9 @@ class _ManageListsPageState extends State<ManageListsPage> {
   void initState() {
     super.initState();
     futureListModel = manageListController.fetchLists();
-    futureListModel.then((value) {
-      lists = value;
+    futureListModel.then((value){
+      oldOrder = List<IListModel>.from(value);
     });
-
   }
   @override
   Widget build(BuildContext context) {
@@ -64,7 +63,7 @@ class _ManageListsPageState extends State<ManageListsPage> {
                         ReorderableListView(
                         shrinkWrap: true,
                         children: <Widget>[
-                          for (int i = 0; i < lists!.length; i += 1)
+                          for (int i = 0; i < snapshot.data!.length; i += 1)
                             Container(
                               key: Key('$i'),
                               decoration: const BoxDecoration(
@@ -96,13 +95,13 @@ class _ManageListsPageState extends State<ManageListsPage> {
                       const SizedBox(height: 70),
                       SaveButton(onTap: manageListController.savingInProgress ? null : () async {
                         setState(() {
-                          manageListController.orderLists(snapshot.data!);
+                          manageListController.orderLists(oldOrder, snapshot.data!);
                         });
                       }),
                     ],
                   );
                   }else{
-                    return SizedBox();
+                    return const SizedBox();
                   }
                 },
               ),

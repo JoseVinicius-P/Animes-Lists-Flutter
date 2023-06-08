@@ -30,9 +30,9 @@ class ManageListsController implements Disposable{
     return lists;
   }
 
-  void orderLists(List<IListModel> newOrder) async {
+  void orderLists(List<IListModel> oldOrder, List<IListModel> newOrder) async {
     savingInProgress = true;
-    var isSuccess = await orderListsService.orderLists(newOrder);
+    var isSuccess = await orderListsService.orderLists(oldOrder, newOrder);
     if(isSuccess){
       Modular.to.pop();
       savingInProgress = false;
