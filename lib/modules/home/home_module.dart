@@ -32,7 +32,7 @@ class HomeModule extends Module{
   List<ModularRoute> get routes => [
     ChildRoute('/', child: (context, args) => const HomePage(), guards: [AuthGuard()]),
     ModuleRoute("/details", module: DetailsModule()),
-    ModuleRoute("/manage_lists", module: ManageListsModule()),
+    ModuleRoute("/manage_lists", module: ManageListsModule(), transition: TransitionType.downToUp, duration: const Duration(milliseconds: 280)),
     ModuleRoute("/add_to_list", module: AddToListModule(), transition: TransitionType.downToUp, duration: const Duration(milliseconds: 280)),
   ];
 }
