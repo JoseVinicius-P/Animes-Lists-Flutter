@@ -100,6 +100,7 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
               }
               if(snapshot.data != null && snapshot.data!.docs.isNotEmpty){
                 return ListView.separated(
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: snapshot.data!.docs.length,
                     // Define a altura do espaço entre os itens
