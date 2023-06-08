@@ -105,15 +105,40 @@ class _ListsPageState extends State<ListsPage> {
                           ],
                         ),
                         const Spacer(),
-                        IconButton(
-                          onPressed: (){
-                            listController.signOut();
+                        PopupMenuButton<String>(
+                          color: Colors.white.withOpacity(0.8),
+                          elevation: 2,
+                          // Callback that sets the selected popup menu item.
+                          onSelected: (String value) {
+                            if(value == 'sair'){
+                              listController.signOut();
+                            }
                           },
-                          icon: Icon(
-                            Icons.logout_rounded,
-                            color: Colors.white.withOpacity(0.8),
-                          ),
-                        )
+                          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                            const PopupMenuItem<String>(
+                              value: 'gerenciarListas',
+                              child: Row(children: [
+                                Icon(
+                                  Icons.format_list_numbered_rounded,
+                                    color: MyColors.backgroundColor
+                                ),
+                                SizedBox(width: 5),
+                                Text("Gerenciar Listas")
+                              ],),
+                            ),
+                            const PopupMenuItem<String>(
+                              value: 'sair',
+                              child: Row(children: [
+                                Icon(
+                                  Icons.logout_rounded,
+                                  color: MyColors.backgroundColor
+                                ),
+                                SizedBox(width: 5),
+                                Text("Sair")
+                              ],),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                     const SizedBox(height: 40),

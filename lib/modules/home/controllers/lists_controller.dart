@@ -53,9 +53,9 @@ class ListController implements Disposable{
     });
   }
 
-  void signOut() {
-    FirebaseAuth.instance.signOut();
+  void signOut() async {
+    await FirebaseAuth.instance.signOut();
     Modular.to.popUntil((route) => route.isFirst);
-    Modular.to.navigate('/login');
+    Modular.to.navigate('/login/');
   }
 }
