@@ -15,7 +15,7 @@ class ListService implements IListService{
   @override
   Future<List<IListModel>> fetchLists() async{
     List<IListModel> lists = [];
-    await db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists").get().then((querySnapshot) {
+    await db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists").orderBy('order').get().then((querySnapshot) {
       for (var docSnapshot in querySnapshot.docs) {
         lists.add(Modular.get<IListModel>().setFromDocumentSnapshot(docSnapshot));
       }
