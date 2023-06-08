@@ -125,7 +125,7 @@ class _ListsPageState extends State<ListsPage> {
                                     color: MyColors.backgroundColor
                                 ),
                                 SizedBox(width: 5),
-                                Text("Gerenciar Listas")
+                                Text("Ordenar listas")
                               ],),
                             ),
                             const PopupMenuItem<String>(
