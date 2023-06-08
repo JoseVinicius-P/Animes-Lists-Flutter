@@ -238,8 +238,9 @@ class _DetailsPageState extends State<DetailsPage> {
             Visibility(
               visible: list != null,
               child: IconButton(
+                tooltip: "Remover da lista",
                 icon: const Icon(
-                  Icons.bookmark,
+                  Icons.bookmark_remove,
                   size: 30,
                 ),
                 onPressed: () {
