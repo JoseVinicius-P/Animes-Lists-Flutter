@@ -58,4 +58,8 @@ class ListController implements Disposable{
     Modular.to.popUntil((route) => route.isFirst);
     Modular.to.navigate('/login/');
   }
+
+  void toManageListsModule() {
+    Modular.to.pushNamed("./manage_lists/");
+  }
 }

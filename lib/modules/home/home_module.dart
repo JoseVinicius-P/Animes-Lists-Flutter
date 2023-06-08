@@ -1,7 +1,6 @@
 import 'package:anime_lists/modules/add_to_list/add_to_list_module.dart';
 import 'package:anime_lists/modules/home/controllers/home_controller.dart';
 import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
-import 'package:anime_lists/modules/home/interfaces/i_anime_repository.dart';
 import 'package:anime_lists/modules/home/interfaces/i_anime_service.dart';
 import 'package:anime_lists/modules/home/interfaces/i_list_expanded_item.dart';
 import 'package:anime_lists/modules/home/interfaces/i_search_repository.dart';
@@ -11,6 +10,7 @@ import 'package:anime_lists/modules/details/details_module.dart';
 import 'package:anime_lists/modules/home/controllers/my_search_controller.dart';
 import 'package:anime_lists/modules/home/repositories/search_repository_jikan.dart';
 import 'package:anime_lists/modules/home/services/anime_service.dart';
+import 'package:anime_lists/modules/manage_lists/manage_lists_module.dart';
 import 'package:anime_lists/shared/services/auth_guard.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -32,6 +32,7 @@ class HomeModule extends Module{
   List<ModularRoute> get routes => [
     ChildRoute('/', child: (context, args) => const HomePage(), guards: [AuthGuard()]),
     ModuleRoute("/details", module: DetailsModule()),
+    ModuleRoute("/manage_lists", module: ManageListsModule()),
     ModuleRoute("/add_to_list", module: AddToListModule(), transition: TransitionType.downToUp, duration: const Duration(milliseconds: 280)),
   ];
 }

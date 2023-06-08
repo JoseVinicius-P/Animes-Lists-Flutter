@@ -112,6 +112,8 @@ class _ListsPageState extends State<ListsPage> {
                           onSelected: (String value) {
                             if(value == 'sair'){
                               listController.signOut();
+                            }else if(value == 'gerenciarListas'){
+                              listController.toManageListsModule();
                             }
                           },
                           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
