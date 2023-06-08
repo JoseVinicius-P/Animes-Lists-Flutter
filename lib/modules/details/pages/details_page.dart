@@ -1,6 +1,7 @@
 import 'package:anime_lists/modules/details/widgets/add_to_list_button.dart';
 import 'package:anime_lists/modules/details/controllers/details_controller.dart';
 import 'package:anime_lists/modules/home/widgets/shimmer_details_anime.dart';
+import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -11,11 +12,11 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 class DetailsPage extends StatefulWidget {
   final int idAnime;
-  final String? idList;
+  final IListModel? list;
 
   const DetailsPage({
     Key? key,
-    required this.idAnime, required this.idList,
+    required this.idAnime, required this.list,
   }) : super(key: key);
 
   @override
@@ -26,14 +27,14 @@ class _DetailsPageState extends State<DetailsPage> {
   final detailsController = Modular.get<DetailsController>();
   late Future<IAnimeModel> futureAnime;
   late IAnimeModel anime;
-  String? idList;
+  IListModel? list;
 
   @override
   void initState() {
     super.initState();
     futureAnime = detailsController.getAnimeDetails(widget.idAnime);
     futureAnime.then((value) => anime = value);
-    idList = widget.idList;
+    list = widget.list;
   }
 
   @override
@@ -235,16 +236,16 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
           actions: [
             Visibility(
-              visible: idList != null,
+              visible: list != null,
               child: IconButton(
                 icon: const Icon(
                   Icons.bookmark,
                   size: 30,
                 ),
                 onPressed: () {
-                  detailsController.deleteAnime(widget.idAnime.toString(), idList!);
+                  detailsController.deleteAnime(widget.idAnime.toString(), list!.id);
                   setState(() {
-                    idList = null;
+                    list = null;
                   });
                 },
               ),

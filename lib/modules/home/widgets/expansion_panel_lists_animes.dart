@@ -122,7 +122,7 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
                               fontSize: 16.0
                           );
                         },
-                        onTap: () => listController.toDetailsModule(anime.id, item.list.id),
+                        onTap: () => listController.toDetailsModule(anime.id, item.list),
                         child: AnimeItemHorizontalResumed(anime: anime),
                       );
                     }
@@ -132,29 +132,6 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
               }
             },
           ),
-          /*FutureBuilder<List<IAnimeModel>>(
-            future: item.getListAnime(),
-            builder: (context, snapshot){
-              if(snapshot.hasData){
-                return ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
-                  // Define a altura do espaço entre os itens
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(height: 10);
-                  },
-                  itemBuilder: (context, index){
-                    return GestureDetector(
-                      onTap: () => listController.toDetailsModule(snapshot.data![index].id, item.list.id),
-                      child: AnimeItemHorizontalResumed(anime: snapshot.data![index]),
-                    );
-                  }
-                );
-              }else{
-                return const SizedBox();
-              }
-            },
-          ),*/
           isExpanded: item.isExpanded,
         );
       }).toList(),

@@ -17,7 +17,7 @@ class MySearchController implements Disposable{
   void toDetailsModule(int id){
     Modular.to.pushNamed("./details/", arguments: {
       'id': id,
-      'idList': null,
+      'list': null,
     });
   }
 

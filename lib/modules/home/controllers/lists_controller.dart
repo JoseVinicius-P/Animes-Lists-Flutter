@@ -46,10 +46,10 @@ class ListController implements Disposable{
     return listService.fetchStreamLists();
   }
 
-  void toDetailsModule(int id, String idList){
+  void toDetailsModule(int id, IListModel list){
     Modular.to.pushNamed("./details/", arguments: {
       'id': id,
-      'idList': idList,
+      'list': list,
     });
   }
 

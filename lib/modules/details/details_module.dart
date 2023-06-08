@@ -21,7 +21,7 @@ class DetailsModule extends Module{
 
   @override
   List<ModularRoute> get routes => [
-    ChildRoute('/', child: (context, args) => DetailsPage(idAnime: args.data['id'], idList: args.data['idList']), guards: [AuthGuard(), ParametersGuard()]),
+    ChildRoute('/', child: (context, args) => DetailsPage(idAnime: args.data['id'], list: args.data['list']), guards: [AuthGuard(), ParametersGuard()]),
     ModuleRoute("/add_to_list", module: AddToListModule(), transition: TransitionType.downToUp, duration: const Duration(milliseconds: 280)),
   ];
 }
