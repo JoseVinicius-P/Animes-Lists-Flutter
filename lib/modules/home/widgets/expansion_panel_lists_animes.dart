@@ -4,6 +4,7 @@ import 'package:anime_lists/modules/home/widgets/anime_item_horizontal_resumed.d
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -22,16 +23,21 @@ class ExpansionPanelListsAnimes extends StatefulWidget {
 
 class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
   late List<IListExpandedItem> _itens;
+  late List<IListModel> oldLists;
   var listController = Modular.get<ListController>();
 
   @override
   void initState() {
+    oldLists = List<IListModel>.from(widget.lists);
     _itens = listController.generateItems(widget.lists);
     super.initState();
   }
 
   void atualizarItens(){
-    _itens = listController.generateItems(widget.lists);
+    if(!listEquals(oldLists, widget.lists)){
+      _itens = listController.generateItems(widget.lists);
+      oldLists = widget.lists;
+    }
   }
 
   @override
