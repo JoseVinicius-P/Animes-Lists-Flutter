@@ -7,6 +7,7 @@ import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class AddToListPage extends StatefulWidget {
   final IAnimeModel anime;
@@ -114,76 +115,93 @@ class _AddToListPageState extends State<AddToListPage> {
             color: MyColors.backgroundColor,
           ),
           SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 15.0, left: 15.0),
-              child: FutureBuilder<List<IListModel>>(
-                future: futureListModel,
-                builder: (context, snapshot){
-                  if(snapshot.hasData){
-                    return Column(
-                      children: [
-                        ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: _options.length,
-                            itemBuilder: (context, index){
-                              return RadioListTile(
-                                activeColor: MyColors.primaryColor,
-                                title: Text(
-                                  _options[index].name,
-                                  style: theme.textTheme.labelSmall,
-                                ),
-                                value: _options[index],
-                                groupValue: _selectedOption,
-                                onChanged: addToListController.savingInProgress ? null : (value) {
-                                  setState(() {
-                                    _selectedOption = value as IListModel?;
-                                  });
-                                },
-                              );
-                            }
-                        ),
-                        const SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: snapshot.data!.isEmpty ? MainAxisAlignment.center : MainAxisAlignment.start,
-                          children: [
-                            TextButton(
-                              onPressed: addToListController.savingInProgress ? null : () => _showMyDialog(),
-                              style: ButtonStyle(
-                                overlayColor: overlayColor,
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Flexible(
+                  child: SingleChildScrollView(
+                    child: Container(
+                      constraints: BoxConstraints(
+                        maxWidth: 100.sw.roundToDouble(),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 15.0, left: 15.0),
+                        child: FutureBuilder<List<IListModel>>(
+                          future: futureListModel,
+                          builder: (context, snapshot){
+                            if(snapshot.hasData){
+                              return Column(
                                 children: [
-                                  Text(
-                                      "Criar uma nova lista",
-                                      style: theme.textTheme.titleSmall?.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 17)
+                                  ListView.builder(
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: _options.length,
+                                      itemBuilder: (context, index){
+                                        return RadioListTile(
+                                          activeColor: MyColors.primaryColor,
+                                          title: Text(
+                                            _options[index].name,
+                                            style: theme.textTheme.labelSmall,
+                                          ),
+                                          value: _options[index],
+                                          groupValue: _selectedOption,
+                                          onChanged: addToListController.savingInProgress ? null : (value) {
+                                            setState(() {
+                                              _selectedOption = value as IListModel?;
+                                            });
+                                          },
+                                        );
+                                      }
                                   ),
-                                  const SizedBox(width: 10,),
-                                  Icon(Icons.playlist_add_rounded, color: Colors.white.withOpacity(0.5)),
+                                  const SizedBox(height: 15),
+                                  Row(
+                                    mainAxisAlignment: snapshot.data!.isEmpty ? MainAxisAlignment.center : MainAxisAlignment.start,
+                                    children: [
+                                      TextButton(
+                                        onPressed: addToListController.savingInProgress ? null : () => _showMyDialog(),
+                                        style: ButtonStyle(
+                                          overlayColor: overlayColor,
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                                "Criar uma nova lista",
+                                                style: theme.textTheme.titleSmall?.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 17)
+                                            ),
+                                            const SizedBox(width: 10,),
+                                            Icon(Icons.playlist_add_rounded, color: Colors.white.withOpacity(0.5)),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 70),
+                                  SaveButton(onTap: addToListController.savingInProgress ? null : () {
+                                    try{
+                                      if(_selectedOption != null){
+                                        setState(() {
+                                          addToListController.saveAnime(_selectedOption!, widget.anime);
+                                        });
+                                      }
+                                    }catch(e){
+                                      //selected option nula
+                                    }
+                                  }),
+                                  const SizedBox(height: 30),
                                 ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 70),
-                        SaveButton(onTap: addToListController.savingInProgress ? null : () {
-                          try{
-                            if(_selectedOption != null){
-                              setState(() {
-                                addToListController.saveAnime(_selectedOption!, widget.anime);
-                              });
+                              );
+                            }else{
+                              return SizedBox();
                             }
-                          }catch(e){
-                            //selected option nula
-                          }
-                        }),
-                      ],
-                    );
-                  }else{
-                    return SizedBox();
-                  }
-                },
-              ),
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ]
