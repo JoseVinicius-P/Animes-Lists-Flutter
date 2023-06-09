@@ -61,36 +61,37 @@ class _ManageListsPageState extends State<ManageListsPage> {
                     return Column(
                       children: [
                         ReorderableListView(
-                        shrinkWrap: true,
-                        children: <Widget>[
-                          for (int i = 0; i < snapshot.data!.length; i += 1)
-                            Container(
-                              key: Key('$i'),
-                              decoration: const BoxDecoration(
-                                color: MyColors.backgroundColor
+                          buildDefaultDragHandles: false,
+                          shrinkWrap: true,
+                          children: <Widget>[
+                            for (int i = 0; i < snapshot.data!.length; i += 1)
+                              Container(
+                                key: Key('$i'),
+                                decoration: const BoxDecoration(
+                                  color: MyColors.backgroundColor
+                                ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      snapshot.data![i].name,
+                                      style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
+                                    ),
+                                    const Spacer(),
+                                    ReorderableDragStartListener(index:i ,child: Icon(Icons.drag_handle_rounded, color: Colors.white.withOpacity(0.5)),),
+                                    const SizedBox(height: 40),
+                                  ],
+                                ),
                               ),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.drag_handle_rounded, color: Colors.white.withOpacity(0.5)),
-                                  const SizedBox(width: 15),
-                                  Text(
-                                    snapshot.data![i].name,
-                                    style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
-                                  ),
-                                  const SizedBox(height: 40),
-                                ],
-                              ),
-                            ),
-                        ],
-                        onReorder: (int oldIndex, int newIndex) {
-                          setState(() {
-                            if (newIndex > oldIndex) {
-                              newIndex -= 1;
-                            }
-                            final item = snapshot.data!.removeAt(oldIndex);
-                            snapshot.data!.insert(newIndex, item);
-                          });
-                        },
+                          ],
+                          onReorder: (int oldIndex, int newIndex) {
+                            setState(() {
+                              if (newIndex > oldIndex) {
+                                newIndex -= 1;
+                              }
+                              final item = snapshot.data!.removeAt(oldIndex);
+                              snapshot.data!.insert(newIndex, item);
+                            });
+                          },
                       ),
                       const SizedBox(height: 70),
                       SaveButton(onTap: manageListController.savingInProgress ? null : () async {
