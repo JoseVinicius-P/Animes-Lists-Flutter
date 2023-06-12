@@ -11,4 +11,10 @@ class AnimeService implements IAnimeService{
   Stream<QuerySnapshot> fetchAnimes(String idLista) {
     return FirebaseFirestore.instance.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists/$idLista/Animes").snapshots();
   }
+
+  @override
+  void setMark(int mark, String idList, String idAnime) {
+    var animeRef = db.collection("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists/${idList}/Animes").doc(idAnime);
+    animeRef.set({'mark': mark}, SetOptions(merge: true));
+  }
 }

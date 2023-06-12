@@ -3,4 +3,5 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class IAnimeService{
   Stream<QuerySnapshot> fetchAnimes(String idLista);
+  void setMark(int mark, String idList, String idAnime);
 }

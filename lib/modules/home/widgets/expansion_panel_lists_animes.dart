@@ -128,7 +128,7 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
                           );
                         },
                         onTap: () => listController.toDetailsModule(anime.id, item.list),
-                        child: AnimeItemHorizontalResumed(anime: anime),
+                        child: AnimeItemHorizontalResumed(anime: anime, list: item.list),
                       );
                     }
                 );

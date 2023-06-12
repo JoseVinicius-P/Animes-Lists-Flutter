@@ -53,6 +53,10 @@ class ListController implements Disposable{
     });
   }
 
+  void setMark(int mark, String idList, String idAnime){
+    animeService.setMark(mark, idList, idAnime);
+  }
+
   void signOut() async {
     await FirebaseAuth.instance.signOut();
     Modular.to.popUntil((route) => route.isFirst);
