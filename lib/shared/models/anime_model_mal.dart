@@ -15,6 +15,8 @@ class AnimeModelMal implements IAnimeModel{
   late DateTime start_date;
   @override
   late double mean;
+  @override
+  late int mark;
 
   AnimeModelMal({
     required this.id,
@@ -56,6 +58,7 @@ class AnimeModelMal implements IAnimeModel{
     title = docSnapshot['title'];
     main_picture = docSnapshot['main_picture'];
     id = int.parse(docSnapshot.id);
+    mark = docSnapshot['mark'] ?? 0;
     return this;
   }
 

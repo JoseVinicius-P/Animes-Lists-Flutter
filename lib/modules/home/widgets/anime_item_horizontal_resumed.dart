@@ -1,4 +1,5 @@
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
+import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,21 @@ class AnimeItemHorizontalResumed extends StatelessWidget {
   const AnimeItemHorizontalResumed({
     super.key, required this.anime,
   });
+
+  Color getColor(int mark){
+    switch(mark){
+      case 1:
+        return MyColors.primaryColor;
+      case 2:
+        return MyColors.accentColor;
+      case 3:
+        return Colors.yellow;
+      case 4:
+        return Colors.green;
+      default:
+        return MyColors.backgroundColor;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +58,21 @@ class AnimeItemHorizontalResumed extends StatelessWidget {
               ),
             ],
           ),
+        ),
+        const SizedBox(width: 10,),
+        GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () => {},
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Container(
+              width: 10,
+              height: 40,
+              color: getColor(anime.mark).withOpacity(0.2),
+            ),
+          ),
         )
+        
       ],
     );
   }

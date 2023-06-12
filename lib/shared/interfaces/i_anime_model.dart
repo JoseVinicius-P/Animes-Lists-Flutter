@@ -5,6 +5,7 @@ abstract class IAnimeModel{
   late String title, main_picture, synopsis, status, day_of_the_week, start_time, rating, studio;
   late DateTime start_date;
   late double mean;
+  late int mark;
 
   IAnimeModel setFromJson(Map<String, dynamic> json);
   IAnimeModel setFromDocumentSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot);

@@ -1,4 +1,3 @@
-import 'package:anime_lists/main.dart';
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/utilities/day_of_week_interpreter.dart';
 import 'package:anime_lists/shared/utilities/rating_interpreter.dart';
@@ -17,24 +16,9 @@ class AnimeModelJikan implements IAnimeModel{
   late DateTime start_date;
   @override
   late double mean;
-
-  AnimeModelJikan({
-    required this.id,
-    required this.title,
-    required this.main_picture,
-    required this.synopsis,
-    required this.status,
-    required this.start_date,
-    required this.mean,
-    required this.day_of_the_week,
-    required this.num_episodes,
-    required this.rating,
-    required this.start_time,
-    required this.studio,
-  });
+  late int mark;
 
   AnimeModelJikan.empty();
-  /*num_episodes, day_of_the_week, start_time*/
 
   @override
   IAnimeModel setFromJson(Map<String, dynamic> json){
@@ -91,6 +75,12 @@ class AnimeModelJikan implements IAnimeModel{
     title = docSnapshot['title'];
     main_picture = docSnapshot['main_picture'];
     id = int.parse(docSnapshot.id);
+    try{
+      mark = docSnapshot['mark'];
+    }catch(e){
+      mark = 0;
+    }
+
     return this;
   }
 
