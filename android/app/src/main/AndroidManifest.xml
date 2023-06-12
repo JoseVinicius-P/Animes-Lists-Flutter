@@ -2,7 +2,7 @@
     package="com.jv.anime_lists">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="anime_lists"
+        android:label="Anime Lists"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
