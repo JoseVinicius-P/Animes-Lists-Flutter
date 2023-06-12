@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
-
 import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
 import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
