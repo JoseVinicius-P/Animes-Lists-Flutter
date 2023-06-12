@@ -22,6 +22,8 @@ class AnimeItemHorizontalResumed extends StatefulWidget {
 class _AnimeItemHorizontalResumedState extends State<AnimeItemHorizontalResumed> {
   late int cont;
   var listController = Modular.get<ListController>();
+  Timer? delay;
+  bool isActive = false;
 
   @override
   void initState() {
@@ -57,7 +59,7 @@ class _AnimeItemHorizontalResumedState extends State<AnimeItemHorizontalResumed>
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    Timer? delay;
+
 
     return Row(
       children: [
@@ -95,8 +97,12 @@ class _AnimeItemHorizontalResumedState extends State<AnimeItemHorizontalResumed>
           onTap: () {
             updateMark();
             delay?.cancel();
-            delay = Timer(const Duration(milliseconds: 2000), () {
-              listController.setMark(cont, widget.list.id.toString(), widget.anime.id.toString());
+            setState(() {
+              isActive = true;
+              delay = Timer(const Duration(milliseconds: 2000), () {
+                isActive = false;
+                listController.setMark(cont, widget.list.id.toString(), widget.anime.id.toString());
+              });
             });
           },
           child: Padding(
@@ -104,7 +110,7 @@ class _AnimeItemHorizontalResumedState extends State<AnimeItemHorizontalResumed>
             child: Container(
               width: 10,
               height: 40,
-              color: getColor(cont).withOpacity(0.2),
+              color: isActive ? getColor(cont).withOpacity(0.2) : getColor(widget.anime.mark).withOpacity(0.2),
             ),
           ),
         )
