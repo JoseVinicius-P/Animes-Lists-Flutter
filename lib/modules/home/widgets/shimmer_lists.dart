@@ -16,27 +16,43 @@ class ShimmerLists extends StatelessWidget {
       baseColor: Colors.grey.shade900.withOpacity(0.5),
       highlightColor: MyColors.backgroundColor,
       enabled: true,
-      child: ListView.separated(
-        itemCount: 10,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              color: MyColors.backgroundColor,
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              ),
-            ),
-            child: Text(
-              "Minha lista",
-              style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
-            ),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(height: 15);
-        },
+      child: Column(
+        children: [
+          SizedBox(height: 8,),
+          ListView.separated(
+            itemCount: 10,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 3.0),
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: MyColors.backgroundColor,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                      ),
+                      child: Text(
+                        "Minha lista Minha Lista",
+                        style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    Icon(Icons.sort, color: Colors.white),
+                    const Spacer(),
+                    Icon(Icons.expand_more, color: Colors.white, size: 27,),
+                    SizedBox(width: 20,)
+                  ],
+                ),
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(height: 15);
+            },
+          ),
+        ],
       ),
     );
   }
