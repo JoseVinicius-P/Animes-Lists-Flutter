@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ExpansionPanelListsAnimes extends StatefulWidget {
@@ -44,10 +45,13 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     atualizarItens();
-    return _buildPanel(theme);
+    return OrientationLayoutBuilder(
+      portrait: (context) => _buildPanel(true, theme),
+      landscape: (context) => _buildPanel(false, theme),
+    );
   }
 
-  Widget _buildPanel(ThemeData theme) {
+  Widget _buildPanel(bool isPortrait, ThemeData theme) {
     return ExpansionPanelList(
       elevation: 0,
       dividerColor: Colors.transparent,
@@ -103,34 +107,40 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
                 );
               }
               if(snapshot.data != null && snapshot.data!.docs.isNotEmpty){
-                return ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: snapshot.data!.docs.length,
-                    // Define a altura do espaço entre os itens
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const SizedBox(height: 10);
-                    },
-                    itemBuilder: (context, index){
-                      var anime = listController.parseToAnimeModel(snapshot.data!.docs[index] as QueryDocumentSnapshot<Map<String, dynamic>>);
-                      return GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onLongPress: (){
-                          Clipboard.setData(ClipboardData(text: anime.title));
-                          Fluttertoast.showToast(
-                              msg: "Copiado",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.SNACKBAR,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: MyColors.primaryColor.withOpacity(0.2),
-                              textColor: Colors.white,
-                              fontSize: 16.0
+                return LayoutBuilder(
+                  builder: (context, constraints){
+                    print("Largura: ${constraints.maxWidth}");
+                    return GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: isPortrait ? 1 : 2,
+                            mainAxisSpacing: 10,
+                            childAspectRatio: isPortrait ? constraints.maxWidth/70 : (constraints.maxWidth/2)/70,
+                        ),
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index){
+                          var anime = listController.parseToAnimeModel(snapshot.data!.docs[index] as QueryDocumentSnapshot<Map<String, dynamic>>);
+                          return GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            onLongPress: (){
+                              Clipboard.setData(ClipboardData(text: anime.title));
+                              Fluttertoast.showToast(
+                                  msg: "Copiado",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.SNACKBAR,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: MyColors.primaryColor.withOpacity(0.2),
+                                  textColor: Colors.white,
+                                  fontSize: 16.0
+                              );
+                            },
+                            onTap: () => listController.toDetailsModule(anime.id, item.list),
+                            child: AnimeItemHorizontalResumed(anime: anime, list: item.list),
                           );
-                        },
-                        onTap: () => listController.toDetailsModule(anime.id, item.list),
-                        child: AnimeItemHorizontalResumed(anime: anime, list: item.list),
-                      );
-                    }
+                        }
+                    );
+                  }
                 );
               }else{
                 return const SizedBox();

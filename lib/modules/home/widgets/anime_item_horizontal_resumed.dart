@@ -62,6 +62,7 @@ class _AnimeItemHorizontalResumedState extends State<AnimeItemHorizontalResumed>
 
 
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ClipRRect(
           borderRadius: const BorderRadius.all(
@@ -78,7 +79,7 @@ class _AnimeItemHorizontalResumedState extends State<AnimeItemHorizontalResumed>
         Expanded(
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
