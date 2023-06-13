@@ -1,6 +1,7 @@
 import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
 import 'package:anime_lists/modules/home/interfaces/i_list_expanded_item.dart';
 import 'package:anime_lists/modules/home/widgets/anime_item_horizontal_resumed.dart';
+import 'package:anime_lists/modules/home/widgets/shimmer_animes_list.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:shimmer/shimmer.dart';
 
 class ExpansionPanelListsAnimes extends StatefulWidget {
   const ExpansionPanelListsAnimes({super.key, required this.lists});
@@ -90,21 +90,7 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
                 );
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Shimmer.fromColors(
-                  baseColor: Colors.grey.shade900.withOpacity(0.5),
-                  highlightColor: MyColors.backgroundColor,
-                  enabled: true,
-                  child:  Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                      color: MyColors.backgroundColor,
-                    ),
-                    child: Text(
-                      "Minha lista",
-                      style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
-                    ),
-                  ),
-                );
+                return ShimmerAnimesList(qtAnimes: item.list.qt_animes, isPortrait: isPortrait);
               }
               if(snapshot.data != null && snapshot.data!.docs.isNotEmpty){
                 return LayoutBuilder(
