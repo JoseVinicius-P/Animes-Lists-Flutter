@@ -158,20 +158,31 @@ class _AddToListPageState extends State<AddToListPage> {
                                   Row(
                                     mainAxisAlignment: snapshot.data!.isEmpty ? MainAxisAlignment.center : MainAxisAlignment.start,
                                     children: [
-                                      TextButton(
-                                        onPressed: addToListController.savingInProgress ? null : () => _showMyDialog(),
-                                        style: ButtonStyle(
-                                          overlayColor: overlayColor,
-                                        ),
-                                        child: Row(
+                                      Container(
+                                        child: _options.length < 10 ? TextButton(
+                                          onPressed: addToListController.savingInProgress ? null : () => _showMyDialog(),
+                                          style: ButtonStyle(
+                                            overlayColor: overlayColor,
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                  "Criar uma nova lista",
+                                                  style: theme.textTheme.titleSmall?.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 17)
+                                              ),
+                                              const SizedBox(width: 10,),
+                                              Icon(Icons.playlist_add_rounded, color: Colors.white.withOpacity(0.5)),
+                                            ],
+                                          ),
+                                        ) :
+                                        Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Text(
-                                                "Criar uma nova lista",
+                                                "Você já tem muitas listas! Max: 10",
                                                 style: theme.textTheme.titleSmall?.copyWith(color: Colors.white.withOpacity(0.5), fontSize: 17)
                                             ),
-                                            const SizedBox(width: 10,),
-                                            Icon(Icons.playlist_add_rounded, color: Colors.white.withOpacity(0.5)),
                                           ],
                                         ),
                                       ),
