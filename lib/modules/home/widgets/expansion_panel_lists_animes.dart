@@ -109,7 +109,6 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
               if(snapshot.data != null && snapshot.data!.docs.isNotEmpty){
                 return LayoutBuilder(
                   builder: (context, constraints){
-                    print("Largura: ${constraints.maxWidth}");
                     return GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: isPortrait ? 1 : 2,

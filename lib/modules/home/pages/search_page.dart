@@ -30,6 +30,74 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+
+    Widget showSearchResult(bool isPortrait){
+      return FutureBuilder<List<IAnimeModel>>(
+          key: key,
+          future: futureListAnimes,
+          builder: (context, snapshot){
+            if(snapshot.connectionState == ConnectionState.waiting){
+              return ShimmerSearchAnime(isPortrait: isPortrait);
+            }else{
+              if(snapshot.data!.isNotEmpty){
+                return Expanded(
+                  child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return GridView.builder(
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: isPortrait ? 1 : 2,
+                              mainAxisSpacing: 15,
+                              crossAxisSpacing: 15,
+                              childAspectRatio: isPortrait ? constraints.maxWidth/170 : (constraints.maxWidth/2)/170,
+                            ),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: snapshot.data?.length ?? 0,
+                            itemBuilder: (context, index){
+                              return GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onTap: () => searchController.toDetailsModule(snapshot.data![index].id),
+                                onLongPress: () => searchController.toAddToListModule(snapshot.data![index]),
+                                child: AnimeItemHorizontal(anime: snapshot.data![index]),
+                              );
+                            }
+                        );
+                      }
+                  ),
+                );
+              }else{
+                if(searchController.textEditingController.text.length > 3){
+                  return Column(
+                    children: [
+                      const SizedBox(height: 30),
+                      Icon(
+                        Icons.search_off,
+                        color: Colors.white.withOpacity(0.5),
+                        size: 35,
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Nenhum anime encontrato!',
+                            style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                }else{
+                  return const SizedBox();
+                }
+              }
+            }
+          }
+      );
+    }
+
     return Stack(
       children: [
         Container(
@@ -50,64 +118,9 @@ class _SearchPageState extends State<SearchPage> {
                 const SizedBox(height: 10),
                 TextFormFieldNeon(onTextChange: (text) => updateSearch(text)),
                 const SizedBox(height: 20),
-                FutureBuilder<List<IAnimeModel>>(
-                  key: key,
-                  future: futureListAnimes,
-                  builder: (context, snapshot){
-                    if(snapshot.connectionState == ConnectionState.waiting){
-                      return const ShimmerSearchAnime();
-                    }else{
-
-                      if(snapshot.data!.isNotEmpty){
-                        return Expanded(
-                          child: ListView.separated(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: snapshot.data?.length ?? 0,
-                              // Define a altura do espaço entre os itens
-                              separatorBuilder: (BuildContext context, int index) {
-                                return const SizedBox(height: 20);
-                              },
-                              itemBuilder: (context, index){
-                                return GestureDetector(
-                                  behavior: HitTestBehavior.translucent,
-                                  onTap: () => searchController.toDetailsModule(snapshot.data![index].id),
-                                  onLongPress: () => searchController.toAddToListModule(snapshot.data![index]),
-                                  child: AnimeItemHorizontal(anime: snapshot.data![index]),
-                                );
-                              }
-                          ),
-                        );
-                      }else{
-                        if(searchController.textEditingController.text.length > 3){
-                          return Column(
-                            children: [
-                              const SizedBox(height: 30),
-                              Icon(
-                                Icons.search_off,
-                                color: Colors.white.withOpacity(0.5),
-                                size: 35,
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Nenhum anime encontrato!',
-                                    style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          );
-                        }else{
-                          return const SizedBox();
-                        }
-                      }
-                    }
-                  }
+                OrientationLayoutBuilder(
+                  portrait: (context) => showSearchResult(true),
+                  landscape: (context) => showSearchResult(false),
                 )
               ],
             ),
