@@ -10,9 +10,9 @@ Este app foi desenvolvido utlizando o Flutter Modular que permite melhor organiz
   <img width="250" src="Media git/android.gif">
 </p>
 <p align="center"><a href="https://drive.google.com/file/d/19AYFikmg10WAe24CO28BkxiXxWQzjP8i/view?usp=drive_link">App Android</a> em funcionamento</p>
-
+#
 <p align="center">
-  <img width="250" src="Media git/android.gif">
+  <img width="600" src="Media git/site.gif">
 </p>
 <p align="center"><a href="https://josevinicius-p.github.io">Site</a> em funcionamento</p>
 
