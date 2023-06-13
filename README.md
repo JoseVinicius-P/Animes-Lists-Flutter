@@ -3,7 +3,7 @@
 ## Em andamento
 
 <p align="center">
-  <img width="600" src="Media git/Capa.jpg">
+  <img width="600" src="Media git/capa.jpg">
 </p>
 <h1 align="center">Animes Lists</h1>
 
