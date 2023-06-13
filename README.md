@@ -1,7 +1,3 @@
-# Anime Lists
-
-## Em andamento
-
 <p align="center">
   <img width="600" src="Media git/capa.jpg">
 </p>
