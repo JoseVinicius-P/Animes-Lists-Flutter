@@ -1,12 +1,12 @@
 import 'package:anime_lists/modules/home/controllers/lists_controller.dart';
 import 'package:anime_lists/modules/home/widgets/expansion_panel_lists_animes.dart';
+import 'package:anime_lists/modules/home/widgets/shimmer_lists.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shimmer/shimmer.dart';
 
 class ListsPage extends StatefulWidget {
   const ListsPage({Key? key}) : super(key: key);
@@ -155,33 +155,7 @@ class _ListsPageState extends State<ListsPage> {
                           );
                         }
                         if (snapshot.connectionState == ConnectionState.waiting) {
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey.shade900.withOpacity(0.5),
-                            highlightColor: MyColors.backgroundColor,
-                            enabled: true,
-                            child: ListView.separated(
-                              itemCount: 10,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: const BoxDecoration(
-                                    color: MyColors.backgroundColor,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "Minha lista",
-                                    style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
-                                  ),
-                                );
-                              },
-                              separatorBuilder: (BuildContext context, int index) {
-                                return const SizedBox(height: 15);
-                              },
-                            ),
-                          );
+                          return ShimmerLists();
                         }
                         if(snapshot.data != null && snapshot.data!.docs.isNotEmpty){
                           return ExpansionPanelListsAnimes(lists: listController.parseToListOfListModel(snapshot.data!.docs.cast()));
