@@ -1,6 +1,6 @@
 import 'package:anime_lists/modules/details/widgets/add_to_list_button.dart';
 import 'package:anime_lists/modules/details/controllers/details_controller.dart';
-import 'package:anime_lists/modules/home/widgets/shimmer_details_anime.dart';
+import 'package:anime_lists/modules/details/widgets/shimmer_details_anime.dart';
 import 'package:anime_lists/shared/interfaces/i_list_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -281,7 +281,9 @@ class _DetailsPageState extends State<DetailsPage> {
                         ],
                       );
                   }else{
-                    return const ShimmerDetailsAnime();
+                    return SingleChildScrollView(
+                      child: ShimmerDetailsAnime(),
+                    );
                   }
                 }
             ),
