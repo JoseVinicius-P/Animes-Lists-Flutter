@@ -15,7 +15,7 @@ class ShimmerAnimesList extends StatelessWidget {
     var theme = Theme.of(context);
 
     return SizedBox(
-      height: qtAnimes*85,
+      height: isPortrait ? qtAnimes*85 : qtAnimes/2*85.round(),
       child: LayoutBuilder(
           builder: (context, constraints) {
             return GridView.builder(
