@@ -7,6 +7,7 @@ import 'package:anime_lists/shared/interfaces/i_anime_model.dart';
 import 'package:anime_lists/shared/utilities/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class AddToListPage extends StatefulWidget {
@@ -192,8 +193,18 @@ class _AddToListPageState extends State<AddToListPage> {
                                   SaveButton(onTap: addToListController.savingInProgress ? null : () {
                                     try{
                                       if(_selectedOption != null){
-                                        setState(() {
-                                          addToListController.saveAnime(_selectedOption!, widget.anime);
+                                        setState(() async {
+                                          if(!await addToListController.saveAnime(_selectedOption!, widget.anime)){
+                                            Fluttertoast.showToast(
+                                                msg: "Tivemos um problema, tente de novo!",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.SNACKBAR,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: MyColors.primaryColor.withOpacity(0.2),
+                                                textColor: Colors.white,
+                                                fontSize: 16.0
+                                            );
+                                          }
                                         });
                                       }
                                     }catch(e){

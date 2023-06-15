@@ -22,7 +22,7 @@ class AddToListController implements Disposable{
     return await listService.fetchLists();
   }
 
-  void saveAnime(IListModel listModel, IAnimeModel animeModel) async{
+  Future<bool> saveAnime(IListModel listModel, IAnimeModel animeModel) async{
     savingInProgress = true;
     var isSuccess = await animeService.saveAnime(listModel, animeModel);
     if(isSuccess){
@@ -31,5 +31,6 @@ class AddToListController implements Disposable{
     }else{
       savingInProgress = false;
     }
+    return isSuccess;
   }
 }
