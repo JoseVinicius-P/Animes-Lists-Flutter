@@ -114,8 +114,8 @@ class _AnimeItemHorizontalResumedState extends State<AnimeItemHorizontalResumed>
               color: isActive ? getColor(cont).withOpacity(0.2) : getColor(widget.anime.mark).withOpacity(0.2),
             ),
           ),
-        )
-
+        ),
+        VerticalDivider(color: Colors.grey.withOpacity(0.04)),
       ],
     );
   }

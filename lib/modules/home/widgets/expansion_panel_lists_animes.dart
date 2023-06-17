@@ -53,8 +53,9 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
 
   Widget _buildPanel(bool isPortrait, ThemeData theme) {
     return ExpansionPanelList(
-      elevation: 0,
-      dividerColor: Colors.transparent,
+      expandedHeaderPadding: EdgeInsets.all(0),
+      elevation: 2,
+      dividerColor: Colors.grey.withOpacity(0.09),
       expandIconColor: Colors.white.withOpacity(0.5),
       expansionCallback: (int index, bool isExpanded) {
         setState(() {
@@ -66,71 +67,77 @@ class _ExpansionPanelListsAnimesState extends State<ExpansionPanelListsAnimes> {
       },
       children: _itens.map<ExpansionPanel>((IListExpandedItem item) {
         return ExpansionPanel(
-          backgroundColor: Colors.transparent,
+          backgroundColor: MyColors.backgroundColorLight,
           headerBuilder: (BuildContext context, bool isExpanded) {
-            return Row(
-              children: [
-                Text(
-                  item.list.name,
-                  style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
-                ),
-                const SizedBox(width: 5),
-                Icon(Icons.sort, color: Colors.white.withOpacity(0.1)),
-              ],
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Text(
+                    item.list.name,
+                    style: theme.textTheme.labelSmall!.copyWith(fontSize: 20),
+                  ),
+                  const SizedBox(width: 5),
+                  Icon(Icons.sort, color: Colors.white.withOpacity(0.1)),
+                ],
+              ),
             );
           },
-          body: StreamBuilder<QuerySnapshot>(
-            stream: item.getStreamListAnime(),
-            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return Text(
-                  'Algo saiu errado ):',
-                  style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
-                  textAlign: TextAlign.center,
-                );
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return ShimmerAnimesList(qtAnimes: item.list.qt_animes, isPortrait: isPortrait);
-              }
-              if(snapshot.data != null && snapshot.data!.docs.isNotEmpty){
-                return LayoutBuilder(
-                  builder: (context, constraints){
-                    return GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: isPortrait ? 1 : 2,
-                            mainAxisSpacing: 10,
-                            childAspectRatio: isPortrait ? constraints.maxWidth/70 : (constraints.maxWidth/2)/70,
-                        ),
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index){
-                          var anime = listController.parseToAnimeModel(snapshot.data!.docs[index] as QueryDocumentSnapshot<Map<String, dynamic>>);
-                          return GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onLongPress: (){
-                              Clipboard.setData(ClipboardData(text: anime.title));
-                              Fluttertoast.showToast(
-                                  msg: "Copiado",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.SNACKBAR,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: MyColors.primaryColor.withOpacity(0.2),
-                                  textColor: Colors.white,
-                                  fontSize: 16.0
-                              );
-                            },
-                            onTap: () => listController.toDetailsModule(anime.id, item.list),
-                            child: AnimeItemHorizontalResumed(anime: anime, list: item.list),
-                          );
-                        }
-                    );
-                  }
-                );
-              }else{
-                return const SizedBox();
-              }
-            },
+          body: Padding(
+            padding: const EdgeInsets.only(bottom: 15.0, right: 8.0, left: 8.0),
+            child: StreamBuilder<QuerySnapshot>(
+              stream: item.getStreamListAnime(),
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text(
+                    'Algo saiu errado ):',
+                    style: theme.textTheme.titleSmall!.copyWith(fontSize: 18, color: Colors.white.withOpacity(0.5)),
+                    textAlign: TextAlign.center,
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return ShimmerAnimesList(qtAnimes: item.list.qt_animes, isPortrait: isPortrait);
+                }
+                if(snapshot.data != null && snapshot.data!.docs.isNotEmpty){
+                  return LayoutBuilder(
+                    builder: (context, constraints){
+                      return GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: isPortrait ? 1 : 2,
+                              mainAxisSpacing: 10,
+                              childAspectRatio: isPortrait ? constraints.maxWidth/70 : (constraints.maxWidth/2)/70,
+                          ),
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index){
+                            var anime = listController.parseToAnimeModel(snapshot.data!.docs[index] as QueryDocumentSnapshot<Map<String, dynamic>>);
+                            return GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onLongPress: (){
+                                Clipboard.setData(ClipboardData(text: anime.title));
+                                Fluttertoast.showToast(
+                                    msg: "Copiado",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.SNACKBAR,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: MyColors.primaryColor.withOpacity(0.2),
+                                    textColor: Colors.white,
+                                    fontSize: 16.0
+                                );
+                              },
+                              onTap: () => listController.toDetailsModule(anime.id, item.list),
+                              child: AnimeItemHorizontalResumed(anime: anime, list: item.list),
+                            );
+                          }
+                      );
+                    }
+                  );
+                }else{
+                  return const SizedBox();
+                }
+              },
+            ),
           ),
           isExpanded: item.isExpanded,
         );
