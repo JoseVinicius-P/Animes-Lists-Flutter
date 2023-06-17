@@ -1,5 +1,4 @@
 import 'package:anime_lists/shared/utilities/my_colors.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -10,9 +9,6 @@ class AppWidget extends StatelessWidget {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
       title: 'Animes Lists',
       theme: ThemeData(
         splashFactory: InkRipple.splashFactory,
